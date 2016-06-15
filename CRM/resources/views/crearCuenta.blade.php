@@ -13,8 +13,6 @@
                 <div class="form-group">
                     <label for="tipo">Tipo</label>
                     <select name="tipo" id="">
-
-                        
                         <option value="1">1</option>
                     </select>
                 </div>
