@@ -1,0 +1,38 @@
+#navapp{
+    background-color: #00193A;
+    width: 15%;
+    height: 100%;
+    position: fixed;
+    margin-top: -5%;
+    padding-top: 5%;
+}
+
+#navapp strong{
+    color: #EEE;
+}
+
+.links{
+    width: 55%;
+    margin: auto;
+}
+.links li{
+    margin-top: 20%;
+}
+.links li span{
+    color: rgb(8, 169, 174);
+}
+
+#navapp input{
+    display: block;
+    margin: auto;
+    margin-top: 80%;
+}
+
+.logo{
+    height: 50px;
+    width: 120px;
+}
+
+#tituloseccion{
+    margin-top: 20%;
+}

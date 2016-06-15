@@ -1,0 +1,71 @@
+.navbar-default{
+    background-color: #00193A;
+}
+
+#navapp .btn-group{
+    width: 100%;    
+}
+
+
+#navapp button[name="hide"]{
+    background-color: #086CF2;
+    border-radius: 0;
+    border: 0;
+    float: right;
+    position: absolute;
+    top: 80%;
+    left: 0;
+}
+
+#navapp .btn-group button{
+    border-radius: 0;
+    background-color: #00193A;
+    border: 0;
+    color: #B6B6B6;
+    width: 100%;
+}
+
+#navapp .btn-group button:hover{
+    background-color: #121F32;
+}
+
+#navapp .btn-group div > button[name]{
+    text-align: left;
+}
+#navapp .btn-group button + div button{
+    display: none
+}
+
+.btn-show{
+    display: block;
+    background-color: #086CF2;
+    border:0;
+    border-radius: 0;
+    position: fixed;
+    top: 80%;
+}
+
+/*Estilos para login*/
+.login{
+    margin-top: 10%;
+}
+
+.login form{
+    background-color: #D8DAE6;
+    padding: 5%;
+}
+
+.login h2{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 0;
+}
+
+.btn-form{
+    float: right;
+    margin-top: 5px;
+}
+
+.input-group-btn select{
+    width: 18%;
+}
