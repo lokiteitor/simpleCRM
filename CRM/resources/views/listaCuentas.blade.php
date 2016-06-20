@@ -26,12 +26,10 @@
                     <label for="orden">Ordenar por:</label>
                     <select name="orden" class="form-control" required>
                         <option value="nombre">Nombre</option>
-                        <option value="apellido">Apellido</option>
                         <option value="fecha">Fecha de creacion</option>
-                        <option value="empresa">Empresa</option>
-                        <option value="estado">Estado del cliente</option>
-                        <option value="calificacion">Calificacion del cliente</option>
-                        <option value="origen">Origen del cliente</option>
+                        <option value="calificacion">Calificacion de la cuenta</option>
+                        <option value="sector">Sector</option>
+                        <option value="sitio">Sitio</option>
                     </select>
                 </div>
             </div>
@@ -51,15 +49,10 @@
                     <thead>
                         <tr>
                             <th><input type="checkbox" value="all-select"></th>
-                            <th>Nombre del cliente</th>
-                            <th>Correo electronico</th>
-                            <th>Telefono</th>
-                            <th>Fecha de creacion</th>
-                            <th>Fuente del contacto</th>
-                            <th>Empresa</th>
-                            <th>Estado del contacto</th>
+                            <th>Nombre del Cuenta</th>
+                            <th>Tipo</th>
                             <th>Calificacion</th>
-                            <th>Origen</th>
+                            <th>Sector</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,8 +77,8 @@
         <div class="col-md-4 col-lg-4"></div>
         <div class="col-md-6 col-lg-6">
             <div class="form-group">
-                <a href='{{url("/crear/cliente")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-plus">Agregar Cliente</span></button></a>
-                <a href='{{url("/editar/cliente")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-edit">Editar Cliente</span></button></a>
+                <a href='{{url("/crear/cuenta")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-plus">Agregar cuenta</span></button></a>
+                <a href='{{url("/editar/cuenta")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-edit">Editar Cliente</span></button></a>
                 <button class="btn btn-danger"><span class="glyphicon glyphicon-trash">Eliminar</span></button>
             </div>            
         </div>    

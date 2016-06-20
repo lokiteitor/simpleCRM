@@ -17,11 +17,14 @@
         @if (isset($sitio))
             <div class="container-fluid">
                 <div class="row">
+                    @section('titlehead')
                     <div class="col-md-2 col-lg-2"></div>
                     <div class="  col-md-3 col-lg-3">
-                            <h3 id="tituloseccion">{{$sitio}}</h3>
+                            <h3 class="tituloseccion">{{$sitio}}</h3>
                     </div>
-                </div>
+                    @show
+                </div>                
+                
             </div>
         @endif
         

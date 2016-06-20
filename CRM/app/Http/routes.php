@@ -43,6 +43,40 @@ Route::get("/ver/contactos",function ()
    return view('listaContactos', $data);
 });
 
+Route::get("/ver/cuentas",function ()
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Lista de Cuentas";
+   $data['titulo'] = "Cuentas";
+
+   return view('listaCuentas', $data);
+});
+
+Route::get("/ver/oportunidades",function ()
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Lista de Oportunidades";
+   $data['titulo'] = "Oportunidades";
+   return view('listaOportunidades', $data);
+});
+
+Route::get("/ver/tareas",function ()
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Lista de Tareas";
+   $data['titulo'] = "Tareas";
+   return view('listaTareas', $data);
+});
+
+Route::get("/ver/eventos",function ()
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Calendario de eventos";
+   $data['titulo'] = "eventos";
+   return view('listaEventos', $data);
+});
+
+
 Route::get("/crear/contacto",function ()
 {
    $data['usuario'] = "Administrador";
@@ -90,7 +124,13 @@ Route::get("/crear/evento",function ()
    $data['sitio'] = "Crear Evento";
    return view("crearEvento",$data);
 });
-
+Route::get("/crear/campana",function ()
+{
+   $data['usuario'] = "Administrador";
+   $data['titulo'] = "Crear Campaña";
+   $data['sitio'] = "Crear Campaña";
+   return view("crearCampana",$data);
+});
 
 Route::get("/detalles/cliente",function ()
 {
@@ -108,4 +148,105 @@ Route::get("/detalles/contacto",function ()
    $data['titulo'] = "Contacto";
 
    return view('detalleContacto', $data);
+});
+
+Route::get("/editar/evento/{id}",function ($id)
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Editar Evento";
+   $data['titulo'] = "Eventos";
+
+   return view('crearEvento', $data);
+});
+Route::get("/editar/cliente/{id}",function ($id)
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Editar Cliente";
+   $data['titulo'] = "Clientes";
+
+   return view('crearCliente', $data);
+});
+
+
+
+Route::get("/obtener/oportunidades",function ()
+{
+   // api para obtener los datos de las oportunidades
+   $cuentas = array("empresa1","empresa2","empresa3");
+   $fechas = array("21/02/2016","05/06/2008","30/04/2018");
+   $titulo = array("titulo1","titulo2","titulo3");
+   $tipo = array("tipo1","tipo2","tipo3");
+
+   // generar combinacion de longintud entre 1 y 10
+   $longintud = rand(1,20);
+   $response = array();
+
+   for ($i=0; $i < $longintud; $i++) {
+      $mix = array("ncuenta" => $cuentas[rand(0,2)], 
+         "fecha" => $fechas[rand(0,2)],"titulo"=> $titulo[rand(0,2)],
+         "tipo" => $tipo[rand(0,2)]);
+      array_push($response, $mix);
+   }
+
+   return response()->json($response);
+
+});
+
+Route::get("/obtener/tareas",function ()
+{
+   $cuentas = array("empresa1","empresa2","empresa3");
+   $fechas = array("21/02/2016","05/06/2008","30/04/2018");
+   $titulo = array("titulo1","titulo2","titulo3");
+   $asunto = array("llamar al cliente","Entregar Cotizacion","Enviar Factura");
+   $estado = array("Sin empezar","En progreso","Esperando");
+   $prioridad = array("Muy alta","Alta","normal","Baja");
+
+   $longintud = rand(1,20);
+   $response = array();
+
+   for ($i=0; $i < $longintud; $i++) {
+      $mix = array("ncuenta" => $cuentas[rand(0,2)], 
+         "fecha" => $fechas[rand(0,2)],"titulo"=> $titulo[rand(0,2)],
+         "asunto" => $asunto[rand(0,2)], "estado" => $estado[rand(0,2)],
+         "prioridad" => $prioridad[rand(0,3)]);
+      array_push($response, $mix);
+   }
+   return response()->json($response);
+});
+
+Route::get("/obtener/eventos",function ()
+{
+   $titulo = array("titulo1","titulo2","titulo3");
+   $asunto = array("llamar al cliente","Entregar Cotizacion","Enviar Factura");
+   $ubicacion = array("Calle #123","Calle2 #456","Calle #1345");
+   $tiempo = array("2016/06/24 12:30","2016/06/25 22:00","2016/06/02 08:00");
+   $tiempofin = array("2016/06/24 12:30","2016/06/25 22:00","2016/06/02 08:00");
+   $id = array("123455","454657","34547");
+   $allday = array(true,false);
+
+   $longintud = rand(1,20);
+   $response = array();
+   for ($i=0; $i < $longintud; $i++) {
+      $mix = array("titulo" => $titulo[rand(0,2)], 
+         "tiempo" => $tiempo[rand(0,2)],"tiempofin" => $tiempofin[rand(0,2)],
+         "asunto"=> $asunto[rand(0,2)],"ubicacion" => $ubicacion[rand(0,2)],
+         "id" => $id[rand(0,2)],"isallday" => $allday[rand(0,1)]);
+      array_push($response, $mix);
+   }
+   return response()->json($response);
+
+});
+
+Route::get("/obtener/clientes",function ()
+{
+   $data = array("nombre" => "Sr. Raul Lopez","correo" => "correo@electronico.com",
+      "Telefono" => "123-1234", "creacion" => "2016/05/25", "empresa" => "Vantec",
+      "estado" => "Contactado","calificacion" => "Adquirido","origen" => "Folleto");
+
+   $response = array();
+
+   for ($i=0; $i < 10; $i++) { 
+      array_push($response, $data);
+   }
+   return response()->json($response);   
 });

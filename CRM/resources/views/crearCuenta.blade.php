@@ -76,16 +76,16 @@
             <div class="col-md-4 col-lg-4">
                 <h3>Informacion de direccion</h3>
                 <div class="form-group">
-                    <label for="fcalle">Calle de facturacion </label>
-                    <input type="text" class="form-control" placeholder="Nombre de la Calle de facturacion" name="fcalle">
+                    <label for="fcalle">Calle </label>
+                    <input type="text" class="form-control" placeholder="Nombre de la Calle" name="fcalle">
                 </div>
                 <div class="form-group">
-                    <label for="fciudad">Ciudad de facturacion </label>
-                    <input type="text" class="form-control" placeholder="Ciudad de facturacion" name="fciudad">
+                    <label for="fciudad">Ciudad </label>
+                    <input type="text" class="form-control" placeholder="Ciudad" name="fciudad">
                 </div>
                 <div class="form-group">
-                    <label for="festado">Estado de facturacion </label>
-                    <input type="text" class="form-control" placeholder="Estado de facturacion" name="festado">
+                    <label for="festado">Estado </label>
+                    <input type="text" class="form-control" placeholder="Estado" name="festado">
                 </div>
                 <div class="form-group">
                     <label for="numero">Numero Exterior</label>

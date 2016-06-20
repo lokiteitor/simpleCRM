@@ -29,9 +29,9 @@
                         <option value="apellido">Apellido</option>
                         <option value="fecha">Fecha de creacion</option>
                         <option value="empresa">Empresa</option>
-                        <option value="estado">Estado del cliente</option>
-                        <option value="calificacion">Calificacion del cliente</option>
-                        <option value="origen">Origen del cliente</option>
+                        <option value="estado">Estado del contacto</option>
+                        <option value="calificacion">Calificacion del contacto</option>
+                        <option value="origen">Origen del contacto</option>
                     </select>
                 </div>
             </div>

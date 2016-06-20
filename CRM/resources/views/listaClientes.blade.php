@@ -3,6 +3,8 @@
 @section('libs')
     @parent
     <script src='{{asset("/js/lista.js")}}'></script>
+    <script src='{{asset("/js/listado.js")}}'></script>
+
 @stop
 
 @section('body')
@@ -47,10 +49,10 @@
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-10 col-lg-10">
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" name="listado">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" value="all-select"></th>
+                            <th><input type="checkbox" name="check-all" value="all-select"></th>
                             <th>Nombre del cliente</th>
                             <th>Correo electronico</th>
                             <th>Telefono</th>
@@ -68,13 +70,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-10 col-lg-10"></div>
-        <div class="col-md-2 col-lg-2">
+        <div class="col-md-9 col-lg-9"></div>
+        <div class="col-md-3 col-lg-3">
             <ul class="pagination">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">10</a></li>
-                <li><a href="#">20</a></li>
-                <li><a href="#">&raquo;</a></li>
+                <li><a href="#" name="prev">&laquo;</a></li>
+                <li><a href="#" name="prev" class="numprev"></a></li>
+                <li><a href="#" name="prev" class="numactual"></a></li>
+                <li><a href="#" name="next" class="numnext"></a></li>
+                <li><a href="#" name="next">&raquo;</a></li>
             </ul>
         </div>
     </div>
