@@ -30,7 +30,8 @@ var sitecalendario = [["/crear/oportunidad","#cierre"],["/crear/tarea","#vencimi
 ["/crear/evento","#defecha"],["/crear/evento","#afecha"],["/crear/evento","#inicio",{"time":false}],
 ["/crear/evento","#finalizacion",{time:false}],["/crear/tarea","#vencimiento",{"time":false}],
 ["/crear/tarea","#horaRecord",{"date":false}],["/crear/tarea","#inicio",{"time":false}],
-["/crear/tarea","#finalizacion",{"time":false}],["/crear/oportunidad","#cierre",{"time":false}]]
+["/crear/tarea","#finalizacion",{"time":false}],["/crear/oportunidad","#cierre",{"time":false}],
+["/crear/campana","#inicio",{"time":false}],["/crear/campana","#finalizacion",{"time":false}]]
 
 for(var i = 0; i< sitecalendario.length;i++ ){
     if (window.location.pathname == sitecalendario[i][0]) {
@@ -44,12 +45,11 @@ for(var i = 0; i< sitecalendario.length;i++ ){
     };
 }
 
-
 });
-
 
 function mostrarCalendario (id,opt=null) {
     var opciones = {};
+    $.datetimepicker.setLocale('es');
     if (opt != null) {
 
         if (opt.hasOwnProperty("time")) {

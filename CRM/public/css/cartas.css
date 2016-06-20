@@ -1,0 +1,16 @@
+body{
+    background-color: #dbdbdb
+}
+
+.carta{
+    background-color: #fff;
+    margin: 10px;
+}
+
+.carta strong[name="fecha"]{
+
+}
+
+#navapp{
+    margin-top: -7%;
+}

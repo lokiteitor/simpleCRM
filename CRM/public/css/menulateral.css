@@ -33,6 +33,9 @@
     width: 120px;
 }
 
-#tituloseccion{
+.tituloseccion{
     margin-top: 20%;
+}
+.botonseccion{
+    margin-top: 45%;
 }
