@@ -1,6 +1,7 @@
 jQuery(document).ready(function($) {
     
     var ruta;
+    var tipoElemento;
     data = {}
     pagina = 10;
     nextpag = pagina + 10
@@ -10,15 +11,27 @@ jQuery(document).ready(function($) {
 
     if (window.location.pathname == "/ver/clientes") {
         ruta = "/obtener/clientes";
+        tipoElemento = "cliente"
         data.pagina = pagina;
         data.nextpag = nextpag;
         data.orderby = $('select[name="orden"]').val();
+
     }
+
+    if (window.location.pathname == "/ver/contactos") {
+        ruta = "/obtener/contactos";
+        tipoElemento = "contacto"
+        data.pagina = pagina;
+        data.nextpag = nextpag;
+        data.orderby = $('select[name="orden"]').val();
+
+    }
+
     // obtener los datos
     ServerData = getDataServer(ruta,data);
     // dibujar los datos 
     for (var i = 0; i < ServerData.length; i++) {
-        construirFila(ServerData[i]);
+        construirFila(ServerData[i],tipoElemento);
     };
 
     $('a[name="prev"]').click(function(event) {
@@ -31,7 +44,7 @@ jQuery(document).ready(function($) {
             ServerData = getDataServer(ruta,data);
             // dibujar los datos 
             for (var i = 0; i < ServerData.length; i++) {
-                construirFila(ServerData[i]);
+                construirFila(ServerData[i],tipoElemento);
             };
             $(".numactual").text(pagina);
             $(".numnext").text(pagina+10);
@@ -48,7 +61,7 @@ jQuery(document).ready(function($) {
         ServerData = getDataServer(ruta,data);
         // dibujar los datos 
         for (var i = 0; i < ServerData.length; i++) {
-            construirFila(ServerData[i]);
+            construirFila(ServerData[i],tipoElemento);
         };
         $(".numactual").text(pagina);
         $(".numnext").text(pagina+10);
@@ -61,12 +74,31 @@ jQuery(document).ready(function($) {
                 $(el).prop('checked', true);
             });
         }
-        
+        else{
+            $("input:checkbox").each(function(index, el) {
+                $(el).prop('checked', false);
+            });            
+        }        
     });
 
-
+    $('button[name="editar"]').click(function(event) {
+        // si presiona editar obtener las url's de los campos seleccionados 
+        // para guardarlos en una cookie
+        event.preventDefault();
+        console.log('editar')
+        var registros = new Array();
+        $('input[type="checkbox"]:checked').each(function(index, el) {
+            registros.push($(el).val());
+        });
+        var redireccion = window.location.origin + "/editar/cliente/" + registros[0];
+        registros.join(",");
+        // crear la cookie
+        document.cookie = "registros="+encodeURIComponent(registros) + ";path=/editar/cliente/";
+        // enviar al primer registro en la lista
+        window.location = redireccion;
+        
+    });
 });
-
 
 function getDataServer(url,data){
     var rtrn;
@@ -92,7 +124,7 @@ function getDataServer(url,data){
 }
 
 
-function construirFila(data) {
+function construirFila(data,tipo) {
     // objeto que constituye el nombre_campo:valor
     // modificar los campos del objeto
     var keys = Object.keys(data);
@@ -100,21 +132,21 @@ function construirFila(data) {
     var $contenedor = $("<tr></tr>");
     var contenido = new Array();
 
-    var check =  '<th><input type="checkbox" value="select"></th>'
+    var check =  '<th><input type="checkbox" value="'+ data.id + '"></th>'
     contenido.push(check);
 
     for (var i = 0; i < keys.length; i++) {
+        if (keys[i] == "id") {
+            continue;   
+        }
         th = "<th>" + data[keys[i]] + "</th>";
-        contenido.push(th);
-        
+        contenido.push(th);        
     };
     contenido = contenido.join("");
     console.log(contenido);
     $(contenido).appendTo($contenedor);
     console.log($contenedor)
-
     $('table[name="listado"] tbody').append($contenedor);
-
 }
 
 

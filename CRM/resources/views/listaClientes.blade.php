@@ -4,7 +4,6 @@
     @parent
     <script src='{{asset("/js/lista.js")}}'></script>
     <script src='{{asset("/js/listado.js")}}'></script>
-
 @stop
 
 @section('body')
@@ -49,7 +48,7 @@
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-10 col-lg-10">
             <div class="table-responsive">
-                <table class="table table-striped" name="listado">
+                <table class="table table-striped table-hover" name="listado">
                     <thead>
                         <tr>
                             <th><input type="checkbox" name="check-all" value="all-select"></th>
@@ -87,7 +86,7 @@
         <div class="col-md-6 col-lg-6">
             <div class="form-group">
                 <a href='{{url("/crear/cliente")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-plus">Agregar Cliente</span></button></a>
-                <a href='{{url("/editar/cliente")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-edit">Editar Cliente</span></button></a>
+                <button name="editar" class="btn btn-default"><span class="glyphicon glyphicon-edit">Editar Cliente</span></button>
                 <button class="btn btn-danger"><span class="glyphicon glyphicon-trash">Eliminar</span></button>
             </div>            
         </div>    

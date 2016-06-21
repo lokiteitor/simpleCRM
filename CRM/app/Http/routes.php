@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -90,6 +90,7 @@ Route::get("/crear/cliente",function ()
    $data['usuario'] = "Administrador";
    $data['titulo'] = "Crear Cliente";
    $data['sitio'] = "Crear Cliente";
+   $data['edicion'] = false;
    return view("crearCliente",$data);
 });
 
@@ -163,10 +164,17 @@ Route::get("/editar/cliente/{id}",function ($id)
    $data['usuario'] = "Administrador";
    $data['sitio'] = "Editar Cliente";
    $data['titulo'] = "Clientes";
+   $data['edicion'] = true;
+   $data['action'] = URL::to("/editar/cliente",array($id));
 
    return view('crearCliente', $data);
 });
 
+Route::post("/editar/cliente/{id}",function (Request $request,$id)
+{
+   # actualizar los datos y regresar al principio de la aplicacion
+   return var_dump($request->all()) + var_dump($request->cookie('registros'));
+});
 
 
 Route::get("/obtener/oportunidades",function ()
@@ -241,12 +249,24 @@ Route::get("/obtener/clientes",function ()
 {
    $data = array("nombre" => "Sr. Raul Lopez","correo" => "correo@electronico.com",
       "Telefono" => "123-1234", "creacion" => "2016/05/25", "empresa" => "Vantec",
-      "estado" => "Contactado","calificacion" => "Adquirido","origen" => "Folleto");
+      "estado" => "Contactado","calificacion" => "Adquirido","origen" => "Folleto",
+      "id" => rand(0,1023));
 
    $response = array();
 
-   for ($i=0; $i < 10; $i++) { 
+   for ($i=0; $i < 10; $i++) {
+      $data["id"] = rand(1,1023);
       array_push($response, $data);
    }
+   return response()->json($response);   
+});
+
+Route::get("/obtener/cliente",function ()
+{
+   $response = array("sexo" => "Sra.","nombre" => "Luis","apellidos" => "Perez",
+      "telefono" => "123-1235","celular"=>"444401285","origen"=>"Folleto",
+      "atiende-correo"=>true,"empresa" => "Vantec","web"=>"www.vantec.mx",
+      "estado"=>"Sin contactar","calificacion"=> "Cerrado","valoracion"=>"Frio",
+      "calle"=>"Pensamiento","numero"=>"221","cpostal" =>"73999","descripcion"=>"Cliente de prueba");
    return response()->json($response);   
 });

@@ -1,8 +1,29 @@
 @extends('layouts.base')
+
+@section('libs')
+    @parent
+    @if ($edicion)
+        <script src='{{asset("/js/cookiemanager.js")}}'></script>
+        <script src='{{asset("/js/editar.js")}}'></script>
+    @endif
+@stop
+
 @section('body')
 @include('layouts.menu')
+@section("titlehead")
+@parent
+<div class=" col-md-2 col-lg-2"></div>
+<div class=" col-md-2 col-lg-2">
+    @if ($edicion)
+        <button type="button" name="next" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-right"></span></button>
+        <button type="button" name="prev" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-left"></span></button>
+    @endif        
+</div>
+@stop
+
 <div class="container-fluid">
-    <form action='{{url("/crear/cliente")}}' method="post" class="form-horizontal" name="cliente">
+    <form action={{$action}} method="post" class="form-horizontal" name="cliente">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-4 col-lg-4">
@@ -71,7 +92,7 @@
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado del cliente</label>
-                    <select name="estado" class="form-control" name="estado" required>
+                    <select name="estado" class="form-control" required>
                         <option value="Contactado">Contactado</option>
                         <option value="Contactar a futuro">Contactar a futuro</option>
                         <option value="Intento de contacto fallido">Intento de contacto fallido</option>
@@ -81,7 +102,7 @@
                 </div>
                 <div class="form-group">
                     <label for="calificacion">Calificacion</label>
-                    <select name="calificacion" class="form-control" name="calificacion" required>
+                    <select name="calificacion" class="form-control" required>
                         <option value="Adquirido">Adquirido</option>
                         <option value="Activo">Activo</option>
                         <option value="Mercado Fallido">Mercado Fallido</option>
@@ -91,7 +112,7 @@
                 </div>
                 <div class="form-group">
                     <label for="valoracion">Valoracion</label>
-                    <select name="valoracion" class="form-control" name="valoracion" required>
+                    <select name="valoracion" class="form-control" required>
                         <option value="Caliente">Caliente</option>
                         <option value="Templado">Templado</option>
                         <option value="Frio">Frio</option>
@@ -138,9 +159,12 @@
         </div>
         <div class="row">
             <div class="col-md-6 col-lg-6"></div>
-            <div class="col-md-4 col-lg-4">
-                <button type="button" class="btn btn-default btn-form">Cancelar</button>
-                <button type="submit" class="btn btn-success btn-form">Guardar</button>
+            <div class="col-md-4 col-lg-4">                
+                <button type="button" name="cancelar" class="btn btn-default btn-form">Cancelar</button>
+                <button type="submit" name="guardar" class="btn btn-success btn-form">Guardar</button>
+                @if($edicion)
+                    <button type="button" name="salir" class="btn btn-default btn-form">Salir</button>
+                @endif
             </div>
             <div class="col-md-1 col-lg-1"></div>
         </div>
