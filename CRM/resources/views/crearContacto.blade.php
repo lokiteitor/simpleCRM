@@ -1,8 +1,27 @@
 @extends('layouts.base')
+@section('libs')
+    @parent
+    @if ($edicion)
+        <script src='{{asset("/js/cookiemanager.js")}}'></script>
+        <script src='{{asset("/js/editar.js")}}'></script>
+    @endif
+@stop
+
 @section('body')
 @include('layouts.menu')
+@section("titlehead")
+@parent
+<div class=" col-md-2 col-lg-2"></div>
+<div class=" col-md-2 col-lg-2">
+    @if ($edicion)
+        <button type="button" name="next" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-right"></span></button>
+        <button type="button" name="prev" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-left"></span></button>
+    @endif        
+</div>
+@stop
 <div class="container-fluid">
-    <form action='{{url("/crear/cliente")}}' method="post" class="form-horizontal" name="cliente">
+    <form action={{$action}} method="post" class="form-horizontal" name="contacto">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">        
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-4 col-lg-4">
@@ -26,10 +45,6 @@
                 <div class="form-group">
                     <label for="apellidos">Apellidos</label>
                     <input type="text" class="form-control" placeholder="Apellidos de Cliente" name="apellidos" required>
-                </div>
-                <div class="form-group">
-                    <label for="titulo">Titulo</label>
-                    <input type="text" class="form-control" placeholder="Titulo de Cliente" name="titulo" >
                 </div>
                 <div class="form-group">
                     <label for="telefono">Telefono</label>
@@ -141,6 +156,9 @@
             <div class="col-md-4 col-lg-4">
                 <button type="button" class="btn btn-default btn-form">Cancelar</button>
                 <button type="submit" class="btn btn-success btn-form">Guardar</button>
+                @if($edicion)
+                    <button type="button" name="salir" class="btn btn-default btn-form">Salir</button>
+                @endif                
             </div>
             <div class="col-md-1 col-lg-2"></div>
         </div>

@@ -2,6 +2,8 @@ jQuery(document).ready(function($) {
     
     var ruta;
     var tipoElemento;
+    var cookiepath;
+    var edicion;
     data = {}
     pagina = 10;
     nextpag = pagina + 10
@@ -15,6 +17,8 @@ jQuery(document).ready(function($) {
         data.pagina = pagina;
         data.nextpag = nextpag;
         data.orderby = $('select[name="orden"]').val();
+        cookiepath = ";path=/editar/cliente/"
+        edicion = "/editar/cliente/"
 
     }
 
@@ -24,8 +28,18 @@ jQuery(document).ready(function($) {
         data.pagina = pagina;
         data.nextpag = nextpag;
         data.orderby = $('select[name="orden"]').val();
-
+        cookiepath = ";path=/editar/contacto/"
+        edicion = "/editar/contacto/"
     }
+    if (window.location.pathname == "/ver/cuentas") {
+        ruta = "/obtener/cuentas";
+        tipoElemento = "cuenta"
+        data.pagina = pagina;
+        data.nextpag = nextpag;
+        data.orderby = $('select[name="orden"]').val();
+        cookiepath = ";path=/editar/cuenta/"
+        edicion = "/editar/cuenta/"
+    }    
 
     // obtener los datos
     ServerData = getDataServer(ruta,data);
@@ -90,10 +104,10 @@ jQuery(document).ready(function($) {
         $('input[type="checkbox"]:checked').each(function(index, el) {
             registros.push($(el).val());
         });
-        var redireccion = window.location.origin + "/editar/cliente/" + registros[0];
+        var redireccion = window.location.origin + edicion + registros[0];
         registros.join(",");
         // crear la cookie
-        document.cookie = "registros="+encodeURIComponent(registros) + ";path=/editar/cliente/";
+        document.cookie = "registros="+encodeURIComponent(registros) + cookiepath;
         // enviar al primer registro en la lista
         window.location = redireccion;
         

@@ -1,8 +1,27 @@
 @extends('layouts.base')
+@section('libs')
+    @parent
+    @if ($edicion)
+        <script src='{{asset("/js/cookiemanager.js")}}'></script>
+        <script src='{{asset("/js/editar.js")}}'></script>
+    @endif
+@stop
+
 @section('body')
 @include('layouts.menu')
+@section("titlehead")
+@parent
+<div class=" col-md-2 col-lg-2"></div>
+<div class=" col-md-2 col-lg-2">
+    @if ($edicion)
+        <button type="button" name="next" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-right"></span></button>
+        <button type="button" name="prev" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-left"></span></button>
+    @endif        
+</div>
+@stop
 <div class="container-fluid">
-    <form action='{{url("/crear/cliente")}}' method="post" class="form-horizontal" name="cliente">
+    <form action={{$action}} method="post" class="form-horizontal" name="cuenta">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">       
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-4 col-lg-4">
@@ -76,16 +95,16 @@
             <div class="col-md-4 col-lg-4">
                 <h3>Informacion de direccion</h3>
                 <div class="form-group">
-                    <label for="fcalle">Calle </label>
-                    <input type="text" class="form-control" placeholder="Nombre de la Calle" name="fcalle">
+                    <label for="calle">Calle </label>
+                    <input type="text" class="form-control" placeholder="Nombre de la Calle" name="calle">
                 </div>
                 <div class="form-group">
-                    <label for="fciudad">Ciudad </label>
-                    <input type="text" class="form-control" placeholder="Ciudad" name="fciudad">
+                    <label for="ciudad">Ciudad </label>
+                    <input type="text" class="form-control" placeholder="Ciudad" name="ciudad">
                 </div>
                 <div class="form-group">
-                    <label for="festado">Estado </label>
-                    <input type="text" class="form-control" placeholder="Estado" name="festado">
+                    <label for="estado">Estado </label>
+                    <input type="text" class="form-control" placeholder="Estado" name="estado">
                 </div>
                 <div class="form-group">
                     <label for="numero">Numero Exterior</label>
@@ -120,6 +139,9 @@
             <div class="col-md-4 col-lg-4">
                 <button type="button" class="btn btn-default btn-form">Cancelar</button>
                 <button type="submit" class="btn btn-success btn-form">Guardar</button>
+                @if($edicion)
+                    <button type="button" name="salir" class="btn btn-default btn-form">Salir</button>
+                @endif                
             </div>
             <div class="col-md-1 col-lg-1"></div>
         </div>

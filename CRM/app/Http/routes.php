@@ -170,12 +170,45 @@ Route::get("/editar/cliente/{id}",function ($id)
    return view('crearCliente', $data);
 });
 
+Route::get("/editar/contacto/{id}",function ($id)
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Editar Contacto";
+   $data['titulo'] = "Contacto";
+   $data['edicion'] = true;
+   $data['action'] = URL::to("/editar/contacto",array($id));
+
+   return view('crearContacto', $data);
+});
+
+Route::get("/editar/cuenta/{id}",function ($id)
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Editar Cuenta";
+   $data['titulo'] = "Editar";
+   $data['edicion'] = true;
+   $data['action'] = URL::to("/editar/cuenta",array($id));
+
+   return view('crearCuenta', $data);
+});
+
 Route::post("/editar/cliente/{id}",function (Request $request,$id)
 {
    # actualizar los datos y regresar al principio de la aplicacion
    return var_dump($request->all()) + var_dump($request->cookie('registros'));
 });
 
+Route::post("/editar/contacto/{id}",function (Request $request,$id)
+{
+   # actualizar los datos y regresar al principio de la aplicacion
+   return var_dump($request->all()) + var_dump($request->cookie('registros'));
+});
+
+Route::post("/editar/cuenta/{id}",function (Request $request,$id)
+{
+   # actualizar los datos y regresar al principio de la aplicacion
+   return var_dump($request->all()) + var_dump($request->cookie('registros'));
+});
 
 Route::get("/obtener/oportunidades",function ()
 {
@@ -261,12 +294,63 @@ Route::get("/obtener/clientes",function ()
    return response()->json($response);   
 });
 
+Route::get("/obtener/contactos",function ()
+{
+   $data = array("nombre" => "Sr. Raul Lopez","correo" => "correo@electronico.com",
+      "Telefono" => "123-1234", "creacion" => "2016/05/25", "empresa" => "Vantec",
+      "estado" => "Contactado","calificacion" => "Adquirido","origen" => "Folleto",
+      "id" => rand(0,1023));
+
+   $response = array();
+
+   for ($i=0; $i < 10; $i++) {
+      $data["id"] = rand(1,1023);
+      array_push($response, $data);
+   }
+   return response()->json($response);   
+});
+
+
+Route::get("/obtener/cuentas",function ()
+{
+   $data = array("nombre" => "Vantec","tipo" => "proveedor",
+      "calificacion"=>"Adquirido","id" => rand(0,1023),"sector" => "Alimentos");
+
+   $response = array();
+
+   for ($i=0; $i < 10; $i++) {
+      $data["id"] = rand(1,1023);
+      array_push($response, $data);
+   }
+   return response()->json($response);   
+});
+
+
 Route::get("/obtener/cliente",function ()
 {
-   $response = array("sexo" => "Sra.","nombre" => "Luis","apellidos" => "Perez",
+   $response = array("sexo" => "sra","nombre" => "Luis","apellidos" => "Perez",
       "telefono" => "123-1235","celular"=>"444401285","origen"=>"Folleto",
       "atiende-correo"=>true,"empresa" => "Vantec","web"=>"www.vantec.mx",
       "estado"=>"Sin contactar","calificacion"=> "Cerrado","valoracion"=>"Frio",
       "calle"=>"Pensamiento","numero"=>"221","cpostal" =>"73999","descripcion"=>"Cliente de prueba");
+   return response()->json($response);   
+});
+
+Route::get("/obtener/contacto",function ()
+{
+   $response = array("sexo" => "sra","nombre" => "Luis","apellidos" => "Perez",
+      "telefono" => "123-1235","celular"=>"444401285","origen"=>"Folleto",
+      "atiende-correo"=>true,"empresa" => "Vantec","web"=>"www.vantec.mx",
+      "estado"=>"Sin contactar","calificacion"=> "Cerrado","valoracion"=>"Frio",
+      "calle"=>"Pensamiento","numero"=>"221","cpostal" =>"73999","descripcion"=>"Cliente de prueba");
+   return response()->json($response);   
+});
+
+Route::get("/obtener/cuenta",function ()
+{
+   $response = array("nombre" => "Vantec","tipo" => "proveedor",
+      "calificacion"=>"Adquirido","id" => rand(0,1023),"sector" => "electronica",
+      "telefono" => "123-3235","web" => "www.vantec.mx","Empleados" => 1,
+      "calle"=>"Pensamiento","numero"=>"221","cpostal" =>"73999","descripcion"=>"Cuenta de prueba");
    return response()->json($response);   
 });

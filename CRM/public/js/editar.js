@@ -8,6 +8,8 @@ jQuery(document).ready(function($) {
     actual = actual[actual.length - 1];
     var indice = -1;
     var ServerData;
+    var salida;
+    var seccion;
 
     if (registros != null) {
         registros = registros.split(",");        
@@ -15,7 +17,7 @@ jQuery(document).ready(function($) {
         
     }
     else{
-        alert("Error durante la navegacion el cliente no exite");
+        alert("Error durante la navegacion el registro no exite");
     }
     if (registros.length == 1 || registros == null) {
         // borrar las flechas
@@ -33,7 +35,21 @@ jQuery(document).ready(function($) {
     if (window.location.pathname == "/editar/cliente/"+actual) {
         var data = {"id":actual};
         ServerData = getDataFromServer("/obtener/cliente/",data)
+        salida = "/ver/clientes/"
+        seccion = "/editar/cliente/"
     };
+    if (window.location.pathname == "/editar/contacto/"+actual) {
+        var data = {"id":actual};
+        ServerData = getDataFromServer("/obtener/contacto/",data)
+        salida = "/ver/contactos/"
+        seccion = "/editar/contacto/"
+    };
+    if (window.location.pathname == "/editar/cuenta/"+actual) {
+        var data = {"id":actual};
+        ServerData = getDataFromServer("/obtener/cuenta/",data)
+        salida = "/ver/cuentas/"
+        seccion = "/editar/cuenta/"
+    };            
     llenarFormulario(ServerData);
 
 
@@ -43,20 +59,20 @@ jQuery(document).ready(function($) {
     $('button[name="next"]').click(function(event) {
         event.preventDefault();
         // buscar el elemento actual y pasar al siguiente
-        var destino = window.location.origin + "/editar/cliente/" + registros[indice+1];
+        var destino = window.location.origin + seccion + registros[indice+1];
         window.location = destino;
     });
     $('button[name="prev"]').click(function(event) {
         event.preventDefault();
         // buscar el elemento actual y pasar al siguiente
-        var destino = window.location.origin + "/editar/cliente/" + registros[indice-1];
+        var destino = window.location.origin + seccion + registros[indice-1];
         window.location = destino;
     });    
 
     // al guardar algun registro eliminar ese elemento de la lista
     $('button[name="salir"]').click(function(event) {
         borrarCookie("registros");
-        window.location = window.location.origin + "/ver/clientes/"
+        window.location = window.location.origin + salida
     });
 
 });
@@ -80,7 +96,6 @@ function getDataFromServer (ruta,data) {
         console.log(rtrn)
     })
     .fail(function() {
-        console.log(json);
         alert("Error al conectar al servidor")
     })
     .always(function(json) {
