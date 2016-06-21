@@ -82,6 +82,8 @@ Route::get("/crear/contacto",function ()
    $data['usuario'] = "Administrador";
    $data['titulo'] = "Crear Contacto";
    $data['sitio'] = "Crear Contacto";
+   $data['action'] = "/crear/cuenta/";
+   $data['edicion'] = false;
    return view("crearContacto",$data);
 });
 
@@ -91,6 +93,7 @@ Route::get("/crear/cliente",function ()
    $data['titulo'] = "Crear Cliente";
    $data['sitio'] = "Crear Cliente";
    $data['edicion'] = false;
+   $data['action'] = "/crear/cuenta/";
    return view("crearCliente",$data);
 });
 
@@ -99,6 +102,8 @@ Route::get("/crear/cuenta",function ()
    $data['usuario'] = "Administrador";
    $data['titulo'] = "Crear Cuenta";
    $data['sitio'] = "Crear Cuenta";
+   $data['action'] = "/crear/cuenta/";
+   $data['edicion'] = false;
    return view("crearCuenta",$data);
 });
 

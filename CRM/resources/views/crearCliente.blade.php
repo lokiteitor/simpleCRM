@@ -14,7 +14,7 @@
 @parent
 <div class=" col-md-2 col-lg-2"></div>
 <div class=" col-md-2 col-lg-2">
-    @if ($edicion)
+    @if (isset($edicion) && $edicion == true)
         <button type="button" name="next" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-right"></span></button>
         <button type="button" name="prev" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-left"></span></button>
     @endif        
