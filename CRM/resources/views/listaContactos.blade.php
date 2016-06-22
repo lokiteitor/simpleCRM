@@ -87,7 +87,7 @@
             <div class="form-group">
                 <a href='{{url("/crear/contacto")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-plus">Agregar Contacto</span></button></a>
                 <button class="btn btn-default" name="editar"><span class="glyphicon glyphicon-edit">Editar Contacto</span></button>
-                <button class="btn btn-danger"><span class="glyphicon glyphicon-trash">Eliminar</span></button>
+                <button name="eliminar" class="btn btn-danger"><span class="glyphicon glyphicon-trash">Eliminar</span></button>
             </div>            
         </div>    
     </div>

@@ -112,6 +112,9 @@ Route::get("/crear/oportunidad",function ()
    $data['usuario'] = "Administrador";
    $data['titulo'] = "Crear Oportunidad";
    $data['sitio'] = "Crear Oportunidad";
+   $data['action'] = "/crear/oportunidad/";
+   $data['edicion'] = false;
+
    return view("crearOportunidad",$data);
 });
 
@@ -120,6 +123,8 @@ Route::get("/crear/tarea",function ()
    $data['usuario'] = "Administrador";
    $data['titulo'] = "Crear Tarea";
    $data['sitio'] = "Crear Tarea";
+   $data['edicion'] = false;
+   $data['action'] = "/crear/tarea";   
    return view("crearTarea",$data);
 });
 
@@ -128,6 +133,8 @@ Route::get("/crear/evento",function ()
    $data['usuario'] = "Administrador";
    $data['titulo'] = "Crear Evento";
    $data['sitio'] = "Crear Evento";
+   $data['edicion'] = false;
+   $data['action'] = "/crear/evento";     
    return view("crearEvento",$data);
 });
 Route::get("/crear/campana",function ()
@@ -161,6 +168,8 @@ Route::get("/editar/evento/{id}",function ($id)
    $data['usuario'] = "Administrador";
    $data['sitio'] = "Editar Evento";
    $data['titulo'] = "Eventos";
+   $data['edicion'] = true;
+   $data['action'] = URL::to("/editar/evento",array($id));
 
    return view('crearEvento', $data);
 });
@@ -197,6 +206,29 @@ Route::get("/editar/cuenta/{id}",function ($id)
    return view('crearCuenta', $data);
 });
 
+Route::get("/editar/oportunidad/{id}",function ($id)
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Editar Oportunidad";
+   $data['titulo'] = "Editar";
+   $data['edicion'] = true;
+   $data['action'] = URL::to("/editar/oportunidad",array($id));
+
+   return view('crearOportunidad', $data);
+});
+
+Route::get("/editar/tarea/{id}",function ($id)
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Editar Tarea";
+   $data['titulo'] = "Editar";
+   $data['edicion'] = true;
+   $data['action'] = URL::to("/editar/tarea",array($id));
+
+   return view('crearTarea', $data);
+});
+
+
 Route::post("/editar/cliente/{id}",function (Request $request,$id)
 {
    # actualizar los datos y regresar al principio de la aplicacion
@@ -215,6 +247,24 @@ Route::post("/editar/cuenta/{id}",function (Request $request,$id)
    return var_dump($request->all()) + var_dump($request->cookie('registros'));
 });
 
+Route::post("/editar/oportunidad/{id}",function (Request $request,$id)
+{
+   # actualizar los datos y regresar al principio de la aplicacion
+   return var_dump($request->all()) + var_dump($request->cookie('registros'));
+});
+Route::post("/editar/tarea/{id}",function (Request $request,$id)
+{
+   # actualizar los datos y regresar al principio de la aplicacion
+   return var_dump($request->all()) + var_dump($request->cookie('registros'));
+});
+Route::post("/editar/evento/{id}",function (Request $request,$id)
+{
+   # actualizar los datos y regresar al principio de la aplicacion
+   return var_dump($request->all()) + var_dump($request->cookie('registros'));
+});
+
+
+
 Route::get("/obtener/oportunidades",function ()
 {
    // api para obtener los datos de las oportunidades
@@ -223,6 +273,7 @@ Route::get("/obtener/oportunidades",function ()
    $titulo = array("titulo1","titulo2","titulo3");
    $tipo = array("tipo1","tipo2","tipo3");
 
+
    // generar combinacion de longintud entre 1 y 10
    $longintud = rand(1,20);
    $response = array();
@@ -230,7 +281,7 @@ Route::get("/obtener/oportunidades",function ()
    for ($i=0; $i < $longintud; $i++) {
       $mix = array("ncuenta" => $cuentas[rand(0,2)], 
          "fecha" => $fechas[rand(0,2)],"titulo"=> $titulo[rand(0,2)],
-         "tipo" => $tipo[rand(0,2)]);
+         "tipo" => $tipo[rand(0,2)], "id" => rand(1,1023));
       array_push($response, $mix);
    }
 
@@ -254,7 +305,7 @@ Route::get("/obtener/tareas",function ()
       $mix = array("ncuenta" => $cuentas[rand(0,2)], 
          "fecha" => $fechas[rand(0,2)],"titulo"=> $titulo[rand(0,2)],
          "asunto" => $asunto[rand(0,2)], "estado" => $estado[rand(0,2)],
-         "prioridad" => $prioridad[rand(0,3)]);
+         "prioridad" => $prioridad[rand(0,3)],"id" => rand(1,1023));
       array_push($response, $mix);
    }
    return response()->json($response);
@@ -359,3 +410,24 @@ Route::get("/obtener/cuenta",function ()
       "calle"=>"Pensamiento","numero"=>"221","cpostal" =>"73999","descripcion"=>"Cuenta de prueba");
    return response()->json($response);   
 });
+
+Route::get("/obtener/oportunidad",function ()
+{
+   $response = array("titulo" => "venta de equipo","origen" => "Folleto",
+      "etapa" => "propuesta","tipo" => "nuevo","probabilidad" => "06%","importe" => "$2600");
+   return response()->json($response);   
+});
+
+Route::get("/obtener/tarea",function ()
+{
+   $response = array("nombre"=> "Llamar", "asunto"=>"llamar al cliente de vantec");
+   return response()->json($response);   
+});
+
+Route::get("/obtener/evento",function ()
+{
+   $response = array("nombre"=> "Reunion", "asunto"=>"Reunion con el cliente de vantec",
+      "ubicacion" => "Himno Nacional");
+   return response()->json($response);   
+});
+

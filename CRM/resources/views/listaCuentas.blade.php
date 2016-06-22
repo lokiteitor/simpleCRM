@@ -81,8 +81,8 @@
             <div class="form-group">
                 <a href='{{url("/crear/cuenta")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-plus">Agregar cuenta</span></button></a>
                 <button name="editar" class="btn btn-default"><span class="glyphicon glyphicon-edit">Editar Cuenta</span></button>
-                <button class="btn btn-danger"><span class="glyphicon glyphicon-trash">Eliminar</span></button>
-            </div>            
+                <button name="eliminar" class="btn btn-danger"><span class="glyphicon glyphicon-trash">Eliminar</span></button>
+            </div>             
         </div>    
     </div>
 </div>

@@ -11,6 +11,30 @@ jQuery(document).ready(function($) {
     var salida;
     var seccion;
 
+    if (window.location.pathname == "/editar/oportunidad/"+actual) {
+        registros = actual.toString();
+        var data = {"id":actual};
+        ServerData = getDataFromServer("/obtener/oportunidad/",data)
+        salida = "/ver/oportunidades/"
+        seccion = "/editar/oportunidad/"
+    };
+
+    if (window.location.pathname == "/editar/tarea/"+actual) {
+        registros = actual.toString();
+        var data = {"id":actual};
+        ServerData = getDataFromServer("/obtener/tarea/",data)
+        salida = "/ver/tareas/"
+        seccion = "/editar/tarea/"
+    };
+
+    if (window.location.pathname == "/editar/evento/"+actual) {
+        registros = actual.toString();
+        var data = {"id":actual};
+        ServerData = getDataFromServer("/obtener/evento/",data)
+        salida = "/ver/eventos/"
+        seccion = "/editar/evento/"
+    };        
+
     if (registros != null) {
         registros = registros.split(",");        
         indice = registros.indexOf(actual);

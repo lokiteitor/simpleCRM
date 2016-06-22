@@ -1,12 +1,14 @@
 // Este archivo contiene la programacion para armar las tarjetas de las secciones 
 // oportunidades y tareas
 var pila = new Array([],[],[]);
+var edicion;
 // crear la ruta 
 
 jQuery(document).ready(function($) {
     var scrollcrr;
     var ruta;
     var pagina;
+    edicion;
     // determinar la ruta actual
     if (window.location.pathname == "/ver/oportunidades") {
         pagina = 0;
@@ -19,6 +21,7 @@ jQuery(document).ready(function($) {
         data = {"pagina":pagina,"nextpag":pagina+10,"ordenby":ordenby};
         ruta = "/obtener/oportunidades";
         pagina += 10;
+        edicion = "/editar/oportunidad/"
     }
     if (window.location.pathname == "/ver/tareas") {
         // por defecto ordenar por fecha
@@ -31,6 +34,7 @@ jQuery(document).ready(function($) {
         // armar los parametros , acultar las tareas cumplidas
         data = {"pagina":pagina,"nextpag":pagina+10,"ordenby":ordenby,"showall":false};
         ruta = "/obtener/tareas";
+        edicion = "/editar/tarea/"
         pagina += 10;        
 
     };
@@ -132,9 +136,14 @@ function construirCartas (plantilla,destino,data) {
     keys = Object.keys(data);
     $carta = $("<div></div>").load(plantilla,function () {
         for(var i=0;i<keys.length;i++){
+            if (keys[i] == "id") {
+                continue
+            } 
             select = "[name=" + keys[i] + "]";
             $(this).find(select).text(data[keys[i]]);
         }
+        $(this).find('a[name="url"]').attr('href', window.location.origin + edicion+ data.id);
+
         if (data.prioridad == "Muy alta") {
             clase = "panel-danger";
         }

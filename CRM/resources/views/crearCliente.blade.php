@@ -160,7 +160,7 @@
         <div class="row">
             <div class="col-md-6 col-lg-6"></div>
             <div class="col-md-4 col-lg-4">                
-                <button type="button" name="cancelar" class="btn btn-default btn-form">Cancelar</button>
+                <button type="button" name="cancel" class="btn btn-default btn-form">Cancelar</button>
                 <button type="submit" name="guardar" class="btn btn-success btn-form">Guardar</button>
                 @if($edicion)
                     <button type="button" name="salir" class="btn btn-default btn-form">Salir</button>

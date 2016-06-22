@@ -4,12 +4,17 @@
 @parent
     <script src='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.full.min.js")}}'></script>
     <link rel="stylesheet" href='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.min.css")}}'>
+@if ($edicion)
+    <script src='{{asset("/js/cookiemanager.js")}}'></script>
+    <script src='{{asset("/js/editar.js")}}'></script>
+@endif    
 @stop
 
 @section('body')
 @include('layouts.menu')
 <div class="container-fluid">
-    <form action='{{url("/crear/evento")}}' method="post" class="form-horizontal" name="evento">
+    <form action={{$action}} method="post" class="form-horizontal" name="evento">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-8 col-lg-8">
@@ -19,8 +24,8 @@
                     <input type="text" class="form-control" placeholder="Titulo del evento" name="nombre" required>
                 </div>
                 <div class="form-group">
-                    <label for="titulo">Asunto</label>
-                    <input type="text" class="form-control" placeholder="Asunto" name="titulo" required>
+                    <label for="asunto">Asunto</label>
+                    <input type="text" class="form-control" placeholder="Asunto" name="asunto" required>
                 </div>
                 <div class="form-group">
                     <label for="ubicacion">Ubicacion</label>
@@ -32,19 +37,21 @@
                         Todo el dia
                     </label>
                 </div>
-                <div class="form-inline">
-                    <label for="defecha">De:</label>
-                    <br>                                
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="2016/06/24 12:30 PM" required name="defecha" id="defecha">
-                    </div>                                   
-                </div>            
-                <div class="form-inline">
-                    <label for="afecha">A:</label>
-                    <br>                                
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="2016/06/24 12:30 PM" required name="afecha" id="afecha">
-                    </div>                           
+                <div name="divallday">
+                   <div class="form-inline">
+                        <label for="defecha">De:</label>
+                        <br>                                
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="2016/06/24 12:30 " name="defecha" id="defecha">
+                        </div>                                   
+                    </div>            
+                    <div class="form-inline">
+                        <label for="afecha">A:</label>
+                        <br>                                
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="2016/06/24 22:30 " name="afecha" id="afecha">
+                        </div>                           
+                    </div>                    
                 </div>
                 <hr class="featurette-divider section">
                 <h4>Participantes</h4>
@@ -84,22 +91,24 @@
                         Repetir Evento
                     </label>
                 </div>  
-                <div class="form-group">
-                    <label for="inicio">Fecha de inicio</label>
-                    <input type="text" class="form-control" placeholder="2016/06/24 " required name="inicio" id="inicio">
-                </div>  
-                <div class="form-group">
-                    <label for="finalizacion">Fecha de finalizacion</label>
-                    <input type="text" class="form-control" placeholder="2016/06/24 " required name="finalizacion" id="finalizacion">
-                </div>  
-                <div class="form-group">
-                    <label for="repetira">Repetir cada </label>
-                    <select name="repetira" class="form-control">
-                        <option value="diaria">Diariamente</option>
-                        <option value="semanal">Semanalmente</option>
-                        <option value="mensual">Mensualmente</option>
-                        <option value="anual">Anualmente</option>
-                    </select>
+                <div name="divrepetir">
+                    <div class="form-group">
+                        <label for="inicio">Fecha de inicio</label>
+                        <input type="text" class="form-control" placeholder="2016/06/24 " name="inicio" id="inicio">
+                    </div>  
+                    <div class="form-group">
+                        <label for="finalizacion">Fecha de finalizacion</label>
+                        <input type="text" class="form-control" placeholder="2016/06/24 " name="finalizacion" id="finalizacion">
+                    </div>  
+                    <div class="form-group">
+                        <label for="repetira">Repetir cada </label>
+                        <select name="repetira" class="form-control">
+                            <option value="diaria">Diariamente</option>
+                            <option value="semanal">Semanalmente</option>
+                            <option value="mensual">Mensualmente</option>
+                            <option value="anual">Anualmente</option>
+                        </select>
+                    </div>                    
                 </div>
 
             </div>
@@ -121,7 +130,7 @@
         <div class="row">
             <div class="col-md-6 col-lg-6"></div>
             <div class="col-md-4 col-lg-4">
-                <button type="button" class="btn btn-default btn-form">Cancelar</button>
+                <button name="cancel" type="button" class="btn btn-default btn-form">Cancelar</button>
                 <button type="submit" class="btn btn-success btn-form">Guardar</button>
             </div>
             <div class="col-md-1 col-lg-1"></div>

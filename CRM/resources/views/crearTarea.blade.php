@@ -1,31 +1,33 @@
 @extends('layouts.base')
-
 @section('libs')
 @parent
-    <script src='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.full.min.js")}}'></script>
-    <link rel="stylesheet" href='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.min.css")}}'>
+<script src='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.full.min.js")}}'></script>
+<link rel="stylesheet" href='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.min.css")}}'>
+@if ($edicion)
+    <script src='{{asset("/js/cookiemanager.js")}}'></script>
+    <script src='{{asset("/js/editar.js")}}'></script>
+@endif
 @stop
-
 @section('body')
 @include('layouts.menu')
 <div class="container-fluid">
-    <form action='{{url("/crear/tarea")}}' method="post" class="form-horizontal" name="tarea">
+    <form action={{$action}} method="post" class="form-horizontal" name="tarea">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-8 col-lg-8">
-
                 <div class="form-group">
                     <label for="nombre">Titulo de la tarea</label>
                     <input type="text" class="form-control" placeholder="Titulo de la tarea" name="nombre" required>
                 </div>
                 <div class="form-group">
-                    <label for="titulo">Asunto</label>
-                    <input type="text" class="form-control" placeholder="Asunto" name="titulo" required>
+                    <label for="asunto">Asunto</label>
+                    <input type="text" class="form-control" placeholder="Asunto" name="asunto" required>
                 </div>
                 <div class="form-group">
                     <label for="vencimiento">Fecha de vencimiento</label>
                     <input type="text" class="form-control" placeholder="2016/06/24 " required name="vencimiento" id="vencimiento">
-                </div>                
+                </div>
                 <div class="form-group">
                     <div class="input-group">
                         <input type="text" class="form-control" list="cuentas" placeholder="Cuenta">
@@ -37,7 +39,7 @@
                         <input type="text" class="form-control" list="contacto" placeholder="Contacto o posible cliente">
                         <span class="input-group-btn"><button class="btn btn-default" name="buscar-contacto" type="button"><span class="glyphicon glyphicon-search">Contacto/posible cliente</span></button></span>
                     </div>
-                </div>                
+                </div>
                 <div class="form-group">
                     <label for="estado">Estado</label>
                     <select name="estado" class="form-control" required>
@@ -65,66 +67,71 @@
                     </label>
                 </div>
                 <hr class="featurette-divider section">
+                
                 <div class="form-group">
                     <label>
                         <input type="checkbox" name="recordatorio">
                         Recordatorio
                     </label>
                 </div>
-                <div class="form-inline">                                
-                    <div class="form-group">
-                        <label for="recordar">Recorda a </label>
-                        <select name="recordar" class="form-control">
-                            <option value="1">1 dia</option>
-                            <option value="2">2 dias</option>
-                            <option value="3">3 dias</option>
-                            <option value="4">4 dias</option>
-                            <option value="5">5 dias</option>
-                            <option value="6">6 dias</option>
-                            <option value="1s">1 semana</option>
-                            <option value="2s">2 semanas</option>
-                            <option value="3s">3 semanas</option>
-                        </select>
+                <div name="divrecordatorio">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label for="recordar">Recorda a </label>
+                            <select name="recordar" class="form-control">
+                                <option value="1">1 dia</option>
+                                <option value="2">2 dias</option>
+                                <option value="3">3 dias</option>
+                                <option value="4">4 dias</option>
+                                <option value="5">5 dias</option>
+                                <option value="6">6 dias</option>
+                                <option value="1s">1 semana</option>
+                                <option value="2s">2 semanas</option>
+                                <option value="3s">3 semanas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="12:30" name="horaRecord" id="horaRecord">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="12:30" required name="horaRecord" id="horaRecord">
-                    </div>              
-                </div>                
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="notificarcorreo">
-                        Recordar via correo
-                    </label>
+                        <label>
+                            <input type="checkbox" name="notificarcorreo">
+                            Recordar via correo
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="notificarcorreo">
+                            Recordar via notificacion
+                        </label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="notificarcorreo">
-                        Recordar via notificacion
-                    </label>
-                </div>  
                 <hr class="featurette-divider section">
                 <div class="form-group">
                     <label>
                         <input type="checkbox" name="repetir">
                         Repetir tarea
                     </label>
-                </div>  
-                <div class="form-group">
-                    <label for="inicio">Fecha de inicio</label>
-                    <input type="text" class="form-control" placeholder="2016/06/24" required name="inicio" id="inicio">
-                </div>  
-                <div class="form-group">
-                    <label for="finalizacion">Fecha de finalizacion</label>
-                    <input type="text" class="form-control" placeholder="2016/06/24" required name="finalizacion" id="finalizacion">
-                </div>  
-                <div class="form-group">
-                    <label for="repetira">Repetir cada </label>
-                    <select name="repetira" class="form-control">
-                        <option value="diaria">Diariamente</option>
-                        <option value="semanal">Semanalmente</option>
-                        <option value="mensual">Mensualmente</option>
-                        <option value="anual">Anualmente</option>
-                    </select>
+                </div>
+                <div name="divrepetir">
+                    <div class="form-group">
+                        <label for="inicio">Fecha de inicio</label>
+                        <input type="text" class="form-control" placeholder="2016/06/24" name="inicio" id="inicio">
+                    </div>
+                    <div class="form-group">
+                        <label for="finalizacion">Fecha de finalizacion</label>
+                        <input type="text" class="form-control" placeholder="2016/06/24" name="finalizacion" id="finalizacion">
+                    </div>
+                    <div class="form-group">
+                        <label for="repetira">Repetir cada </label>
+                        <select name="repetira" class="form-control">
+                            <option value="diaria">Diariamente</option>
+                            <option value="semanal">Semanalmente</option>
+                            <option value="mensual">Mensualmente</option>
+                            <option value="anual">Anualmente</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="col-md-2 col-lg-2"></div>
@@ -146,7 +153,7 @@
         <div class="row">
             <div class="col-md-6 col-lg-6"></div>
             <div class="col-md-4 col-lg-4">
-                <button type="button" class="btn btn-default btn-form">Cancelar</button>
+                <button type="button" name="cancel" class="btn btn-default btn-form">Cancelar</button>
                 <button type="submit" class="btn btn-success btn-form">Guardar</button>
             </div>
             <div class="col-md-1 col-lg-1"></div>

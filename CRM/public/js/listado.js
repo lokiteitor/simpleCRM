@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
     for (var i = 0; i < ServerData.length; i++) {
         construirFila(ServerData[i],tipoElemento);
     };
-
+    // avanzar el paginado
     $('a[name="prev"]').click(function(event) {
         event.preventDefault();
         if (pagina - 10 != 0) {
@@ -81,6 +81,34 @@ jQuery(document).ready(function($) {
         $(".numnext").text(pagina+10);
         $(".numprev").text(pagina-10);        
     });
+    // remover los campos seleccionados
+    $('button[name="eliminar"]').click(function(event) {
+        event.preventDefault();
+        // obtener los datos
+        var candidatos = new Array();
+        var nombresCandidatos = new Array();
+        $('input[type="checkbox"]:checked').each(function(index, el) {
+            candidatos.push($(el).val());            
+            nombresCandidatos.push($(el).parents("tr").find('th[name="nombre"]').text());
+            console.log($(el).parents("tr").find('th[name="nombre"]').text())
+            console.log("Eliminar:"+candidatos)
+        });
+        // avisar al usuario si desea elimanarlos
+        var r = confirm("Desea eliminar los siguientes registros?:" +nombresCandidatos.join(","));
+        if (r) {
+            // eliminar y recargar la pagina
+            data.delete = candidatos;
+            $("tbody").empty();
+            ServerData = getDataServer(ruta,data);
+            for (var i = 0; i < ServerData.length; i++) {
+                construirFila(ServerData[i],tipoElemento);
+            };
+            $(".numactual").text(pagina);
+            $(".numnext").text(pagina+10);
+            $(".numprev").text(pagina-10);              
+        }
+    });
+
     // si se seleccionan todos
     $('input[name="check-all"]').change(function(event) {
         if ($(this).prop('checked')) {
@@ -102,7 +130,7 @@ jQuery(document).ready(function($) {
         console.log('editar')
         var registros = new Array();
         $('input[type="checkbox"]:checked').each(function(index, el) {
-            registros.push($(el).val());
+            registros.push($(el).val());            
         });
         var redireccion = window.location.origin + edicion + registros[0];
         registros.join(",");
@@ -115,6 +143,7 @@ jQuery(document).ready(function($) {
 });
 
 function getDataServer(url,data){
+    console.log(data)
     var rtrn;
     $.ajax({
         url: url,
@@ -153,7 +182,7 @@ function construirFila(data,tipo) {
         if (keys[i] == "id") {
             continue;   
         }
-        th = "<th>" + data[keys[i]] + "</th>";
+        th = '<th name="' + keys[i] + '">' + data[keys[i]] + '</th>';
         contenido.push(th);        
     };
     contenido = contenido.join("");

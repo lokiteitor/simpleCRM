@@ -4,19 +4,24 @@
 @parent
     <script src='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.full.min.js")}}'></script>
     <link rel="stylesheet" href='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.min.css")}}'>
+    @if ($edicion)
+        <script src='{{asset("/js/cookiemanager.js")}}'></script>
+        <script src='{{asset("/js/editar.js")}}'></script>
+    @endif    
 @stop
 
 @section('body')
 @include('layouts.menu')
 <div class="container-fluid">
-    <form action='{{url("/crear/oportunidad")}}' method="post" class="form-horizontal" name="oportunidad">
+    <form action={{$action}} method="post" class="form-horizontal" name="oportunidad">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-4 col-lg-4">
 
                 <div class="form-group">
                     <label for="nombre">Titulo de la oportunidad</label>
-                    <input type="text" class="form-control" placeholder="Titulo de la oportunidad" name="nombre" required>
+                    <input type="text" class="form-control" placeholder="Titulo de la oportunidad" name="titulo" required>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
@@ -39,7 +44,7 @@
                 </div>                  
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" name="atiende-correo">
+                        <input type="checkbox" name="presupuesto">
                         Presupuesto confirmado
                     </label>
                 </div>
@@ -100,7 +105,7 @@
         <div class="row">
             <div class="col-md-6 col-lg-6"></div>
             <div class="col-md-4 col-lg-4">
-                <button type="button" class="btn btn-default btn-form">Cancelar</button>
+                <button type="button" name="cancel" class="btn btn-default btn-form">Cancelar</button>
                 <button type="submit" class="btn btn-success btn-form">Guardar</button>
             </div>
             <div class="col-md-1 col-lg-1"></div>
