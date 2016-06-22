@@ -158,7 +158,7 @@ Route::get("/crear/campana",function ()
    return view("crearCampana",$data);
 });
 
-Route::get("/detalles/cliente",function ()
+Route::get("/detalles/cliente/{id}",function ($id)
 {
    $data['usuario'] = "Administrador";
    $data['sitio'] = "Detalles del cliente";
@@ -480,4 +480,41 @@ Route::get("/obtener/campana",function ()
       "id" => rand(0,1023));
 
    return response()->json($data);   
+});
+
+
+Route::get("/obtener/detalles",function (Request $request)
+{
+   // esta clase especial mezclara los datos de acuerdo a la peticion
+   $response = array();
+
+
+   if ($request->exists('/obtener/cliente')) {
+      $data = array("sexo" => "sra","nombre" => "Luis Perez",
+      "telefono" => "123-1235","celular"=>"444401285","origen"=>"Folleto",
+      "atiende-correo"=>true,"empresa" => "Vantec","web"=>"www.vantec.mx",
+      "estado"=>"Sin contactar","calificacion"=> "Cerrado","valoracion"=>"Frio",
+      "calle"=>"Pensamiento","numero"=>"221","cpostal" =>"73999","descripcion"=>"Cliente de prueba");
+      $response["cliente"] = $data;
+   }
+   if ($request->exists('/obtener/eventos')) {
+      $pila = array();
+      $data = array("titulo"=>"Reunion con el cliente de vantec","ubicacion" => "Soledad","fechainicio" => "2016/02/31",
+         "fechafin" => "2016/08/26","descripcion"=> "Reunion de objetivos","url" => rand(1,1231));
+      for ($i=0; $i < 3; $i++) { 
+         array_push($pila, $data);
+      }
+      $response["tareas"] = $pila;
+   }
+   if ($request->exists('/obtener/tareas')) {
+      $pila = array();
+      $data = array("asunto"=>"llamar al cliente de vantec","fecha" => "2016/11/17",
+         "estado" => "Planeado","priroridad"=> "alta","notas" => "ninguna","url" => rand(1,2342));
+      for ($i=0; $i < 3; $i++) { 
+         array_push($pila, $data);
+      }      
+      $response["eventos"] = $pila;
+   }
+
+   return response()->json($response);   
 });

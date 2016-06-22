@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-2 col-lg-2">
             <div class="form-group">
-                <a href='{{url("/detalles/cliente")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-open">Ver Cliente</span></button></a>
+                <button class="btn btn-default" name="ver"><span class="glyphicon glyphicon-open">Ver Cliente</span></button>
             </div>                
         </div>
     </div>

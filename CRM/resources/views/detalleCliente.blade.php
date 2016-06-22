@@ -1,13 +1,29 @@
 @extends('layouts.base')
+
+@section('libs')
+    @parent
+    <script src='{{asset("/js/cookiemanager.js")}}'></script>
+    <script src='{{asset("/js/detalles.js")}}'></script>    
+@stop
+
 @section('body')
 @include('layouts.menu')
+@section("titlehead")
+@parent
+<div class=" col-md-2 col-lg-2"></div>
+<div class=" col-md-2 col-lg-2">
+    <button type="button" name="next" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-right"></span></button>
+    <button type="button" name="prev" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-left"></span></button>
+</div>
+@stop
+
 <div class="container-fluid">
-    <div class="row">
+    <div class="row cliente" >
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-4 col-lg-4">
-            <p class="lead" name="nombre">Nombre Apellido</p>
+            <p class="lead" name="nombre"></p>
             <ul class="list-inline">
-                <li><strong>Telefono: </strong> </li>
+                <li><strong>Telefono: </strong></li>
                 <li name="telefono"></li>
             </ul>
             <ul class="list-inline">
@@ -42,7 +58,7 @@
         </div>
     </div>
     <br>
-    <div class="row">
+    <div class="row cliente" >
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-4 col-lg-4">
             <p class="lead">Caracteristicas del cliente</p>
@@ -58,7 +74,7 @@
         </div>
         <div class="col-md-6 col-lg-6"></div>
     </div>
-    <div class="row">
+    <div class="row cliente">
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-8 col-lg-8">
             <textarea name="notas" rows="5" class="form-control"></textarea>
@@ -75,9 +91,10 @@
     <div class="row">
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-10 col-lg-10">
-            <table class="table table-stripped">
+            <table class="table table-stripped" name="tareas">
                 <thead>
                     <tr>
+                        <th>Edicion</th>
                         <th>Asunto</th>
                         <th>Fecha de vencimiento</th>
                         <th>Estado</th>
@@ -100,9 +117,10 @@
     <div class="row">
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-10 col-lg-10">
-            <table class="table table-stripped">
+            <table class="table table-stripped" name="eventos">
                 <thead>
                     <tr>
+                        <th>Edicion</th>
                         <th>Titulo</th>
                         <th>Ubicacion</th>
                         <th>Fecha de inicio</th>
@@ -114,24 +132,6 @@
                 </tbody>
             </table>    
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2 col-lg-2"></div>
-        <div class="col-md-10 col-lg-10">
-            <table class="table table-stripped">
-                <thead>
-                    <tr>
-                        <th>Titulo</th>
-                        <th>Ubicacion</th>
-                        <th>Fecha de inicio</th>
-                        <th>Fecha de fin</th>
-                        <th>Descripcion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>    
-        </div>
-    </div>           
+    </div>         
 </div>
 @stop

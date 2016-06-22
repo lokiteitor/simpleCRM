@@ -4,6 +4,9 @@ jQuery(document).ready(function($) {
     var tipoElemento;
     var cookiepath;
     var edicion;
+    var vercookiepath;
+    var ver;
+
     data = {}
     pagina = 10;
     nextpag = pagina + 10
@@ -19,6 +22,8 @@ jQuery(document).ready(function($) {
         data.orderby = $('select[name="orden"]').val();
         cookiepath = ";path=/editar/cliente/"
         edicion = "/editar/cliente/"
+        vercookiepath = ";path=/detalles/cliente/"
+        ver = "/detalles/cliente/"        
 
     }
 
@@ -30,6 +35,8 @@ jQuery(document).ready(function($) {
         data.orderby = $('select[name="orden"]').val();
         cookiepath = ";path=/editar/contacto/"
         edicion = "/editar/contacto/"
+        vercookiepath = ";path=/detalles/contacto/"
+        ver = "/detalles/contacto/"            
     }
     if (window.location.pathname == "/ver/cuentas") {
         ruta = "/obtener/cuentas";
@@ -39,6 +46,8 @@ jQuery(document).ready(function($) {
         data.orderby = $('select[name="orden"]').val();
         cookiepath = ";path=/editar/cuenta/"
         edicion = "/editar/cuenta/"
+        vercookiepath = ";path=/detalles/cuenta/"
+        ver = "/detalles/cuenta/"            
     }    
     if (window.location.pathname == "/ver/campanas") {
         ruta = "/obtener/campanas";
@@ -48,6 +57,8 @@ jQuery(document).ready(function($) {
         data.orderby = $('select[name="orden"]').val();
         cookiepath = ";path=/editar/campana/"
         edicion = "/editar/campana/"
+        vercookiepath = ";path=/detalles/campanas/"
+        ver = "/detalles/campanas/"            
     }  
 
 
@@ -147,9 +158,26 @@ jQuery(document).ready(function($) {
         // crear la cookie
         document.cookie = "registros="+encodeURIComponent(registros) + cookiepath;
         // enviar al primer registro en la lista
-        window.location = redireccion;
-        
+        window.location = redireccion;        
     });
+    $('button[name="ver"]').click(function(event) {
+        // si presiona editar obtener las url's de los campos seleccionados 
+        // para guardarlos en una cookie
+        event.preventDefault();
+        console.log('ver')
+        var registros = new Array();
+        $('input[type="checkbox"]:checked').each(function(index, el) {
+            registros.push($(el).val());            
+        });
+        var redireccion = window.location.origin + ver + registros[0];
+        registros.join(",");
+        // crear la cookie
+        document.cookie = "registros="+encodeURIComponent(registros) + vercookiepath;
+        // enviar al primer registro en la lista
+        window.location = redireccion;        
+    });
+
+
 });
 
 function getDataServer(url,data){

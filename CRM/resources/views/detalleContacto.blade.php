@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-4 col-lg-4">
-            <p class="lead" name="nombre">Nombre Apellido</p>
+            <p class="lead" name="nombre"></p>
             <ul class="list-inline">
                 <li><strong>Telefono: </strong> </li>
                 <li name="telefono"></li>
