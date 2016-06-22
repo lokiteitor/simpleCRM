@@ -73,7 +73,14 @@ jQuery(document).ready(function($) {
         ServerData = getDataFromServer("/obtener/cuenta/",data)
         salida = "/ver/cuentas/"
         seccion = "/editar/cuenta/"
-    };            
+    }; 
+    if (window.location.pathname == "/editar/campana/"+actual) {
+        var data = {"id":actual};
+        ServerData = getDataFromServer("/obtener/campana/",data)
+        salida = "/ver/campanas/"
+        seccion = "/editar/campana/"
+    }; 
+
     llenarFormulario(ServerData);
 
 

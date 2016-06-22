@@ -46,6 +46,9 @@
     <div class=" col-md-12  col-lg-12">
         <div class="btn-group  btn-group-vertical ">
             <div>
+                <a href='{{url("/usuario")}}'><button name="home" type="button" class="btn btn-default"><span class="glyphicon glyphicon-home"></span>  Inicio</button></a>
+            </div>            
+            <div>
                 <a href='{{url("/ver/clientes")}}'><button name="cliente" type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>  Clientes</button></a>
             </div>
             <div>
@@ -53,6 +56,9 @@
             </div>
             <div>
                 <a href='{{url("/ver/cuentas")}}'><button name="cuenta" type="button" class="btn btn-default"><span class="glyphicon glyphicon-credit-card"></span>  Cuentas</button></a>
+            </div>            
+            <div>
+                <a href='{{url("/ver/campanas")}}'><button name="campaña" type="button" class="btn btn-default"><span class="glyphicon glyphicon-bullhorn"></span> Campañas</button></a>
             </div>            
             <div>
                 <a href='{{url("/ver/oportunidades")}}'><button name="oportunidad" type="button" class="btn btn-default"><span class="glyphicon glyphicon-usd"></span>  Oportunidades</button></a>
@@ -63,6 +69,9 @@
             <div>
                 <a href='{{url("/ver/eventos")}}'><button name="evento" type="button" class="btn btn-default"><span class="glyphicon glyphicon-calendar"></span>  Eventos</button></a>
             </div>            
+            <div>
+                <a href='{{url("/")}}'><button name="logout" type="button" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span>Salir</button></a>
+            </div>             
         </div>
     </div>
     <button name="hide" type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span></button>

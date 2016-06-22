@@ -40,6 +40,16 @@ jQuery(document).ready(function($) {
         cookiepath = ";path=/editar/cuenta/"
         edicion = "/editar/cuenta/"
     }    
+    if (window.location.pathname == "/ver/campanas") {
+        ruta = "/obtener/campanas";
+        tipoElemento = "campaña"
+        data.pagina = pagina;
+        data.nextpag = nextpag;
+        data.orderby = $('select[name="orden"]').val();
+        cookiepath = ";path=/editar/campana/"
+        edicion = "/editar/campana/"
+    }  
+
 
     // obtener los datos
     ServerData = getDataServer(ruta,data);

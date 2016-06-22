@@ -4,13 +4,30 @@
 @parent
     <script src='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.full.min.js")}}'></script>
     <link rel="stylesheet" href='{{asset("/js/lib/datetimepicker/jquery.datetimepicker.min.css")}}'>
+    @if ($edicion)
+        <script src='{{asset("/js/cookiemanager.js")}}'></script>
+        <script src='{{asset("/js/editar.js")}}'></script>
+    @endif    
 @stop
 
 
 @section('body')
 @include('layouts.menu')
+
+@section("titlehead")
+@parent
+<div class=" col-md-2 col-lg-2"></div>
+<div class=" col-md-2 col-lg-2">
+    @if (isset($edicion) && $edicion == true)
+        <button type="button" name="next" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-right"></span></button>
+        <button type="button" name="prev" class="btn btn-default botonseccion btn-form"><span class="glyphicon glyphicon-chevron-left"></span></button>
+    @endif        
+</div>
+@stop
+
 <div class="container-fluid">
-    <form action='{{url("/crear/campana")}}' method="post" class="form-horizontal" name="campaña">
+    <form action={{$action}} method="post" class="form-horizontal" name="campaña">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-4 col-lg-4">
@@ -45,7 +62,7 @@
                         <option value="progreso">En progreso</option>
                         <option value="completo">Completada</option>
                         <option value="abortado">Abortada</option>
-                        <option value="Planeado">Planeando</option>
+                        <option value="planeado">Planeando</option>
 
                     </select>
                 </div>

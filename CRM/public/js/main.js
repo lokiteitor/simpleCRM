@@ -26,7 +26,7 @@ var opt = {
     "evento": [["#defecha"],["#afecha"],["#inicio",{"time":false}],["#finalizacion",{"time":false}]] ,
     "tarea": [["#vencimiento",{"time":false}],["#horaRecord",{"date":false}],["#inicio",{"time":false}],["#finalizacion",{"time":false}]],
     "oportunidad": [["#cierre",{"time":false}]],
-    "campaña": [["#inicio",{"time":false}],["#finalizacion",{"time":false}]]
+    "campana": [["#inicio",{"time":false}],["#finalizacion",{"time":false}]]
 }
 
 var regex = new RegExp("\/(editar|crear)\/(tarea|evento|campana|oportunidad)\/*[0-9]*")

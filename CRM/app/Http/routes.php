@@ -20,6 +20,7 @@ Route::get("/usuario",function(){
 
     $data['titulo'] = 'Inicio';
     $data['usuario'] = 'usuario';
+    $data['sitio'] = "Inicio";
 
     return view("index",$data);
 });
@@ -74,6 +75,16 @@ Route::get("/ver/eventos",function ()
    $data['sitio'] = "Calendario de eventos";
    $data['titulo'] = "eventos";
    return view('listaEventos', $data);
+});
+
+Route::get("/ver/campanas",function ()
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Lista de Campañas";
+   $data['titulo'] = "campañas";
+   $data['action'] = "/crear/campana/";
+   $data['edicion'] = false;   
+   return view('listaCampana', $data);
 });
 
 
@@ -142,6 +153,8 @@ Route::get("/crear/campana",function ()
    $data['usuario'] = "Administrador";
    $data['titulo'] = "Crear Campaña";
    $data['sitio'] = "Crear Campaña";
+   $data['edicion'] = false;
+   $data['action'] = "/crear/campana";     
    return view("crearCampana",$data);
 });
 
@@ -228,6 +241,17 @@ Route::get("/editar/tarea/{id}",function ($id)
    return view('crearTarea', $data);
 });
 
+Route::get("/editar/campana/{id}",function ($id)
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Editar Campaña";
+   $data['titulo'] = "Editar";
+   $data['edicion'] = true;
+   $data['action'] = URL::to("/editar/campana",array($id));
+
+   return view('crearCampana', $data);
+});
+
 
 Route::post("/editar/cliente/{id}",function (Request $request,$id)
 {
@@ -263,7 +287,11 @@ Route::post("/editar/evento/{id}",function (Request $request,$id)
    return var_dump($request->all()) + var_dump($request->cookie('registros'));
 });
 
-
+Route::post("/editar/campana/{id}",function (Request $request,$id)
+{
+   # actualizar los datos y regresar al principio de la aplicacion
+   return var_dump($request->all()) + var_dump($request->cookie('registros'));
+});
 
 Route::get("/obtener/oportunidades",function ()
 {
@@ -381,6 +409,20 @@ Route::get("/obtener/cuentas",function ()
    return response()->json($response);   
 });
 
+Route::get("/obtener/campanas",function ()
+{
+   $data = array("nombre" => "Recuperar Clientes","estado"=>"En progreso",
+      "tipo" => "Social Media","activo" => "Activo","inicio" => "2016/05/25","fin" => "2017/02/26",
+      "id" => rand(0,1023));
+
+   $response = array();
+
+   for ($i=0; $i < 10; $i++) {
+      $data["id"] = rand(1,1023);
+      array_push($response, $data);
+   }
+   return response()->json($response);   
+});
 
 Route::get("/obtener/cliente",function ()
 {
@@ -431,3 +473,11 @@ Route::get("/obtener/evento",function ()
    return response()->json($response);   
 });
 
+Route::get("/obtener/campana",function ()
+{
+   $data = array("nombre" => "Recuperar Clientes","estado"=>"En progreso",
+      "tipo" => "Social Media","activo" => "Activo","inicio" => "2016/05/25","fin" => "2017/02/26",
+      "id" => rand(0,1023));
+
+   return response()->json($data);   
+});
