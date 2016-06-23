@@ -167,7 +167,7 @@ Route::get("/detalles/cliente/{id}",function ($id)
    return view('detalleCliente', $data);
 });
 
-Route::get("/detalles/contacto",function ()
+Route::get("/detalles/contacto/{id}",function ($id)
 {
    $data['usuario'] = "Administrador";
    $data['sitio'] = "Detalles del Contacto";
@@ -175,6 +175,25 @@ Route::get("/detalles/contacto",function ()
 
    return view('detalleContacto', $data);
 });
+
+Route::get("/detalles/cuenta/{id}",function ($id)
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Detalles de la Cuenta";
+   $data['titulo'] = "Cuenta";
+
+   return view('detalleCuenta', $data);
+});
+Route::get("/detalles/campana/{id}",function ($id)
+{
+   $data['usuario'] = "Administrador";
+   $data['sitio'] = "Detalles de la Campaña";
+   $data['titulo'] = "Campaña";
+
+   return view('detallesCampana', $data);
+});
+
+
 
 Route::get("/editar/evento/{id}",function ($id)
 {
@@ -497,24 +516,67 @@ Route::get("/obtener/detalles",function (Request $request)
       "calle"=>"Pensamiento","numero"=>"221","cpostal" =>"73999","descripcion"=>"Cliente de prueba");
       $response["cliente"] = $data;
    }
+   if ($request->exists('/obtener/contacto')) {
+      $data = array("sexo" => "sra","nombre" => "Luis Perez",
+      "telefono" => "123-1235","celular"=>"444401285","origen"=>"Folleto",
+      "atiende-correo"=>true,"empresa" => "Vantec","web"=>"www.vantec.mx",
+      "estado"=>"Sin contactar","calificacion"=> "Cerrado","valoracion"=>"Frio",
+      "calle"=>"Pensamiento","numero"=>"221","cpostal" =>"73999","descripcion"=>"Cliente de prueba");
+      $response["contacto"] = $data;
+   }
+   if ($request->exists('/obtener/cuenta')) {
+      $data = array("nombre" => "Vantec","tipo" => "proveedor",
+      "calificacion"=>"Adquirido","id" => rand(0,1023),"sector" => "electronica",
+      "telefono" => "123-3235","web" => "www.vantec.mx","Empleados" => 1,
+      "calle"=>"Pensamiento","numero"=>"221","cpostal" =>"73999","descripcion"=>"Cuenta de prueba");
+      $response["cuenta"] = $data;
+   }
+   if ($request->exists('/obtener/campana')) {
+      $data = array("nombre" => "Recuperar Clientes","estado"=>"En progreso",
+      "tipo" => "Social Media","activo" => "Activo","inicio" => "2016/05/25","fin" => "2017/02/26",
+      "id" => rand(0,1023));
+      $response["campana"] = $data;
+   }   
+
+
    if ($request->exists('/obtener/eventos')) {
       $pila = array();
       $data = array("titulo"=>"Reunion con el cliente de vantec","ubicacion" => "Soledad","fechainicio" => "2016/02/31",
-         "fechafin" => "2016/08/26","descripcion"=> "Reunion de objetivos","url" => rand(1,1231));
+         "fechafin" => "2016/08/26","url" => rand(1,1231));
       for ($i=0; $i < 3; $i++) { 
          array_push($pila, $data);
       }
-      $response["tareas"] = $pila;
+      $response["eventos"] = $pila;
    }
    if ($request->exists('/obtener/tareas')) {
       $pila = array();
       $data = array("asunto"=>"llamar al cliente de vantec","fecha" => "2016/11/17",
-         "estado" => "Planeado","priroridad"=> "alta","notas" => "ninguna","url" => rand(1,2342));
+         "estado" => "Planeado","priroridad"=> "alta","url" => rand(1,2342));
       for ($i=0; $i < 3; $i++) { 
          array_push($pila, $data);
       }      
-      $response["eventos"] = $pila;
+      $response["tareas"] = $pila;
    }
+   if ($request->exists('/obtener/contactos')) {
+      $pila = array();
+      $data = array("nombre" => "Sr. Raul Lopez","correo" => "correo@electronico.com",
+      "Telefono" => "123-1234", "creacion" => "2016/05/25", "departamento" => "Ventas",
+      "url" => rand(0,1023));
+      for ($i=0; $i < 3; $i++) { 
+         array_push($pila, $data);
+      }      
+      $response["contactos"] = $pila;
+   }
+   if ($request->exists('/obtener/oportunidades')) {
+      $pila = array();
+      $data = array("titulo" => "venta de equipo","etapa" => "propuesta","tipo" => "nuevo","cierre" => "2016/02/26","url"=>rand(123,13453));      
+
+      for ($i=0; $i < 3; $i++) { 
+         array_push($pila, $data);
+      }      
+      $response["oportunidades"] = $pila;
+   }
+
 
    return response()->json($response);   
 });

@@ -40,11 +40,44 @@ jQuery(document).ready(function($) {
             "/obtener/eventos":{"isMember":actual},
         }
         ServerData = getMixedDataFromServer(APIdata)
-        salida = "/ver/campanas/"
+        salida = "/ver/clientes/"
         seccion = "/detalles/cliente/"
         llenarMixedFormulario(ServerData);
-
+    };
+    if (window.location.pathname == "/detalles/contacto/"+actual) {
+        var APIdata = {
+            "/obtener/contacto":{"id":actual},
+            "/obtener/tareas":{"isMember":actual},
+            "/obtener/eventos":{"isMember":actual},
+        }
+        ServerData = getMixedDataFromServer(APIdata)
+        salida = "/ver/contactos/"
+        seccion = "/detalles/contacto/"
+        llenarMixedFormulario(ServerData);
     }; 
+    if (window.location.pathname == "/detalles/cuenta/"+actual) {
+        var APIdata = {
+            "/obtener/cuenta":{"id":actual},
+            "/obtener/contactos":{"isMember":actual},
+            "/obtener/oportunidades":{"isMember":actual},
+            "/obtener/tareas":{"isMember":actual},           
+        }
+        ServerData = getMixedDataFromServer(APIdata)
+        salida = "/ver/cuentas/"
+        seccion = "/detalles/cuenta/"
+        llenarMixedFormulario(ServerData);
+    };
+    if (window.location.pathname == "/detalles/campana/"+actual) {
+        var APIdata = {
+            "/obtener/campana":{"id":actual},            
+            "/obtener/oportunidades":{"isMember":actual},            
+        }
+        ServerData = getMixedDataFromServer(APIdata)
+        salida = "/ver/campanas/"
+        seccion = "/detalles/campana/"
+        llenarMixedFormulario(ServerData);
+    };      
+             
 
     console.log(registros)
     // moverse entre los registros

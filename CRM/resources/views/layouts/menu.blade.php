@@ -26,9 +26,11 @@
                     <li class="dropdown hidden-md hidden-lg">
                         <a href="#" class="dropdow-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            <li><a style="color:#B6B6B6" href='{{url("/usuario")}}'>Inicio</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/clientes")}}'>Clientes</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/contactos")}}'>Contactos</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/cuentas")}}'>Cuentas</a></li>                            
+                            <li><a style="color:#B6B6B6" href='{{url("/ver/campanas")}}'>Campañas</a></li>                            
                             <li><a style="color:#B6B6B6" href='{{url("/ver/oportunidades")}}'>Oportunidades</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/tareas")}}'>Tareas</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/eventos")}}'>Eventos</a></li>
@@ -74,6 +76,5 @@
             </div>             
         </div>
     </div>
-    <button name="hide" type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span></button>
 </div>
-<button name="show" type="button" class="btn visible-md-block visible-lg-block"><span class="glyphicon glyphicon-menu-right"></span></button>
+<button name="toogle" type="button" value="hide" class="btn btn-default toogleMenu visible-md-block visible-lg-block"><span class="glyphicon glyphicon-menu-left"></span></button>

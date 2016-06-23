@@ -37,7 +37,11 @@
             <ul class="list-inline">
                 <li><strong>Empresa: </strong> </li>
                 <li name="empresa"></li>
-            </ul>            
+            </ul>     
+            <ul class="list-inline">
+                <li><strong>Sitio Web: </strong> </li>
+                <li name="web"></li>
+            </ul>                    
         </div>
         <div class="col-md-1 col-lg-1"></div>
         <div class="col-md-4 col-lg-4">
@@ -51,6 +55,10 @@
                 <li><strong>Colonia: </strong> </li>
                 <li name="colonia"></li>
             </ul>
+            <ul class="list-inline">
+                <li><strong>Codigo Postal: </strong> </li>
+                <li name="cpostal"></li>
+            </ul>                 
             <ul class="list-inline">
                 <li><strong>Localidad: </strong> </li>
                 <li name="localidad"></li>
@@ -70,6 +78,14 @@
                 <li><strong>Calificacion del cliente: </strong> </li>
                 <li name="calificacion"></li>
             </ul>
+            <ul class="list-inline">
+                <li><strong>Estado del cliente: </strong> </li>
+                <li name="estado"></li>
+            </ul> 
+            <ul class="list-inline">
+                <li><strong>Valoracion del cliente: </strong> </li>
+                <li name="valoracion"></li>
+            </ul>             
             <h4>Notas:</h4>                        
         </div>
         <div class="col-md-6 col-lg-6"></div>
@@ -90,7 +106,7 @@
     </div>    
     <div class="row">
         <div class="col-md-2 col-lg-2"></div>
-        <div class="col-md-10 col-lg-10">
+        <div class="col-md-10 col-lg-10 table-responsive">
             <table class="table table-stripped" name="tareas">
                 <thead>
                     <tr>
@@ -98,8 +114,7 @@
                         <th>Asunto</th>
                         <th>Fecha de vencimiento</th>
                         <th>Estado</th>
-                        <th>Prioridad</th>
-                        <th>Notas</th>                    
+                        <th>Prioridad</th>                                     
                     </tr>
                 </thead>
                 <tbody>
@@ -116,7 +131,7 @@
     </div>    
     <div class="row">
         <div class="col-md-2 col-lg-2"></div>
-        <div class="col-md-10 col-lg-10">
+        <div class="col-md-10 col-lg-10 table-responsive">
             <table class="table table-stripped" name="eventos">
                 <thead>
                     <tr>
@@ -125,7 +140,6 @@
                         <th>Ubicacion</th>
                         <th>Fecha de inicio</th>
                         <th>Fecha de fin</th>
-                        <th>Descripcion</th>
                     </tr>
                 </thead>
                 <tbody>

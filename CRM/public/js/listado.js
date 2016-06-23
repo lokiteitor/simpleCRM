@@ -57,8 +57,8 @@ jQuery(document).ready(function($) {
         data.orderby = $('select[name="orden"]').val();
         cookiepath = ";path=/editar/campana/"
         edicion = "/editar/campana/"
-        vercookiepath = ";path=/detalles/campanas/"
-        ver = "/detalles/campanas/"            
+        vercookiepath = ";path=/detalles/campana/"
+        ver = "/detalles/campana/"            
     }  
 
 

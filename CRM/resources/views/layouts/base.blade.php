@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='https://fonts.googleapis.com/css?family=Noto+Sans|Hind:300' rel='stylesheet' type='text/css'>
         @section('libs')
         <script src="{{asset('js/lib/jquery-2.2.2.min.js')}}"></script>
         <link rel="stylesheet" href="{{asset('css/lib/bootstrap/css/bootstrap.min.css')}}">

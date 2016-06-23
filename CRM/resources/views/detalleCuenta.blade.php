@@ -18,7 +18,7 @@
 @stop
 
 <div class="container-fluid">
-    <div class="row contacto" >
+    <div class="row cuenta" >
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-4 col-lg-4">
             <p class="lead" name="nombre"></p>
@@ -27,30 +27,14 @@
                 <li name="telefono"></li>
             </ul>
             <ul class="list-inline">
-                <li><strong>Celular: </strong> </li>
-                <li name="celular"></li>
-            </ul>
-            <ul class="list-inline">
-                <li><strong>Correo: </strong> </li>
-                <li name="correo"></li>
-            </ul>                        
-            <ul class="list-inline">
-                <li><strong>Empresa: </strong> </li>
-                <li name="empresa"></li>
-            </ul>            
-            <ul class="list-inline">
                 <li><strong>Sitio Web: </strong> </li>
                 <li name="web"></li>
-            </ul>               
+            </ul>                          
+             
         </div>
         <div class="col-md-1 col-lg-1"></div>
         <div class="col-md-4 col-lg-4">
-            <br>
-            <ul class="list-inline">
-                <li><strong>Departamento: </strong> </li>
-                <li name="departamento"></li>
-            </ul>
-
+            <br>            
             <ul class="list-inline">
                 <li><strong>Calle: </strong> </li>
                 <li name="calle"></li>
@@ -64,42 +48,97 @@
                 <li name="cpostal"></li>
             </ul>            
             <ul class="list-inline">
-                <li><strong>Localidad: </strong> </li>
-                <li name="localidad"></li>
-            </ul>                                    
+                <li><strong>Ciudad: </strong> </li>
+                <li name="ciudad"></li>
+            </ul>
+            <ul class="list-inline">
+                <li><strong>Estado: </strong> </li>
+                <li name="estado"></li>
+            </ul>                                                
         </div>
     </div>
     <br>
-    <div class="row contacto" >
+    <div class="row cuenta" >
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-4 col-lg-4">
-            <p class="lead">Caracteristicas del contacto</p>
+            <p class="lead">Caracteristicas de la cuenta</p>
             <ul class="list-inline">
-                <li><strong>Origen del contacto: </strong> </li>
-                <li name="origen"></li>
+                <li><strong>Tipo de la cuenta: </strong> </li>
+                <li name="tipo"></li>
             </ul>
             <ul class="list-inline">
-                <li><strong>Calificacion del contacto: </strong> </li>
+                <li><strong>Calificacion de la cuenta: </strong> </li>
                 <li name="calificacion"></li>
             </ul>
             <ul class="list-inline">
-                <li><strong>Estado del contacto: </strong> </li>
-                <li name="estado"></li>
+                <li><strong>Sector: </strong> </li>
+                <li name="sector"></li>
             </ul> 
             <ul class="list-inline">
-                <li><strong>Cuenta a la que perteneze: </strong> </li>
-                <li name="cuenta"></li>
+                <li><strong>Numero de empleados: </strong> </li>
+                <li name="empleados"></li>
             </ul>                          
             <h4>Notas:</h4>                        
         </div>
         <div class="col-md-6 col-lg-6"></div>
     </div>
-    <div class="row contacto">
+    <div class="row cuenta">
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-8 col-lg-8">
             <textarea name="notas" rows="5" class="form-control"></textarea>
         </div>
         <div class="col-md-2 col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-lg-2"></div>
+        <div class="col-md-2 col-lg-2">
+            <p class="lead">Contactos</p>
+        </div>
+        <div class="col-md-8 col-lg-8"></div>
+    </div>    
+    <div class="row">
+        <div class="col-md-2 col-lg-2"></div>
+        <div class="table-responsive col-md-10 col-lg-10">
+            <table class="table table-stripped" name="contactos">
+                <thead>
+                    <tr>
+                        <th>Editar</th>
+                        <th>Nombre del contacto</th>
+                        <th>Correo electronico</th>
+                        <th>Telefono</th>
+                        <th>Fecha de creacion</th>
+                        <th>Departamento</th>                    
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>    
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-lg-2"></div>
+        <div class="col-md-2 col-lg-2">
+            <p class="lead">Oportunidades</p>
+        </div>
+        <div class="col-md-8 col-lg-8"></div>
+    </div>    
+    <div class="row">
+        <div class="col-md-2 col-lg-2"></div>
+        <div class="table-responsive col-md-10 col-lg-10">
+            <table class="table table-stripped" name="oportunidades">
+                <thead>
+                    <tr>
+                        <th>Editar</th>
+                        <th>Titulo</th>
+                        <th>Etapa</th>
+                        <th>Tipo</th>
+                        <th>Fecha de cierre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>    
+        </div>
     </div>
     <div class="row">
         <div class="col-md-2 col-lg-2"></div>
@@ -118,38 +157,13 @@
                         <th>Asunto</th>
                         <th>Fecha de vencimiento</th>
                         <th>Estado</th>
-                        <th>Prioridad</th>            
+                        <th>Prioridad</th>   
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>    
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2 col-lg-2"></div>
-        <div class="col-md-2 col-lg-2">
-            <p class="lead">Eventos</p>
-        </div>
-        <div class="col-md-8 col-lg-8"></div>
-    </div>    
-    <div class="row">
-        <div class="col-md-2 col-lg-2"></div>
-        <div class="table-responsive col-md-10 col-lg-10">
-            <table class="table table-stripped" name="eventos">
-                <thead>
-                    <tr>
-                        <th>Edicion</th>
-                        <th>Titulo</th>
-                        <th>Ubicacion</th>
-                        <th>Fecha de inicio</th>
-                        <th>Fecha de fin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>    
-        </div>
-    </div>         
+    </div>               
 </div>
 @stop

@@ -5,6 +5,7 @@
     position: fixed;
     margin-top: -5%;
     padding-top: 5%;
+    
 }
 
 #navapp strong{
@@ -42,4 +43,55 @@
 
 .btn-form.botonseccion{
     margin-top: 45%;        
+}
+#navapp .btn-group{
+    width: 100%;    
+}
+
+button.toogleMenu{
+    background-color: #086CF2;
+    border-radius: 0;
+    border: 0;
+    float: right;
+    position: fixed;
+    top: 80%;
+    left: 0;
+    opacity: 0.4;
+}
+button.toogleMenu:hover{
+    opacity: 1;
+}
+
+
+#navapp .btn-group button{
+    border-radius: 0;
+    background-color: #00193A;
+    border: 0;
+    color: #B6B6B6;
+    width: 100%;
+    text-align: left;
+}
+
+#navapp .btn-group button:hover{
+    background-color: #121F32;
+}
+
+#navapp .btn-group div > button[name]{
+    text-align: left;
+}
+#navapp .btn-group button + div button{
+    display: none
+}
+
+
+@media screen and (max-width:992px ) {
+    .tituloseccion{
+        margin-top: 10%;
+    }
+    .botonseccion{
+        margin-top: 0;        
+    }
+    .btn-form.botonseccion{
+        margin-top: 0;        
+    } 
 }

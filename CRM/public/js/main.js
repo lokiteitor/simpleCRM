@@ -1,25 +1,27 @@
 jQuery(document).ready(function($) {
 
 // ocultar el menu lateral al presionar hide
-$('#navapp button[name="hide"]').click(function(event) {
+$('button[name="toogle"]').click(function(event) {
     event.preventDefault();
-   $("#navapp").animate({
-        width: parseInt($("#navapp").css("width"))== 0?"-="+$("#navapp").outerWidth():0,
-        opacity:parseInt($("#navapp").css("opacity")) == 1 ? 0 : 1
-    });
-   $('button[name="show"]').addClass('btn-show');
-});
-
-// mostrar el menu lateral
-$('button[name="show"]').click(function(event) {
-    event.preventDefault();
-    console.log('show');
-   $("#navapp").animate({
-        // mientras no sea igual 15% de body
-        width: parseInt($("#navapp").css("width"))== parseInt($('body').width() *.15 )?"+="+parseInt($('body').width() * .15) :parseInt($('body').width() * .15),
-        opacity:parseInt($("#navapp").css("opacity")) == 1 ? 0 : 1
-    });
-    $('button[name="show"]').removeClass('btn-show')
+    if ($(this).val() == "hide" ) {
+        $("#navapp").animate({
+             width: parseInt($("#navapp").css("width"))== 0?"-="+$("#navapp").outerWidth():0,
+             opacity:parseInt($("#navapp").css("opacity")) == 1 ? 0 : 1
+         });
+        $(this).val("show");
+       $(this).find('span').removeClass('glyphicon-menu-left');
+       $(this).find('span').addClass('glyphicon-menu-right');        
+    }
+    else{
+       $("#navapp").animate({
+            // mientras no sea igual 15% de body
+            width: parseInt($("#navapp").css("width"))== parseInt($('body').width() *.15 )?"+="+parseInt($('body').width() * .15) :parseInt($('body').width() * .15),
+            opacity:parseInt($("#navapp").css("opacity")) == 1 ? 0 : 1
+        });        
+       $(this).val("hide");
+       $(this).find('span').removeClass('glyphicon-menu-right');
+       $(this).find('span').addClass('glyphicon-menu-left');
+    }
 });
     
 var opt = {
