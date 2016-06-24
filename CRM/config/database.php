@@ -47,11 +47,11 @@ return [
     'connections' => [
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', getenv("MYSQL_PORT_3306_TCP_ADDR")),
-            'port' => env('DB_PORT', getenv("MYSQL_PORT_3306_TCP_PORT")),
-            'database' => env('DB_DATABASE', 'VANTECRM'),
-            'username' => env('DB_USERNAME', 'vantec'),
-            'password' => env('DB_PASSWORD', 'wlp0s29f7u1'),
+            'host' => env('DB_HOST','localhost'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
