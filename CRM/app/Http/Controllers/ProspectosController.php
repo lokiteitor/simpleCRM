@@ -66,7 +66,7 @@
                 $contacto = new Contacto;
                 $contacto->TITULO = $request->input('sexo');
                 $contacto->NOMBRE = $request->input('nombre');
-                $contacto->APELLIDOS = $request->input('apellidos');
+                $contacto->APELLIDO = $request->input('apellidos');
                 
                 if ($request->exists('telefono')) {
                     $contacto->TELEFONO = $request->input('telefono');
