@@ -2,6 +2,7 @@
 
     namespace App\Http\Controllers;
     use Validator;
+    use App\Contacto;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
 
@@ -97,16 +98,16 @@
                     $contacto->CALLE = $request->input('calle');
                 }
                 if ($request->exists('numero')) {
-                    $contacto->NUM_EXT = $request->input(numero);
+                    $contacto->NUM_EXT = $request->input('numero');
                 }
                 if ($request->exists('colonia')) {
-                    $contacto->COLONIA = $request->input(colonia);
+                    $contacto->COLONIA = $request->input('colonia');
                 }
                 if ($request->exists('cpostal')) {
-                    $contacto->CPOSTAL = $request->input(cpostal);
+                    $contacto->CPOSTAL = $request->input('cpostal');
                 }
                 if ($request->exists('descripcion')) {
-                    $contacto->DESCRIPCION = $request->input(descripcion);
+                    $contacto->DESCRIPCION = $request->input('descripcion');
                 }
                 $contacto->save();        
             }
