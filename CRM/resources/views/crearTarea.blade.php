@@ -30,12 +30,6 @@
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" list="cuentas" placeholder="Cuenta">
-                        <span class="input-group-btn"><button class="btn btn-default" name="buscar-cuentas" type="button"><span class="glyphicon glyphicon-search">Cuentas</span></button></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
                         <input type="text" class="form-control" list="contacto" placeholder="Contacto o posible cliente">
                         <span class="input-group-btn"><button class="btn btn-default" name="buscar-contacto" type="button"><span class="glyphicon glyphicon-search">Contacto/posible cliente</span></button></span>
                     </div>

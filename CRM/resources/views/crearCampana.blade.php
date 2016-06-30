@@ -44,12 +44,12 @@
                 <div class="form-group">
                     <label for="tipo">Tipo</label>
                     <select name="tipo" class="form-control" required>
-                        <option value="ninguno">--Ninguno--</option>
-                        <option value="email">Email</option>
-                        <option value="referencia">Programa de referencia</option>
-                        <option value="busqueda">Busqueda</option>
-                        <option value="social">Social Media</option>
-                        <option value="otro">Otro</option>
+                        <option value="--Ninguno--">--Ninguno--</option>
+                        <option value="Email">Email</option>
+                        <option value="Referencia">Programa de referencia</option>
+                        <option value="Busqueda">Busqueda</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Otro">Otro</option>
                     </select>
                 </div>
             </div>
@@ -58,11 +58,11 @@
                 <div class="form-group">
                     <label for="estado">Estado</label>
                     <select name="estado" class="form-control" name="estado" required>
-                        <option value="ninguno">--Ninguno--</option>
-                        <option value="progreso">En progreso</option>
-                        <option value="completo">Completada</option>
-                        <option value="abortado">Abortada</option>
-                        <option value="planeado">Planeando</option>
+                        <option value="--Ninguno--">--Ninguno--</option>
+                        <option value="En progreso">En progreso</option>
+                        <option value="Completada">Completada</option>
+                        <option value="Abortada">Abortada</option>
+                        <option value="Planeando">Planeando</option>
 
                     </select>
                 </div>

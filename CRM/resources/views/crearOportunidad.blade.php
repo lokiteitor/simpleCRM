@@ -25,8 +25,8 @@
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" list="cuentas" placeholder="Cuenta">
-                        <span class="input-group-btn"><button class="btn btn-default" name="buscar-cuentas" type="button"><span class="glyphicon glyphicon-search">Cuentas</span></button></span>
+                        <input type="text" class="form-control" list="cliente" placeholder="Cliente al que pertenece la oportunidad">
+                        <span class="input-group-btn"><button class="btn btn-default" name="buscar-cliente" type="button"><span class="glyphicon glyphicon-search">Cliente</span></button></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -48,25 +48,10 @@
                         Presupuesto confirmado
                     </label>
                 </div>
-                <div class="form-group">
-                    <label for="cierre">Fecha de cierre</label>
-                    <input type="text" class="form-control" placeholder="2016/06/24 " required name="cierre" id="cierre">
-                </div>
+
             </div>
             <div class="col-md-1 col-lg-1"></div>
-            <div class="col-md-4 col-lg-4">
-                <div class="form-group">
-                    <label for="origen">Origen del cliente</label>
-                    <select name="origen" class="form-control" required>
-                        <option value="Anuncio">Anuncio</option>
-                        <option value="Folleto">Folleto</option>
-                        <option value="Referencia de empleado">Referencia de empleado</option>
-                        <option value="Referencia de otro cliente">Referencia de otro cliente</option>
-                        <option value="Sitio web">Sitio web</option>
-                        <option value="Anuncio via email">Anuncio via email</option>
-                        <option value="Busqueda web">Busqueda web</option>
-                    </select>
-                </div>                
+            <div class="col-md-4 col-lg-4">           
                 <div class="form-group">
                     <label for="etapa">Etapa</label>
                     <select name="etapa" class="form-control" required>
@@ -83,9 +68,17 @@
                     <input type="text" class="form-control" placeholder="Probabilidad de exito (%)" name="probabilidad">
                 </div>
                 <div class="form-group">
+                    <label for="importe">Factura o Remision</label>
+                    <input type="text" class="form-control" placeholder="Factura o Remision a la que perteneze" name="factura">
+                </div>                
+                <div class="form-group">
                     <label for="importe">Importe</label>
                     <input type="text" class="form-control" placeholder="Importe ($)" name="importe">
                 </div>
+                <div class="form-group">
+                    <label for="cierre">Fecha de cierre</label>
+                    <input type="text" class="form-control" placeholder="2016/06/24 " required name="cierre" id="cierre">
+                </div>                
             </div>
         </div>
         <div class="row">

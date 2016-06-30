@@ -22,7 +22,7 @@
 @stop
 
 <div class="container-fluid">
-    <form action={{$action}} method="post" class="form-horizontal" name="cliente">
+    <form action="{{url('/crear/prospecto')}}" method="post" class="form-horizontal" name="cliente">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
@@ -32,30 +32,34 @@
                     <div class="input-group">
                         <div class="input-group-btn" style="width:18%">
                             <select name="sexo" id="inputSexo" class="form-control" required>
-                                <option value="sr">Sr.</option>
-                                <option value="sra">Sra.</option>
-                                <option value="dr">Dr.</option>
-                                <option value="ing">Ing.</option>
-                                <option value="lic">Lic.</option>
-                                <option value="arq">Arq.</option>
-                                <option value="prof">Prof.</option>
+                                <option value="Sr.">Sr.</option>
+                                <option value="Sra.">Sra.</option>
+                                <option value="Dr.">Dr.</option>
+                                <option value="Ing.">Ing.</option>
+                                <option value="Lic.">Lic.</option>
+                                <option value="Arq.">Arq.</option>
+                                <option value="Prof.">Prof.</option>
                             </select>            
                         </div>
-                        <input type="text" name="nombre" id="inputNombre" class="form-control" required placeholder="Nombre">                            
+                        {{  $errors->first('nombre') }}
+                        <input type="text" name="nombre" id="inputNombre" class="form-control" required placeholder="Nombre"> 
                     </div>
                 </div>
 
                 <div class="form-group">
+                    {{  $errors->first('apellidos') }}
                     <label for="apellidos">Apellidos</label>
                     <input type="text" class="form-control" placeholder="Apellidos de Cliente" name="apellidos" required>
                 </div>
                 <div class="form-group">
+                    {{  $errors->first('telefono') }}
                     <label for="telefono">Telefono</label>
-                    <input type="text" class="form-control" placeholder="Telefono de Cliente" name="telefono" required>
+                    <input type="text" class="form-control" placeholder="Formato: 444-123-4567" name="telefono">
                 </div>
                 <div class="form-group">
+                    {{  $errors->first('celular') }}
                     <label for="celular">Celular</label>
-                    <input type="text" class="form-control" placeholder="Celular de Cliente" name="celular">
+                    <input type="text" class="form-control" placeholder="Formato:04444-123-4567" name="celular">
                 </div>
                 <div class="form-group">
                     <label for="origen">Origen del cliente</label>
@@ -70,6 +74,15 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="tipo">Tipo de cliente</label>
+                    <select name="tipo" class="form-control" required>
+                        <option value="Particular">Particular</option>
+                        <option value="Educacion">Educacion</option>
+                        <option value="Gobierno">Gobierno</option>
+                        <option value="Empresa">Empresa</option>
+                    </select>
+                </div>                
+                <div class="form-group">
                     <label>
                         <input type="checkbox" name="atiende-correo">
                         Suele Atender al correo?
@@ -79,16 +92,19 @@
             <div class="col-md-1 col-lg-1"></div>
             <div class="col-md-4 col-lg-4">
                 <div class="form-group">
+                    {{  $errors->first('empresa') }}
                     <label for="empresa">Empresa</label>
                     <input type="text" class="form-control" name="empresa" placeholder="Empresa donde trabaja">
                 </div>
                 <div class="form-group">
+                    {{  $errors->first('web') }}
                     <label for="correo">Sitio web</label>
-                    <input type="text" class="form-control" name="web" placeholder="Sitio web de la empresa">
+                    <input type="text" class="form-control" name="web" placeholder="Formato: http://www.sitio.com">
                 </div>
                 <div class="form-group">
-                    <label for="empresa">Correo</label>
-                    <input type="text" class="form-control" placeholder="Correo del cliente" name="correo">
+                    {{  $errors->first('correo') }}
+                    <label for="correo">Correo</label>
+                    <input type="text" class="form-control" placeholder="Formato:usuario@dominio.com" name="correo">
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado del cliente</label>
@@ -105,7 +121,7 @@
                     <select name="calificacion" class="form-control" required>
                         <option value="Adquirido">Adquirido</option>
                         <option value="Activo">Activo</option>
-                        <option value="Mercado Fallido">Mercado Fallido</option>
+                        <option value="Mercado Fallido">Mediano-Largo Plazo</option>
                         <option value="Proyecto Cancelado">Proyecto Cancelado</option>
                         <option value="Cerrado">Cerrado</option>
                     </select>
@@ -118,6 +134,12 @@
                         <option value="Frio">Frio</option>
                     </select>
                 </div>                
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" list="campaña" placeholder="Campaña de origen">
+                        <span class="input-group-btn"><button class="btn btn-default" name="buscar-campaña" type="button"><span class="glyphicon glyphicon-search">Campaña</span></button></span>
+                    </div>
+                </div>                          
             </div>
         </div>
         <div class="row">
@@ -126,12 +148,14 @@
             <div class="col-md-4 col-lg-4">
                 <h3>Informacion de Contacto</h3>
                 <div class="form-group">
+                    {{  $errors->first('calle') }}
                     <label for="calle">Calle </label>
                     <input type="text" class="form-control" placeholder="Nombre de la calle" name="calle">
                 </div>
                 <div class="form-group">
+                    {{  $errors->first('numero') }}
                     <label for="numero">Numero Exterior</label>
-                    <input type="text" class="form-control" placeholder="222" name="numero">
+                    <input type="text" class="form-control" placeholder="Formato: 222" name="numero">
                 </div>
             </div>
             <div class="col-md-1 col-lg-1"></div>
@@ -140,6 +164,7 @@
                 <br>
                 <br>
                 <div class="form-group">
+                    {{  $errors->first('colonia') }}
                     <label for="colonia">Fraccionamiento o colonia</label>
                     <input type="text" class="form-control" placeholder="Fraccionamiento o colonia" name="colonia">
                 </div>

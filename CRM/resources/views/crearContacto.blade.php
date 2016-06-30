@@ -30,13 +30,13 @@
                     <div class="input-group">
                         <div class="input-group-btn" style="width:18%">
                             <select name="sexo" id="inputSexo" class="form-control" required>
-                                <option value="sr">Sr.</option>
-                                <option value="sra">Sra.</option>
-                                <option value="dr">Dr.</option>
-                                <option value="ing">Ing.</option>
-                                <option value="lic">Lic.</option>
-                                <option value="arq">Arq.</option>
-                                <option value="prof">Prof.</option>
+                                <option value="Sr.">Sr.</option>
+                                <option value="Sra.">Sra.</option>
+                                <option value="Dr.">Dr.</option>
+                                <option value="Ing.">Ing.</option>
+                                <option value="Lic.">Lic.</option>
+                                <option value="Arq.">Arq.</option>
+                                <option value="Prof.">Prof.</option>
                             </select>            
                         </div>
                         <input type="text" name="nombre" id="inputNombre" class="form-control" required placeholder="Nombre">                            
@@ -66,17 +66,28 @@
                         <option value="Busqueda web">Busqueda web</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo de cliente</label>
+                    <select name="tipo" class="form-control" required>
+                        <option value="Particular">Particular</option>
+                        <option value="Educacion">Educacion</option>
+                        <option value="Gobierno">Gobierno</option>
+                        <option value="Empresa">Empresa</option>
+                    </select>
+                </div>   
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" list="campaña" placeholder="Campaña de origen">
+                        <span class="input-group-btn"><button class="btn btn-default" name="buscar-campaña" type="button"><span class="glyphicon glyphicon-search">Campaña</span></button></span>
+                    </div>
+                </div>                                          
             </div>
             <div class="col-md-1 col-lg-1"></div>
             <div class="col-md-4 col-lg-4">
                 <div class="form-group">
                     <label for="empresa">Empresa</label>
                     <input type="text" class="form-control" name="empresa" placeholder="Empresa donde trabaja">
-                </div>
-                <div class="form-group">
-                    <label for="departamento">Departamento</label>
-                    <input type="text" class="form-control" name="departamento" placeholder="Departamento al que pertenece">
-                </div>                
+                </div>             
                 <div class="form-group">
                     <label for="correo">Sitio web</label>
                     <input type="text" class="form-control" name="web" placeholder="Sitio web de la empresa">
@@ -104,14 +115,7 @@
                         <option value="Proyecto Cancelado">Proyecto Cancelado</option>
                         <option value="Cerrado">Cerrado</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" list="cuentas" placeholder="Cuenta">
-                        <span class="input-group-btn"><button class="btn btn-default" name="buscar-cuentas" type="button"><span class="glyphicon glyphicon-search">Cuentas</span></button></span>
-                    </div>
-                </div>
-                <datalist id="cuentas"></datalist>                
+                </div>                          
             </div>
         </div>
         <div class="row">

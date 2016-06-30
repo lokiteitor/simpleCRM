@@ -27,9 +27,9 @@
                         <a href="#" class="dropdow-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a style="color:#B6B6B6" href='{{url("/usuario")}}'>Inicio</a></li>
+                            <li><a style="color:#B6B6B6" href='{{url("/ver/prospectos")}}'>Prospectos</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/clientes")}}'>Clientes</a></li>
-                            <li><a style="color:#B6B6B6" href='{{url("/ver/contactos")}}'>Contactos</a></li>
-                            <li><a style="color:#B6B6B6" href='{{url("/ver/cuentas")}}'>Cuentas</a></li>                            
+                            {{-- <li><a style="color:#B6B6B6" href='{{url("/ver/cuentas")}}'>Cuentas</a></li>                             --}}
                             <li><a style="color:#B6B6B6" href='{{url("/ver/campanas")}}'>Campañas</a></li>                            
                             <li><a style="color:#B6B6B6" href='{{url("/ver/oportunidades")}}'>Oportunidades</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/tareas")}}'>Tareas</a></li>
@@ -51,14 +51,14 @@
                 <a href='{{url("/usuario")}}'><button name="home" type="button" class="btn btn-default"><span class="glyphicon glyphicon-home"></span>  Inicio</button></a>
             </div>            
             <div>
-                <a href='{{url("/ver/clientes")}}'><button name="cliente" type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>  Clientes</button></a>
+                <a href='{{url("/ver/prospectos")}}'><button name="cliente" type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>  Prospectos</button></a>
             </div>
             <div>
-                <a href='{{url("/ver/contactos")}}'><button name="contacto" type="button" class="btn btn-default"><span class="glyphicon glyphicon-briefcase"></span>  Contactos</button></a>
+                <a href='{{url("/ver/clientes")}}'><button name="contacto" type="button" class="btn btn-default"><span class="glyphicon glyphicon-briefcase"></span>  Clientes</button></a>
             </div>
-            <div>
+            {{-- <div>
                 <a href='{{url("/ver/cuentas")}}'><button name="cuenta" type="button" class="btn btn-default"><span class="glyphicon glyphicon-credit-card"></span>  Cuentas</button></a>
-            </div>            
+            </div> --}}            
             <div>
                 <a href='{{url("/ver/campanas")}}'><button name="campaña" type="button" class="btn btn-default"><span class="glyphicon glyphicon-bullhorn"></span> Campañas</button></a>
             </div>            
