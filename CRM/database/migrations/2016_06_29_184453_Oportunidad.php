@@ -20,7 +20,7 @@ class Oportunidad extends Migration
             $table->integer('CONTACTO_ID');
             $table->integer('CAMPANA_ID')->nullable();
             $table->enum('TIPO',array('Negocio Nuevo','Negocio Existe'));
-            $table->boolean('PRESUPUESTO');
+            $table->boolean('PRESUPUESTO')->default(false);
             $table->enum('ETAPA',array('Calificacion','Necesita analisis','Propuesta',
                 'Negocioando','Completada','Perdida'))->nullable();
             $table->integer('PROBABILIDAD')->nullable();

@@ -25,7 +25,7 @@ $('button[name="toogle"]').click(function(event) {
 });
     
 var opt = {
-    "evento": [["#defecha"],["#afecha"],["#inicio",{"time":false}],["#finalizacion",{"time":false}]] ,
+    "evento": [["#defecha",{"date":false}],["#afecha",{"date":false}],["#inicio",{"time":false}],["#finalizacion",{"time":false}],["#fecha",{"time":false}],["#horaRecord",{"date":false}]] ,
     "tarea": [["#vencimiento",{"time":false}],["#horaRecord",{"date":false}],["#inicio",{"time":false}],["#finalizacion",{"time":false}]],
     "oportunidad": [["#cierre",{"time":false}]],
     "campana": [["#inicio",{"time":false}],["#finalizacion",{"time":false}]]
@@ -60,12 +60,17 @@ var regexEvento = new RegExp("\/(editar|crear)\/evento\/*[0-9]*")
 if (regexEvento.test(window.location.pathname)) {  
 
     $('div[name="divrepetir"]').hide(300);
+    $('div[name="divrecordatorio"]').hide(300);
     $('input[name="allday"]').change(function(event) {
         $('div[name="divallday"]').toggle(300);
     });    
     $('input[name="repetir"]').change(function(event) {
         $('div[name="divrepetir"]').toggle(300);
     });
+     $('input[name="recordatorio"]').change(function(event) {
+        $('div[name="divrecordatorio"]').toggle(300);
+    });
+       
 }
 
 $('button[name="cancel"]').click(function(event) {
@@ -85,6 +90,46 @@ $('button[name="cancel"]').click(function(event) {
     }
 });
 
+
+if (window.location.pathname == '/crear/campana') {
+    // si el campo de seleccion tipo tiene seleccionado el campo otro 
+    // mostrar el campo input correspondiente
+    $('input[name="otro"]').hide('100');
+    $('select[name="tipo"]').change(function(event) {
+        if ($(this).val() == 'Otro') {
+            $('input[name="otro"]').show('100');
+        }
+        else{
+            $('input[name="otro"]').hide('100');
+        }
+    });
+};
+
+
+if (window.location.pathname == '/crear/tarea') {
+    $('input[name="otro"]').hide('100');
+    $('select[name="repetira"]').change(function(event) {
+        if ($(this).val() == 'Otro') {
+            $('input[name="otro"]').show('100');
+        }
+        else{
+            $('input[name="otro"]').hide('100');
+        }
+    });    
+};
+if (window.location.pathname == '/crear/evento') {
+    $('input[name="otrorepeticion"]').hide('100');
+    $('select[name="repetira"]').change(function(event) {
+        if ($(this).val() == 'Otro') {
+            $('input[name="otrorepeticion"]').show('100');
+        }
+        else{
+            $('input[name="otrorepeticion"]').hide('100');
+        }
+    });           
+};
+
+
 });
 
 function mostrarCalendario (id,opt=null) {
@@ -94,17 +139,17 @@ function mostrarCalendario (id,opt=null) {
 
         if (opt.hasOwnProperty("time")) {
             opciones.timepicker = false;
-            opciones.format = "Y/m/d"
+            opciones.format = "Y-m-d"
         }
         if (opt.hasOwnProperty("date")) {
             opciones.datepicker = false;
-            opciones.format = "H:i"
-        };
-
+            opciones.format = "H:i:s"
+        }
         $(id).datetimepicker(opciones);    
     }
     else{
-        $(id).datetimepicker();    
+        opciones.format = 'Y-m-d H:i:s'
+        $(id).datetimepicker(opciones);    
     }
     
 }

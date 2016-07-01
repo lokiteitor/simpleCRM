@@ -8,7 +8,7 @@ class Contacto extends Model
 {
     //modelo asociado a tabla CONTACTO
     protected $table = 'CONTACTO';
-    protected $primarykey = 'CONTACTO_ID';
+    protected $primaryKey = 'CONTACTO_ID';
 
     
 }

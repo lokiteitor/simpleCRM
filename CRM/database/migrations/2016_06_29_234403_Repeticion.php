@@ -18,9 +18,6 @@ class Repeticion extends Migration
             $table->date('INICIO');
             $table->date('FIN');
             $table->integer('REPETIR_DIAS');
-            $table->integer('REPETIR_SEMANAS');
-            $table->boolean('REPETIR_MENSUALMENTE');
-            $table->boolean('REPETIR_ANUALMENTE');
             $table->timestamps();
              
         });

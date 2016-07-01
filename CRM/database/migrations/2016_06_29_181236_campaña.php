@@ -18,12 +18,12 @@ class Campaña extends Migration
             $table->string('NOMBRE',60);        
             $table->date('INICIO');
             $table->date('FINALIZACION');            
-            $table->boolean('ACTIVA');
+            $table->boolean('ACTIVA')->default(false);
             $table->string('TIPO');
             $table->enum('ESTADO',array('En Progreso','Completada','Abortada','Finalizada'));
-            $table->integer('INGRESOS_ESP')->nullable()->default(0);
-            $table->integer('PRESUPUESTO')->nullable()->default(0);
-            $table->integer('COSTE')->nullable()->default(0);
+            $table->float('INGRESOS_ESP')->nullable()->default(0);
+            $table->float('PRESUPUESTO')->nullable()->default(0);
+            $table->float('COSTE')->nullable()->default(0);
             $table->string('RESPUESTA')->nullable();
             $table->text('DESCRIPCION')->nullable();            
             $table->timestamps();

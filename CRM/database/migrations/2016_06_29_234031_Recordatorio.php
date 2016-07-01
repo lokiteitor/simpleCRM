@@ -15,10 +15,8 @@ class Recordatorio extends Migration
         //Crear tabla recordatorio
         Schema::create('RECORDATORIO', function (Blueprint $table) {
             $table->increments('RECORDATORIO_ID');
-            $table->boolean('RECORDAR'); 
             $table->integer('DIAS');
             $table->time('HORA');
-            $table->boolean('NOTIFICACION');
             $table->timestamps();
         });
     }

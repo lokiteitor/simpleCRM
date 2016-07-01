@@ -85,7 +85,7 @@
         <div class="col-md-4 col-lg-4"></div>
         <div class="col-md-6 col-lg-6">
             <div class="form-group">
-                <a href='{{url("/crear/contacto")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-plus">Agregar Contacto</span></button></a>
+                <a href='{{url("/crear/cliente")}}'><button class="btn btn-default"><span class="glyphicon glyphicon-plus">Agregar Contacto</span></button></a>
                 <button class="btn btn-default" name="editar"><span class="glyphicon glyphicon-edit">Editar Contacto</span></button>
                 <button name="eliminar" class="btn btn-danger"><span class="glyphicon glyphicon-trash">Eliminar</span></button>
             </div>            

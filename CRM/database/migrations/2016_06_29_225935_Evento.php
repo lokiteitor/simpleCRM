@@ -18,13 +18,17 @@ class Evento extends Migration
             $table->integer('USUARIO_ID');
             $table->string('TITULO');
             $table->string('ASUNTO');
-            $table->string('UBICACION');
+            $table->string('UBICACION')->nullable();
+            $table->date('FECHA');
             $table->dateTime('DE');
             $table->dateTime('A');
             $table->integer('CONTACTO_ID')->nullable();
             $table->text('PARTICIPANTES')->nullable();
+            $table->boolean('RECORDAR')->default(false);
+            $table->boolean('REPETIR')->default(false);            
             $table->integer('REPETICION_ID')->nullable();
-            $table->integer('NOTIFICACION_ID')->nullable();
+            $table->integer('RECORDATORIO_ID')->nullable();
+            $table->text('DESCRIPCION');
             $table->timestamps();
             $table->index('TITULO','ASUNTO');
 

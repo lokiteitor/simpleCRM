@@ -26,13 +26,14 @@
 @stop
 
 <div class="container-fluid">
-    <form action={{$action}} method="post" class="form-horizontal" name="campaña">
+    <form action='{{url("/crear/campana")}}' method="post" class="form-horizontal" name="campaña">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-4 col-lg-4">
                 <div class="form-group">
                     <label for="nombre">Nombre de la campaña</label>
+                    {{  $errors->first('nombre') }}
                     <input type="text" class="form-control" placeholder="Nombre de la Campaña" name="nombre" required>
                 </div>
                 <div class="form-group">
@@ -42,9 +43,9 @@
                     </label>
                 </div>
                 <div class="form-group">
+                    {{  $errors->first('tipo') }}
                     <label for="tipo">Tipo</label>
                     <select name="tipo" class="form-control" required>
-                        <option value="--Ninguno--">--Ninguno--</option>
                         <option value="Email">Email</option>
                         <option value="Referencia">Programa de referencia</option>
                         <option value="Busqueda">Busqueda</option>
@@ -52,27 +53,32 @@
                         <option value="Otro">Otro</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    {{  $errors->first('otro') }}
+                    <input type="text" class="form-control" placeholder="Tipo personalizado" name="otro">
+                </div>                
             </div>
             <div class="col-md-1 col-lg-1"></div>
             <div class="col-md-4 col-lg-4">
                 <div class="form-group">
                     <label for="estado">Estado</label>
+                    {{  $errors->first('estado') }}
                     <select name="estado" class="form-control" name="estado" required>
-                        <option value="--Ninguno--">--Ninguno--</option>
                         <option value="En progreso">En progreso</option>
                         <option value="Completada">Completada</option>
                         <option value="Abortada">Abortada</option>
                         <option value="Planeando">Planeando</option>
-
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="inicio">Fecha de inicio</label>
-                    <input type="text" class="form-control" placeholder="2016/06/24 " required name="inicio" id="inicio">
+                    {{  $errors->first('inicio') }}
+                    <input type="text" class="form-control" placeholder="Formato: 2016-06-24 " required name="inicio" id="inicio">
                 </div>  
                 <div class="form-group">
                     <label for="finalizacion">Fecha de finalizacion</label>
-                    <input type="text" class="form-control" placeholder="2016/06/24 " required name="finalizacion" id="finalizacion">
+                    {{  $errors->first('finalizacion') }}
+                    <input type="text" class="form-control" placeholder="Formato: 2016-06-24 " required name="finalizacion" id="finalizacion">
                 </div>                                  
             </div>
         </div>
@@ -83,11 +89,13 @@
                 <h3>Planificacion</h3>
                 <div class="form-group">
                     <label for="ingresos">Ingresos Esperados </label>
-                    <input type="text" class="form-control" placeholder="$1000.00" name="ingresos">
+                    {{  $errors->first('ingresos') }}
+                    <input type="text" class="form-control" placeholder="Formato: 1000.00" name="ingresos">
                 </div>
                 <div class="form-group">
                     <label for="real">Coste real</label>
-                    <input type="text" class="form-control" placeholder="$1000.00" name="real">
+                    {{  $errors->first('real') }}
+                    <input type="text" class="form-control" placeholder="Formato: 1000.00" name="real">
                 </div>
             </div>
             <div class="col-md-1 col-lg-1"></div>
@@ -97,6 +105,7 @@
                 <br>
                 <div class="form-group">
                     <label for="coste">Coste Presepuestado</label>
+                    {{  $errors->first('coste') }}
                     <input type="text" class="form-control" placeholder="$1000.00" name="coste">
                 </div>
                 <div class="form-group">
