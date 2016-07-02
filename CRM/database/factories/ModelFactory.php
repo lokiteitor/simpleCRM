@@ -19,3 +19,108 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+$factory->define(App\Contacto::class, function (Faker\Generator $faker) {
+    return [
+        'TITULO' => $faker->randomElement($array = array('Sr.','Sra.','Dr.','Ing.','Lic.','Arq.','Prof.')),
+        'NOMBRE' => $faker->name,
+        'APELLIDO' => $faker->lastName,
+        'TELEFONO' => $faker->phoneNumber, 
+        'CELULAR' => $faker->phoneNumber,
+        'TIPO' => $faker->randomElement($array = array('Particular','Gobierno','Empresa','Educacion')),
+        'ORIGEN' => $faker->randomElement($array = array('Anuncio','Folleto','Referencia de empleado',
+            'Referencia de otro cliente','Sitio Web','Anuncio via email','Busqueada Web')),
+        'AT_CORREO' => $faker->boolean($chanceOfGettingTrue = 80) ,
+        'EMPRESA'  => $faker->company,
+        'WEB' => $faker->domainName,
+        'CORREO' => $faker->email,
+        'ESTADO' => $faker->randomElement($array = array('Contactado','Contactar a futuro',
+            'Intento de contacto fallido','Iniciativa perdida','Sin contactar')),
+        'CALIFICACION' => $faker->randomElement($array = array('Adquirido','Activo','Mediano-Largo plazo',
+            'Proyecto Cancelado','Cerrado')),
+        'VALORACION' => $faker->randomElement($array = array('Caliente','Templado','Frio')),
+        'CAMPANA_ID' => $faker->numberBetween($min = 0, $max = 2000),
+        'CALLE'=> $faker->streetName,
+        'NUM_EXT' => $faker->buildingNumber,
+        'COLONIA'=> $faker->streetSuffix,
+        'CPOSTAL'=> $faker->postcode,
+        'DESCRIPCION' => $faker->text($maxNbChars = 60),
+        'ESCLIENTE' => $faker->boolean($chanceOfGettingTrue = 80)
+    ];
+});
+
+$factory->define(App\Campana::class, function (Faker\Generator $faker) {
+    return [
+        'NOMBRE' => $faker->catchPhrase,
+        'INICIO' => $faker->date(),
+        'FINALIZACION' => $faker->date(),
+        'ACTIVA' => $faker->boolean($chanceOfGettingTrue = 60),
+        'TIPO' => $faker->randomElement(array('Email','Refencia','Busqueda','Social Media','Otro')),
+        'ESTADO' => $faker->randomElement(array('En Progreso','Completada','Abortada','Finalizada')),
+        'INGRESOS_ESP' => $faker->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 2000),
+        'PRESUPUESTO' => $faker->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 2000),
+        'COSTE' => $faker->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 2000),
+        'RESPUESTA' => $faker->word,
+        'DESCRIPCION' => $faker->text($maxNbChars = 60)
+    ];
+});
+
+$factory->define(App\Oportunidad::class, function (Faker\Generator $faker) {
+    return [
+        'TITULO' => $faker->catchPhrase,
+        'USUARIO_ID' => $faker->numberBetween(1,100),
+        'CONTACTO_ID' => $faker->numberBetween(1,100),
+        'CAMPANA_ID' => $faker->numberBetween(1,100),
+        'TIPO' => $faker->randomElement(array('Negocio Nuevo','Negocio Existe')),
+        'PRESUPUESTO' => $faker->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 2000),
+        'ETAPA' => $faker->randomElement(array('Calificacion','Necesita analisis','Propuesta',
+                'Negocioando','Completada','Perdida')),
+        'PROBABILIDAD' => $faker->numberBetween(0,100),
+        'FACTURA' => $faker->numberBetween(30000,500400),
+        'IMPORTE' => $faker->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 2000),
+        'CIERRE' => $faker->date(),
+        'INFORMACION' => $faker->text(60),
+    ];
+});
+
+$factory->define(App\Tarea::class, function (Faker\Generator $faker) {
+    return [
+        'USUARIO_ID' => $faker->numberBetween(1,100),
+        'TITULO' => $faker->catchPhrase,
+        'ASUNTO' => $faker->sentence(),
+        'VENCIMIENTO' => $faker->date(),
+        'CONTACTO_ID' => $faker->numberBetween(1,1000),
+        'ESTADO' => $faker->randomElement(array('Sin Empezar','Diferido','En Progreso','Completada','Esperando')),
+        'PRIORIDAD' => $faker->randomElement(array('Muy Alta','Alta','Normal','Baja','Muy Baja')),
+        'NOTIFICACION' => $faker->boolean(90),
+        'DESCRIPCION' => $faker->text(60),
+        'RECORDAR' => $faker->boolean(90),
+        'REPETIR' => $faker->boolean(20),
+        'RECORDATORIO_ID' => $faker->numberBetween(1,1000),
+        'REPETICION_ID' => $faker->numberBetween(1,1000),
+    ];
+});
+
+
+$factory->define(App\Evento::class, function (Faker\Generator $faker) {
+    return [
+        'USUARIO_ID' => $faker->numberBetween(1,100),
+        'TITULO' => $faker->catchPhrase,
+        'ASUNTO' => $faker->sentence(),
+        'FECHA' => $faker->date(),
+        'UBICACION' => $faker->streetAddress,
+        'FECHA' => $faker->date(),
+        'DE' => $faker->time(),
+        'A' => $faker->time(),
+        'CONTACTO_ID' => $faker->numberBetween(1,1000),
+        'PARTICIPANTES' => $faker->name,
+        'RECORDAR' => $faker->boolean(90),
+        'REPETIR' => $faker->boolean(20),
+        'RECORDATORIO_ID' => $faker->numberBetween(1,1000),
+        'REPETICION_ID' => $faker->numberBetween(1,1000),        
+        'DESCRIPCION' => $faker->text(60),
+    ];
+});
+
+

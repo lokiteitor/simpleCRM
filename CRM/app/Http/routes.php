@@ -53,4 +53,9 @@ Route::get('/crear/evento','EventosController@crearEvento');
 
 Route::post('/crear/evento','EventosController@subirEvento');
 
+
+// rutas para obtener datos via ajax
+
+Route::get('/obtener/contactos',"APIController@contactos");
+
 ?>

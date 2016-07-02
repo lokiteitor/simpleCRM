@@ -14,16 +14,17 @@ jQuery(document).ready(function($) {
     $(".numnext").text(nextpag);
     $(".numprev").text(pagina-10);
 
-    if (window.location.pathname == "/ver/clientes") {
-        ruta = "/obtener/clientes";
-        tipoElemento = "cliente"
+    if (window.location.pathname == "/ver/prospectos") {
+        ruta = "/obtener/contactos";
+        data.tipoElemento = "prospecto"
         data.pagina = pagina;
         data.nextpag = nextpag;
         data.orderby = $('select[name="orden"]').val();
-        cookiepath = ";path=/editar/cliente/"
-        edicion = "/editar/cliente/"
-        vercookiepath = ";path=/detalles/cliente/"
-        ver = "/detalles/cliente/"        
+        data.here = window.location.pathname
+        cookiepath = ";path=/editar/prospecto/"
+        edicion = "/editar/prospecto/"
+        vercookiepath = ";path=/detalles/prospecto/"
+        ver = "/detalles/prospecto/"        
 
     }
 
