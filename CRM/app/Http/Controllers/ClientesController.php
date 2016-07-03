@@ -29,13 +29,134 @@
             $data['action'] = "/crear/cliente/";            
             return view("crearContacto",$data);
         }
+        public function editarCliente($id)
+        {
+            $data['usuario'] = "Administrador";
+            $data['sitio'] = "Editar Cliente";
+            $data['titulo'] = "Clientes";
+            $data['edicion'] = true;            
+            return view("crearContacto",$data);            
+        }
+
 
         public function subirCliente(Request $request)
         {
+
             // obtener los datos del formulario, validarlos e insertarlos en la
             // base de datos
             $data = $request->all();
-            // reglas de validacion
+            $redirect = '/crear/cliente';
+ 
+            $validador = $this->validarFormulario($data);
+            if ($validador->passes()) {
+                //  guardar en la base de datos
+                if ($request->has('_id')) {
+                    $contacto = Contacto::find($request->input('_id'));
+                    
+                }
+                else{
+                    $contacto = new Contacto;    
+                }
+                
+                $this->manipularModelo($contacto,$request);
+            }
+            if ($request->has('_id')) {
+                $redirect = '/editar/cliente/' . $request->input('_id');
+            }
+
+            return redirect($redirect)->withErrors($validador)->withInput();
+
+   
+        }
+        public function obtenerCliente(Request $request)
+        {
+            $response = array();
+            if ($request->exists('id')) {
+                // obtener los datos de este contacto
+                // el parametro es el limite superior de la consulta
+                $data = Contacto::find($request->input('id'));
+
+                
+                $formato = [
+                    'sexo'=> $data['TITULO'],
+                    'nombre' => $data['NOMBRE'],
+                    'apellidos' => $data['APELLIDO'],
+                    'telefono' => $data['TELEFONO'],
+                    'celular' => $data['CELULAR'],
+                    'origen' => $data['ORIGEN'],
+                    'tipo' => $data['TIPO'],
+                    'atiende-correo' => $data['AT_CORREO'],
+                    'empresa' => $data['EMPRESA'],
+                    'web' => $data['WEB'],
+                    'correo' => $data['CORREO'],
+                    'estado' => $data['ESTADO'],
+                    'calificacion' => $data['CALIFICACION'],
+                    'valoracion' => $data['VALORACION'],
+                    'campaña' => $data['CAMPANA_ID'],
+                    'calle' => $data['CALLE'],
+                    'colonia' => $data['COLONIA'],
+                    'cpostal' => $data['CPOSTAL'],
+                    'numero' => $data['NUM_EXT'],
+                    'descripcion' => $data['DESCRIPCION']
+                ];
+            }
+            return $formato;  
+        }        
+
+        private function manipularModelo($registro,$request)
+        {
+            
+            $registro->TITULO = $request->input('sexo');
+            $registro->NOMBRE = $request->input('nombre');
+            $registro->APELLIDO = $request->input('apellidos');
+            
+            if ($request->exists('telefono')) {
+                $registro->TELEFONO = $request->input('telefono');
+            }
+            if ($request->exists('celular')) {
+                $registro->CELULAR = $request->input('celular');
+            }
+            $registro->TIPO = $request->input('tipo');
+            $registro->ORIGEN = $request->input('origen');
+            if ($request->input('atiende-correo') == 'on') {
+                $registro->AT_CORREO = true;
+            }
+            if ($request->exists('empresa')) {
+                $registro->EMPRESA = $request->input('empresa');;
+            }
+            if ($request->exists('web')) {
+                $registro->WEB = $request->input('web');
+            }
+            if ($request->exists('correo')) {
+                $registro->CORREO = $request->input('correo');
+            }
+            $registro->estado = $request->input('estado');
+            $registro->CALIFICACION = $request->input('calificacion');
+            $registro->VALORACION = $request->input('valoracion');
+            if ($request->exists('campaña')) {
+                $registro->CAMPANA_ID = $request->input('campaña');
+            }
+            if ($request->exists('calle')) {
+                $registro->CALLE = $request->input('calle');
+            }
+            if ($request->exists('numero')) {
+                $registro->NUM_EXT = $request->input('numero');
+            }
+            if ($request->exists('colonia')) {
+                $registro->COLONIA = $request->input('colonia');
+            }
+            if ($request->exists('cpostal')) {
+                $registro->CPOSTAL = $request->input('cpostal');
+            }
+            if ($request->exists('descripcion')) {
+                $registro->DESCRIPCION = $request->input('descripcion');
+            }
+            $registro->ESCLIENTE = true;
+            $registro->save();                
+        }
+        private function validarFormulario($data)
+        {
+           // reglas de validacion
             $reglas = array(
                     'nombre' => 'required',
                     'apellidos' => 'required',
@@ -61,58 +182,8 @@
 
             $validador = Validator::make($data,$reglas,$mensajes);
 
-            if ($validador->passes()) {
-                //  guardar en la base de datos
-                $contacto = new Contacto;
-                $contacto->TITULO = $request->input('sexo');
-                $contacto->NOMBRE = $request->input('nombre');
-                $contacto->APELLIDO = $request->input('apellidos');
-                
-                if ($request->exists('telefono')) {
-                    $contacto->TELEFONO = $request->input('telefono');
-                }
-                if ($request->exists('celular')) {
-                    $contacto->CELULAR = $request->input('celular');
-                }
-                $contacto->TIPO = $request->input('tipo');
-                $contacto->ORIGEN = $request->input('origen');
-                if ($request->input('atiende-correo') == 'on') {
-                    $contacto->AT_CORREO = true;
-                }
-                if ($request->exists('empresa')) {
-                    $contacto->EMPRESA = $request->input('empresa');;
-                }
-                if ($request->exists('web')) {
-                    $contacto->WEB = $request->input('web');
-                }
-                if ($request->exists('correo')) {
-                    $contacto->CORREO = $request->input('correo');
-                }
-                $contacto->estado = $request->input('estado');
-                $contacto->CALIFICACION = $request->input('calificacion');
-                $contacto->VALORACION = $request->input('valoracion');
-                if ($request->exists('campana')) {
-                    $contacto->CAMPANA = $request->input('campana');
-                }
-                if ($request->exists('calle')) {
-                    $contacto->CALLE = $request->input('calle');
-                }
-                if ($request->exists('numero')) {
-                    $contacto->NUM_EXT = $request->input('numero');
-                }
-                if ($request->exists('colonia')) {
-                    $contacto->COLONIA = $request->input('colonia');
-                }
-                if ($request->exists('cpostal')) {
-                    $contacto->CPOSTAL = $request->input('cpostal');
-                }
-                if ($request->exists('descripcion')) {
-                    $contacto->DESCRIPCION = $request->input('descripcion');
-                }
-                $contacto->ESCLIENTE = true;
-                $contacto->save();        
-            }
-            return redirect('/crear/cliente')->withErrors($validador)->withInput();
+            return $validador;
+            
         }
 
 

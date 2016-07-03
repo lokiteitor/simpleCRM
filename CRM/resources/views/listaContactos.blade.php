@@ -26,13 +26,13 @@
                 <div class="form-group">
                     <label for="orden">Ordenar por:</label>
                     <select name="orden" class="form-control" required>
-                        <option value="nombre">Nombre</option>
-                        <option value="apellido">Apellido</option>
-                        <option value="fecha">Fecha de creacion</option>
-                        <option value="empresa">Empresa</option>
-                        <option value="estado">Estado del contacto</option>
-                        <option value="calificacion">Calificacion del contacto</option>
-                        <option value="origen">Origen del contacto</option>
+                        <option value="NOMBRE">Nombre</option>
+                        <option value="APELLIDO">Apellido</option>
+                        <option value="created_at">Fecha de creacion</option>
+                        <option value="EMPRESA">Empresa</option>
+                        <option value="ESTADO">Estado del cliente</option>
+                        <option value="CALIFICACION">Calificacion del cliente</option>
+                        <option value="ORIGEN">Origen del cliente</option>
                     </select>
                 </div>
             </div>

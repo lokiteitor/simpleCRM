@@ -26,13 +26,19 @@
                 <div class="form-group">
                     <label for="orden">Ordenar por:</label>
                     <select name="orden" class="form-control" required>
-                        <option value="nombre">Nombre</option>
-                        <option value="tipo">Tipo</option>
-                        <option value="estado">Estado</option>
-                        <option value="inicio">Fecha de Inicio</option>
-                        <option value="fin">Fecha de Finalizacion</option>
+                        <option value="NOMBRE">Nombre</option>
+                        <option value="TIPO">Tipo</option>
+                        <option value="ESTADO">Estado</option>
+                        <option value="INICIO">Fecha de Inicio</option>
+                        <option value="FINALIZACION">Fecha de Finalizacion</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="verinactivas">
+                        Ver Inactivas
+                    </label>
+                </div>                
             </div>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
@@ -56,6 +62,7 @@
                             <th>Activo</th>
                             <th>Fecha de inicio</th>
                             <th>Fecha de Finalizacion</th>
+                            <th>Creacion</th>
                         </tr>
                     </thead>
                     <tbody>

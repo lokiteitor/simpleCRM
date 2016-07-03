@@ -16,14 +16,14 @@ class CrearContacto extends Migration
         Schema::create('CONTACTO',function ($tabla)
         {
            $tabla->increments('CONTACTO_ID');
-           $tabla->string('TITULO',4);
+           $tabla->string('TITULO',5);
            $tabla->string('NOMBRE',60);
            $tabla->string('APELLIDO',80);
            $tabla->string('TELEFONO',16)->nullable();
            $tabla->string('CELULAR',20)->nullable();
            $tabla->enum('TIPO',array('Particular','Gobierno','Empresa','Educacion'));
            $tabla->enum('ORIGEN',array('Anuncio','Folleto','Referencia de empleado',
-            'Referencia de otro cliente','Sitio Web','Anuncio via email','Busqueada Web'));
+            'Referencia de otro cliente','Sitio Web','Anuncio via email','Busqueda Web'));
            $tabla->boolean('AT_CORREO')->default(false);
            $tabla->string('EMPRESA')->nullable();
            $tabla->string('WEB')->nullable();

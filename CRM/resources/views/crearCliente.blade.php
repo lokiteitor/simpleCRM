@@ -68,7 +68,7 @@
                         <option value="Folleto">Folleto</option>
                         <option value="Referencia de empleado">Referencia de empleado</option>
                         <option value="Referencia de otro cliente">Referencia de otro cliente</option>
-                        <option value="Sitio web">Sitio web</option>
+                        <option value="Sitio Web">Sitio web</option>
                         <option value="Anuncio via email">Anuncio via email</option>
                         <option value="Busqueda web">Busqueda web</option>
                     </select>
@@ -121,7 +121,7 @@
                     <select name="calificacion" class="form-control" required>
                         <option value="Adquirido">Adquirido</option>
                         <option value="Activo">Activo</option>
-                        <option value="Mercado Fallido">Mediano-Largo Plazo</option>
+                        <option value="Mediano-Largo Plazo">Mediano-Largo Plazo</option>
                         <option value="Proyecto Cancelado">Proyecto Cancelado</option>
                         <option value="Cerrado">Cerrado</option>
                     </select>
@@ -136,7 +136,7 @@
                 </div>                
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" list="campaña" placeholder="Campaña de origen">
+                        <input type="text" class="form-control" list="campaña" placeholder="Campaña de origen" name="campaña">
                         <span class="input-group-btn"><button class="btn btn-default" name="buscar-campaña" type="button"><span class="glyphicon glyphicon-search">Campaña</span></button></span>
                     </div>
                 </div>                          

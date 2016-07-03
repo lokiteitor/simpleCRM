@@ -56,17 +56,17 @@ jQuery(document).ready(function($) {
         $('button[name="prev"').attr('disabled', 'disabled');
     }
     // cargar los datos del formulario
+    if (window.location.pathname == "/editar/prospecto/"+actual) {
+        var data = {"id":actual};
+        ServerData = getDataFromServer("/obtener/prospecto/",data)
+        salida = "/ver/prospectos/"
+        seccion = "/editar/prospecto/"
+    };
     if (window.location.pathname == "/editar/cliente/"+actual) {
         var data = {"id":actual};
         ServerData = getDataFromServer("/obtener/cliente/",data)
         salida = "/ver/clientes/"
         seccion = "/editar/cliente/"
-    };
-    if (window.location.pathname == "/editar/contacto/"+actual) {
-        var data = {"id":actual};
-        ServerData = getDataFromServer("/obtener/contacto/",data)
-        salida = "/ver/contactos/"
-        seccion = "/editar/contacto/"
     };
     if (window.location.pathname == "/editar/cuenta/"+actual) {
         var data = {"id":actual};
@@ -80,7 +80,8 @@ jQuery(document).ready(function($) {
         salida = "/ver/campanas/"
         seccion = "/editar/campana/"
     }; 
-
+    $('form').append('<input type="hidden" name="_id">')
+    $('input[name="_id"]').val(actual);
     llenarFormulario(ServerData);
 
 
@@ -126,7 +127,7 @@ function getDataFromServer (ruta,data) {
         rtrn = json;
         console.log(rtrn)
     })
-    .fail(function() {
+    .fail(function(json) {
         alert("Error al conectar al servidor")
     })
     .always(function(json) {

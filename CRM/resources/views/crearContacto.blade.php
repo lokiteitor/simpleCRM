@@ -121,7 +121,7 @@
                     <select name="calificacion" class="form-control" required>
                         <option value="Adquirido">Adquirido</option>
                         <option value="Activo">Activo</option>
-                        <option value="Mercado Fallido">Mediano-Largo Plazo</option>
+                        <option value="Mediano-Largo Plazo">Mediano-Largo Plazo</option>
                         <option value="Proyecto Cancelado">Proyecto Cancelado</option>
                         <option value="Cerrado">Cerrado</option>
                     </select>

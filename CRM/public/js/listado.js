@@ -28,22 +28,24 @@ jQuery(document).ready(function($) {
 
     }
 
-    if (window.location.pathname == "/ver/contactos") {
-        ruta = "/obtener/contactos";
-        tipoElemento = "contacto"
+    if (window.location.pathname == "/ver/clientes") {
+        ruta = "/obtener/clientes";
+        data.tipoElemento = "cliente"
+        data.here = window.location.pathname
         data.pagina = pagina;
         data.nextpag = nextpag;
         data.orderby = $('select[name="orden"]').val();
-        cookiepath = ";path=/editar/contacto/"
-        edicion = "/editar/contacto/"
-        vercookiepath = ";path=/detalles/contacto/"
-        ver = "/detalles/contacto/"            
+        cookiepath = ";path=/editar/cliente/"
+        edicion = "/editar/cliente/"
+        vercookiepath = ";path=/detalles/cliente/"
+        ver = "/detalles/cliente/"            
     }
     if (window.location.pathname == "/ver/cuentas") {
         ruta = "/obtener/cuentas";
         tipoElemento = "cuenta"
         data.pagina = pagina;
         data.nextpag = nextpag;
+        data.here = window.location.pathname
         data.orderby = $('select[name="orden"]').val();
         cookiepath = ";path=/editar/cuenta/"
         edicion = "/editar/cuenta/"
@@ -52,16 +54,34 @@ jQuery(document).ready(function($) {
     }    
     if (window.location.pathname == "/ver/campanas") {
         ruta = "/obtener/campanas";
-        tipoElemento = "campaña"
+        data.here = window.location.pathname
+        data.tipoElemento = "campaña"
         data.pagina = pagina;
         data.nextpag = nextpag;
         data.orderby = $('select[name="orden"]').val();
         cookiepath = ";path=/editar/campana/"
         edicion = "/editar/campana/"
         vercookiepath = ";path=/detalles/campana/"
-        ver = "/detalles/campana/"            
-    }  
+        ver = "/detalles/campana/"
+        data.vertodas = $('input[name="verinactivas"]').prop('checked')
+        $('input[name="verinactivas"]').change(function(event) {
+            $("tbody").empty();
+            data.pagina = 10;
+            data.nextpag = 20
+            data.vertodas = $(this).prop('checked')
+            // obtener los datos
+            ServerData = getDataServer(ruta,data);
+            // dibujar los datos 
+            for (var i = 0; i < ServerData.length; i++) {
+                construirFila(ServerData[i],tipoElemento);
+            };
+            $(".numactual").text(data.pagina);
+            $(".numnext").text(data.pagina+10);
+            $(".numprev").text(data.pagina-10);            
 
+        });
+
+    }  
 
     // obtener los datos
     ServerData = getDataServer(ruta,data);
@@ -69,39 +89,58 @@ jQuery(document).ready(function($) {
     for (var i = 0; i < ServerData.length; i++) {
         construirFila(ServerData[i],tipoElemento);
     };
+
+    // recargar cuando cambie el orden
+    $('select[name="orden"]').change(function(event) {
+
+        $("tbody").empty();
+        data.pagina = 10;
+        data.nextpag = 20
+        data.orderby = $(this).val();
+        // obtener los datos
+        ServerData = getDataServer(ruta,data);
+        // dibujar los datos 
+        for (var i = 0; i < ServerData.length; i++) {
+            construirFila(ServerData[i],tipoElemento);
+        };
+        $(".numactual").text(data.pagina);
+        $(".numnext").text(data.pagina+10);
+        $(".numprev").text(data.pagina-10);        
+    });
+
     // avanzar el paginado
     $('a[name="prev"]').click(function(event) {
         event.preventDefault();
         if (pagina - 10 != 0) {
             $("tbody").empty();
-            data.nextpag = pagina - 10;
-            data.pagina = pagina;
+            data.nextpag = nextpag - 10;
+            data.pagina = pagina -10;
             pagina -= 10;
             ServerData = getDataServer(ruta,data);
             // dibujar los datos 
             for (var i = 0; i < ServerData.length; i++) {
                 construirFila(ServerData[i],tipoElemento);
             };
-            $(".numactual").text(pagina);
-            $(".numnext").text(pagina+10);
-            $(".numprev").text(pagina-10);            
+            $(".numactual").text(data.pagina);
+            $(".numnext").text(data.pagina+10);
+            $(".numprev").text(data.pagina-10);            
         }
 
     });
     $('a[name="next"]').click(function(event) {
         event.preventDefault();
         $("tbody").empty();
-        data.nextpag = pagina + 10;
-        data.pagina = pagina;
+        data.nextpag = nextpag +10;
+        data.pagina = pagina +10;
         pagina += 10;        
         ServerData = getDataServer(ruta,data);
         // dibujar los datos 
         for (var i = 0; i < ServerData.length; i++) {
             construirFila(ServerData[i],tipoElemento);
         };
-        $(".numactual").text(pagina);
-        $(".numnext").text(pagina+10);
-        $(".numprev").text(pagina-10);        
+        $(".numactual").text(data.pagina);
+        $(".numnext").text(data.pagina+10);
+        $(".numprev").text(data.pagina-10);        
     });
     // remover los campos seleccionados
     $('button[name="eliminar"]').click(function(event) {
@@ -112,8 +151,8 @@ jQuery(document).ready(function($) {
         $('input[type="checkbox"]:checked').each(function(index, el) {
             candidatos.push($(el).val());            
             nombresCandidatos.push($(el).parents("tr").find('th[name="nombre"]').text());
-            console.log($(el).parents("tr").find('th[name="nombre"]').text())
-            console.log("Eliminar:"+candidatos)
+            
+            
         });
         // avisar al usuario si desea elimanarlos
         var r = confirm("Desea eliminar los siguientes registros?:" +nombresCandidatos.join(","));
@@ -125,9 +164,9 @@ jQuery(document).ready(function($) {
             for (var i = 0; i < ServerData.length; i++) {
                 construirFila(ServerData[i],tipoElemento);
             };
-            $(".numactual").text(pagina);
-            $(".numnext").text(pagina+10);
-            $(".numprev").text(pagina-10);              
+            $(".numactual").text(data.pagina);
+            $(".numnext").text(data.pagina+10);
+            $(".numprev").text(data.pagina-10);              
         }
     });
 
@@ -149,7 +188,7 @@ jQuery(document).ready(function($) {
         // si presiona editar obtener las url's de los campos seleccionados 
         // para guardarlos en una cookie
         event.preventDefault();
-        console.log('editar')
+        
         var registros = new Array();
         $('input[type="checkbox"]:checked').each(function(index, el) {
             registros.push($(el).val());            
@@ -165,7 +204,7 @@ jQuery(document).ready(function($) {
         // si presiona editar obtener las url's de los campos seleccionados 
         // para guardarlos en una cookie
         event.preventDefault();
-        console.log('ver')
+        
         var registros = new Array();
         $('input[type="checkbox"]:checked').each(function(index, el) {
             registros.push($(el).val());            
@@ -205,7 +244,6 @@ function getDataServer(url,data){
     return rtrn;
 }
 
-
 function construirFila(data,tipo) {
     // objeto que constituye el nombre_campo:valor
     // modificar los campos del objeto
@@ -221,15 +259,32 @@ function construirFila(data,tipo) {
         if (keys[i] == "id") {
             continue;   
         }
+        if (keys[i] == "creacion" || keys[i] == 'inicio' || keys[i] == 'fin') {
+
+            var d = new Date(data.creacion.date)
+            th = '<th name="' + keys[i] + '">' + d.toLocaleDateString()  + '</th>';    
+            contenido.push(th);        
+            continue;
+        }
+        if (keys[i] == 'activa') {
+            if (data.activa == true) {
+                estado = 'Activa';
+            }
+            else{
+                estado = 'Inactiva';
+            }
+            th = '<th name="' + keys[i] + '">' + estado  + '</th>';    
+            contenido.push(th);
+            continue        
+
+        }
+
         th = '<th name="' + keys[i] + '">' + data[keys[i]] + '</th>';
         contenido.push(th);        
     };
     contenido = contenido.join("");
-    console.log(contenido);
+    
     $(contenido).appendTo($contenedor);
-    console.log($contenedor)
+    
     $('table[name="listado"] tbody').append($contenedor);
 }
-
-
-

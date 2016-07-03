@@ -19,11 +19,13 @@
         <div class="form-group tituloseccion">
             <label for="orden">Ordenar por:</label>
             <select name="orden" class="form-control" required>
-                <option value="nombre">Nombre</option>
-                <option value="fecha">Fecha de creacion</option>
-                <option value="calificacion">Calificacion de la cuenta</option>
-                <option value="sector">Sector</option>
-                <option value="sitio">Sitio</option>
+                <option value="TITULO">Nombre</option>
+                <option value="TIPO">Tipo</option>
+                <option value="ETAPA">Etapa</option>
+                <option value="PROBABILIDAD">Probabilidad</option>
+                <option value="created_at">Fecha de creacion</option>
+                <option value="CIERRE">Fecha de cierre</option>
+                <option value="Factura">Factura/Remision</option>
             </select>
         </div>            
     </div>

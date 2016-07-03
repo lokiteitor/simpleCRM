@@ -58,4 +58,25 @@ Route::post('/crear/evento','EventosController@subirEvento');
 
 Route::get('/obtener/contactos',"APIController@contactos");
 
+Route::get('/obtener/clientes',"APIController@clientes");
+
+Route::get('/obtener/campanas',"APIController@campanas");
+
+Route::get('/obtener/oportunidades',"APIController@oportunidades");
+
+Route::get('/obtener/tareas',"APIController@tareas");
+
+Route::get('/obtener/eventos',"APIController@eventos");
+
+// secciones para la edicion de clientes
+
+Route::get('/editar/prospecto/{id}',"ProspectosController@editarProspecto");
+
+Route::get('/editar/cliente/{id}',"ClientesController@editarCliente");
+
+// obtencion de datos de objetos de forma unitaria
+Route::get('/obtener/prospecto/',"ProspectosController@obtenerProspecto");
+
+Route::get('/obtener/cliente/',"ClientesController@obtenerCliente");
+
 ?>

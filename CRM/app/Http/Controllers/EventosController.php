@@ -78,6 +78,7 @@
                 if ($request->input('allday') == 'on') {
                     $evento->DE = '00:00:00';
                     $evento->A = '23:59:00';
+                    $evento->ALLDAY = true;
                 }
                 else{
                     $evento->DE = $request->input('defecha');

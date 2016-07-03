@@ -13,53 +13,63 @@ jQuery(document).ready(function($) {
     if (window.location.pathname == "/ver/oportunidades") {
         pagina = 0;
         scrollcrr = ($(document).height() / 10 ) * 2;
-        console.log("scrollcrr:" + scrollcrr)
         // si el lugar es oportunidades 
         // estraer el orden
-        ordenby = $('select[name="orden"]').val()        
         // armar los parametros
-        data = {"pagina":pagina,"nextpag":pagina+10,"ordenby":ordenby};
+        data = {"pagina":pagina,"nextpag":pagina+10};
+        data.orderby = $('select[name="orden"]').val()        
+        data.here = window.location.pathname
         ruta = "/obtener/oportunidades";
-        pagina += 10;
         edicion = "/editar/oportunidad/"
     }
     if (window.location.pathname == "/ver/tareas") {
         // por defecto ordenar por fecha
         pagina = 0;
         scrollcrr = ($(document).height() / 10 ) * 4;
-        console.log("scrollcrr:" + scrollcrr)
+        data = {"pagina":pagina,"nextpag":pagina+10};        
         // si el lugar es oportunidades 
         // estraer el orden
-        ordenby = $('select[name="orden"]').val()        
+        data.orderby = $('select[name="orden"]').val()        
         // armar los parametros , acultar las tareas cumplidas
-        data = {"pagina":pagina,"nextpag":pagina+10,"ordenby":ordenby,"showall":false};
+        data.here = window.location.pathname
         ruta = "/obtener/tareas";
         edicion = "/editar/tarea/"
-        pagina += 10;        
-
     };
 
     dataServer = getDataFromServer(ruta,data);
     makeCards(window.location.pathname,dataServer)
+
+    $('select[name="orden"]').change(function(event) {
+        data.pagina = 0;
+        data.nextpag = pagina+10;
+        data.orderby = $('select[name="orden"]').val()
+        $('div[name="col1"]').empty();
+        $('div[name="col2"]').empty();
+        $('div[name="col3"]').empty();
+        pila = new Array([],[],[]); 
+        dataServer = getDataFromServer(ruta,data);
+        makeCards(window.location.pathname,dataServer)
+
+    });
+
     // si el navegador llega al fondo volver a realizar la peticion
     $(document).scroll(function(event) {
         if ($(document).scrollTop() > scrollcrr) {
             // el scroll avanzo
-            scrollcrr = $(document).scrollTop() + ($(document).height() / 10 ) * 3;
-            data.pagina = pagina;
-            pagina += 3
-            data.nextpag = pagina;
+            scrollcrr = $(document).scrollTop() + ($(document).height() / 10 ) * 2;
+            data.pagina = data.nextpag;
+            data.nextpag += 12;
             dataServer = getDataFromServer(ruta,data);
             makeCards(window.location.pathname,dataServer)
         };
-        console.log($(document).scrollTop())
+        
     });    
 });
 
 
 function getDataFromServer (ruta,$data) {
     // devuelve un arreglo con los objetos json
-    console.log($data);
+    console.log(data)
     var rtrn;
 
     $.ajax({
@@ -74,7 +84,7 @@ function getDataFromServer (ruta,$data) {
         rtrn = json;
         console.log(rtrn)
     })
-    .fail(function() {
+    .fail(function(json) {
         console.log(json);
         alert("Error al conectar al servidor")
     })
@@ -87,21 +97,19 @@ function getDataFromServer (ruta,$data) {
 
 function makeCards (rutaActual,data) {
     // armar los objetos en memoria y mostrarlos en el DOM
-    console.log("Creando Cartas")
-    console.log(rutaActual)
-    console.log(data)
     var $row
     var nrow = 0;
     var rutaPlantilla;
+    pila = new Array([],[],[]);
 
 
     if (rutaActual == "/ver/oportunidades") {
         rutaPlantilla =  "/js/html/carta.html" + " #cartaOportunidad";
-        console.log(rutaPlantilla)
+        
     }
     else if (rutaActual == "/ver/tareas") {
         rutaPlantilla =  "/js/html/carta.html" + " #cartaTarea";
-        console.log(rutaPlantilla)         
+        
      }
 
     columna = 0;
@@ -113,7 +121,7 @@ function makeCards (rutaActual,data) {
         else{
             columna += 1;
         } 
-        console.log(individualdata);
+        
         // crear las columnas en memoria}    
         construirCartas(rutaPlantilla,columna-1,individualdata);            
         // agregar tres a la fila
@@ -144,13 +152,13 @@ function construirCartas (plantilla,destino,data) {
         }
         $(this).find('a[name="url"]').attr('href', window.location.origin + edicion+ data.id);
 
-        if (data.prioridad == "Muy alta") {
+        if (data.prioridad == "Muy Alta") {
             clase = "panel-danger";
         }
         else if (data.prioridad == "Alta") {
             clase = "panel-warning";
         }
-        else if (data.prioridad == "normal"){
+        else if (data.prioridad == "Normal"){
             clase = "panel-info"
         }
         else{
@@ -158,7 +166,7 @@ function construirCartas (plantilla,destino,data) {
         }
         $(this).find('.panel').addClass(clase);
         pila[destino].push($(this).html())
-        console.log($(this).html());
+        
     })
 }
 

@@ -19,11 +19,10 @@
         <div class="form-group tituloseccion">
             <label for="orden">Ordenar por:</label>
             <select name="orden" class="form-control" required>
-                <option value="titulo">Titulo</option>
-                <option value="fecha">Fecha de vencimiento</option>
-                <option value="cuenta">Cuenta</option>
-                <option value="persona">Contacto/Posible Cliente</option>
-                <option value="prioridad">Prioridad</option>
+                <option value="TITULO">Titulo</option>
+                <option value="VENCIMIENTO">Fecha de vencimiento</option>
+                <option value="CONTACTO_ID">Contacto/Prospecto</option>
+                <option value="PRIORIDAD">Prioridad</option>
             </select>
         </div>            
     </div>

@@ -20,8 +20,9 @@ class Evento extends Migration
             $table->string('ASUNTO');
             $table->string('UBICACION')->nullable();
             $table->date('FECHA');
-            $table->dateTime('DE');
-            $table->dateTime('A');
+            $table->time('DE');
+            $table->time('A');
+            $table->boolean('ALLDAY')->default(false);
             $table->integer('CONTACTO_ID')->nullable();
             $table->text('PARTICIPANTES')->nullable();
             $table->boolean('RECORDAR')->default(false);
