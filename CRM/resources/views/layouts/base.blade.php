@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="{{asset('css/menulateral.css')}}">
         <link rel="stylesheet" href="{{asset('css/theme.css')}}">
         <script src="{{asset('js/main.js')}}"></script>
+        <script src="{{asset('js/buscador.js')}}"></script>
         @show
         <title>{{$titulo}}</title>
     </head>

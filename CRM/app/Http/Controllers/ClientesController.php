@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
     use Validator;
     use App\Contacto;
+    use App\Campana;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
 
@@ -11,6 +12,41 @@
     */
     class ClientesController extends Controller
     {
+
+        static function buscarContacto($dato)
+         {
+             return Contacto::where('NOMBRE','LIKE',$dato . '%')
+             ->orWhere('APELLIDO','LIKE',$dato . '%')
+             ->orWhere('CONTACTO_ID','LIKE',$dato . '%')->get();
+         } 
+
+        static function getCliente($id)
+        {
+            $data = Contacto::find($id);
+            $formato = [
+                'sexo'=> $data['TITULO'],
+                'nombre' => $data['NOMBRE'],
+                'apellidos' => $data['APELLIDO'],
+                'telefono' => $data['TELEFONO'],
+                'celular' => $data['CELULAR'],
+                'origen' => $data['ORIGEN'],
+                'tipo' => $data['TIPO'],
+                'atiende-correo' => $data['AT_CORREO'],
+                'empresa' => $data['EMPRESA'],
+                'web' => $data['WEB'],
+                'correo' => $data['CORREO'],
+                'estado' => $data['ESTADO'],
+                'calificacion' => $data['CALIFICACION'],
+                'valoracion' => $data['VALORACION'],
+                'campaña' => $data->campana['CAMPANA_ID'] . '-' . $data->campana['NOMBRE'],
+                'calle' => $data['CALLE'],
+                'colonia' => $data['COLONIA'],
+                'cpostal' => $data['CPOSTAL'],
+                'numero' => $data['NUM_EXT'],
+                'descripcion' => $data['DESCRIPCION']
+            ];    
+            return $formato;
+        }
 
         public function listarClientes()
         {
@@ -37,6 +73,14 @@
             $data['edicion'] = true;            
             return view("crearContacto",$data);            
         }
+
+        public function detallesCliente($id)
+        {
+            $data['usuario'] = "Administrador";
+            $data['sitio'] = "Ver Cliente";
+            $data['titulo'] = "Clientes";
+            return view("detalleContacto",$data);            
+        }        
 
 
         public function subirCliente(Request $request)
@@ -74,31 +118,7 @@
             if ($request->exists('id')) {
                 // obtener los datos de este contacto
                 // el parametro es el limite superior de la consulta
-                $data = Contacto::find($request->input('id'));
-
-                
-                $formato = [
-                    'sexo'=> $data['TITULO'],
-                    'nombre' => $data['NOMBRE'],
-                    'apellidos' => $data['APELLIDO'],
-                    'telefono' => $data['TELEFONO'],
-                    'celular' => $data['CELULAR'],
-                    'origen' => $data['ORIGEN'],
-                    'tipo' => $data['TIPO'],
-                    'atiende-correo' => $data['AT_CORREO'],
-                    'empresa' => $data['EMPRESA'],
-                    'web' => $data['WEB'],
-                    'correo' => $data['CORREO'],
-                    'estado' => $data['ESTADO'],
-                    'calificacion' => $data['CALIFICACION'],
-                    'valoracion' => $data['VALORACION'],
-                    'campaña' => $data['CAMPANA_ID'],
-                    'calle' => $data['CALLE'],
-                    'colonia' => $data['COLONIA'],
-                    'cpostal' => $data['CPOSTAL'],
-                    'numero' => $data['NUM_EXT'],
-                    'descripcion' => $data['DESCRIPCION']
-                ];
+                $formato = $this->getCliente($request->input('id'));
             }
             return $formato;  
         }        
@@ -133,9 +153,7 @@
             $registro->estado = $request->input('estado');
             $registro->CALIFICACION = $request->input('calificacion');
             $registro->VALORACION = $request->input('valoracion');
-            if ($request->exists('campaña')) {
-                $registro->CAMPANA_ID = $request->input('campaña');
-            }
+
             if ($request->exists('calle')) {
                 $registro->CALLE = $request->input('calle');
             }
@@ -153,6 +171,20 @@
             }
             $registro->ESCLIENTE = true;
             $registro->save();                
+
+            if ($request->exists('campaña')) {
+                // buscar el id de la campaña
+                $id = explode('-',$request->input('campaña'));
+                $campana_id = $id[0];
+                $campaña = Campana::find($campana_id);
+
+                if ($campaña) {
+                    $registro->CAMPANA_ID = $campaña->CAMPANA_ID;
+                }
+            }
+            $registro->save();
+
+
         }
         private function validarFormulario($data)
         {
@@ -167,7 +199,6 @@
                     'calle' => 'required_with:numero,colonia',
                     'numero' => 'integer|required_with:calle,colonia',
                     'colonia' => 'required_with:calle,numero',
-                    'cpostal' => 'integer'
                 );
 
             $mensajes = array(

@@ -19,13 +19,13 @@ class Oportunidad extends Migration
             $table->integer('USUARIO_ID');
             $table->integer('CONTACTO_ID');
             $table->integer('CAMPANA_ID')->nullable();
-            $table->enum('TIPO',array('Negocio Nuevo','Negocio Existe'));
+            $table->enum('TIPO',array('Negocio Nuevo','Negocio Existente'));
             $table->boolean('PRESUPUESTO')->default(false);
-            $table->enum('ETAPA',array('Calificacion','Necesita analisis','Propuesta',
-                'Negocioando','Completada','Perdida'))->nullable();
+            $table->enum('ETAPA',array('Calificacion','Necesita Analisis','Propuesta',
+                'Negociando','Completada','Perdida'))->nullable();
             $table->integer('PROBABILIDAD')->nullable();
             $table->integer('FACTURA')->nullable();
-            $table->integer('IMPORTE')->nullable();
+            $table->float('IMPORTE')->nullable();
             $table->date('CIERRE');
             $table->text('INFORMACION')->nullable();
             $table->timestamps();

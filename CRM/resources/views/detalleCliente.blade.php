@@ -93,7 +93,7 @@
     <div class="row cliente">
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-8 col-lg-8">
-            <textarea name="notas" rows="5" class="form-control"></textarea>
+            <textarea name="descripcion" rows="5" class="form-control"></textarea>
         </div>
         <div class="col-md-2 col-lg-2"></div>
     </div>
@@ -138,8 +138,7 @@
                         <th>Edicion</th>
                         <th>Titulo</th>
                         <th>Ubicacion</th>
-                        <th>Fecha de inicio</th>
-                        <th>Fecha de fin</th>
+                        <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>

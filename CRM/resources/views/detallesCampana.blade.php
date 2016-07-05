@@ -28,7 +28,7 @@
             </ul>
             <ul class="list-inline">
                 <li><strong>Activo: </strong> </li>
-                <li name="web"></li>
+                <li name="activo"></li>
             </ul>                          
              
         </div>
@@ -41,7 +41,7 @@
             </ul>
             <ul class="list-inline">
                 <li><strong>Fecha de finalizacion: </strong> </li>
-                <li name="fin"></li>
+                <li name="finalizacion"></li>
             </ul>
             <ul class="list-inline">
                 <li><strong>Estado: </strong> </li>
@@ -81,7 +81,7 @@
     <div class="row campana">
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-md-8 col-lg-8">
-            <textarea name="notas" rows="5" class="form-control"></textarea>
+            <textarea name="descripcion" rows="5" class="form-control"></textarea>
         </div>
         <div class="col-md-2 col-lg-2"></div>
     </div>

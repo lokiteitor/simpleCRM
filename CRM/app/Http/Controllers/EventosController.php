@@ -3,8 +3,7 @@
     namespace App\Http\Controllers;
     use Validator;
     use App\Evento;
-    use App\Recordatorio;
-    use App\Repeticion;        
+    use App\Contacto;      
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
 
@@ -31,12 +30,73 @@
             return view("crearEvento",$data);
         }
 
+        public function editarEvento()
+        {
+            $data['usuario'] = "Administrador";
+            $data['sitio'] = "Editar Evento";
+            $data['titulo'] = "Eventos";
+            $data['edicion'] = true;
+            return view("crearEvento",$data);
+        }
+
         public function subirEvento(Request $request)
         {
             // obtener los datos del formulario, validarlos e insertarlos en la
             // base de datos
             $data = $request->all();
-            // reglas de validacion
+            $validador = $this->validarFormulario($data);
+            $redirect = '/crear/evento';
+
+            if ($validador->passes()) {
+                //  guardar en la base de datos
+                if ($request->exists('_id')) {
+                    $evento = Evento::find($request->input('_id'));                
+                }
+                else{
+                    $evento = new Evento;
+                }
+                $this->manipularModelo($evento,$request);
+            }
+            if ($request->exists('_id')) {
+                $redirect = '/editar/evento/' . $request->input('_id');
+            }
+            return redirect($redirect)->withErrors($validador)->withInput();
+        }
+
+        public function obtenerEvento(Request $request)
+        {
+            $response = array();
+            if ($request->exists('id')) {
+                $data = Evento::find($request->input('id'));
+
+                $formato = [
+                    'nombre' => $data['TITULO'],
+                    'asunto' => $data['ASUNTO'],
+                    'ubicacion' => $data['UBICACION'],
+                    'fecha' => $data['FECHA'],
+                    'defecha' => $data['DE'],
+                    'afecha' => $data['A'],
+                    'allday' => $data['ALLDAY'],
+                    'cliente' => $data->contacto['CONTACTO_ID'] . '-' . $data->contacto['TITULO']
+                     .' '.$data->contacto['NOMBRE'] . ' ' .  $data->contacto['APELLIDO'],
+                    'participantes' => $data['PARTICIPANTES'],
+                    'descripcion' => $data['DESCRIPCION'],
+                    'recordatorio' => $data['RECORDAR'],
+                    'repetir' => $data['REPETIR'],
+                    'recordar' => $data['RECORDAR_A_DIAS'],
+                    'horaRecord' => $data['RECORDAR_A_HORA'],
+                    'inicio' => $data['REPETIR_INICIO'],
+                    'finalizacion' => $data['REPETIR_FIN'],
+                    'repetira' => $data['REPETIR_DIAS'],
+                    'otro' => $data['REPETIR_DIAS']                    
+                ];
+            }
+            return $formato;
+        }
+
+        private function validarFormulario($data)
+        {
+                        // reglas de validacion
             $reglas = array(
                     'nombre' => 'required',
                     'asunto' => 'required',
@@ -60,72 +120,75 @@
                 'integer' => 'El campo debe ser un entero'
                 );
 
-            $validador = Validator::make($data,$reglas,$mensajes);
+            return  Validator::make($data,$reglas,$mensajes);
 
-            if ($validador->passes()) {
-                //  guardar en la base de datos
-                $evento = new Evento;
-                $evento->TITULO = $request->input('nombre');
+        }
 
-                // TODO : insertar el id del usuario actual
-                $evento->USUARIO_ID = 1;
+        private function manipularModelo($evento,$request)
+        {
+            $evento->TITULO = $request->input('nombre');
 
-                $evento->ASUNTO = $request->input('asunto');
-                if ($request->exists('ubicacion')) {
-                    $evento->CONTACTO_ID = $request->input('buscar-contacto');
-                }
-                $evento->FECHA = $request->input('fecha');
-                if ($request->input('allday') == 'on') {
-                    $evento->DE = '00:00:00';
-                    $evento->A = '23:59:00';
-                    $evento->ALLDAY = true;
+            // TODO : insertar el id del usuario actual
+            $evento->USUARIO_ID = 1;
+
+            $evento->ASUNTO = $request->input('asunto');
+            if ($request->exists('cliente')) {
+                $evento->CONTACTO_ID = $request->input('buscar-contacto');
+            }
+            $evento->FECHA = $request->input('fecha');
+            if ($request->input('allday') == 'on') {
+                $evento->DE = '00:00:00';
+                $evento->A = '23:59:00';
+                $evento->ALLDAY = true;
+            }
+            else{
+                $evento->DE = $request->input('defecha');
+                $evento->A = $request->input('afecha');
+            }
+            if ($request->exists('ubicacion')) {
+                $evento->UBICACION = $request->input('ubicacion');
+            }
+
+            if ($request->exists('participantes')) {
+                $evento->PARTICIPANTES = $request->input('participantes');
+            }                
+            if ($request->exists('descripcion')) {
+                $evento->DESCRIPCION = $request->input('descripcion');
+            }
+            // crear el registro del recordatorio y notificacion y ligarlos 
+            // a las claves foraneas en evento
+            if ($request->exists('descripcion')) {
+                $evento->DESCRIPCION = $request->input('descripcion');
+            }
+
+            if ($request->input('recordatorio') == 'on') {       
+                $evento->RECORDAR = true;         
+                $evento->RECORDAR_A_DIAS = $request->input('recordar');
+                $evento->RECORDAR_A_HORA = $request->input('horaRecord');
+            }
+            if ($request->input('repetir') == 'on') {
+                $evento->REPETIR = true;
+                $evento->REPETIR_INICIO = $request->input('inicio');
+                $evento->REPETIR_FIN = $request->input('finalizacion');
+                if ($request->input('repetira') == 'Otro') {
+                    $evento->REPETIR_DIAS = $request->input('otro');
                 }
                 else{
-                    $evento->DE = $request->input('defecha');
-                    $evento->A = $request->input('afecha');
-                }
-                if ($request->exists('buscar-contacto')) {
-                    $evento->CONTACTO_ID = $request->input('buscar-contacto');
-                }
-                if ($request->exists('participantes')) {
-                    $evento->PARTICIPANTES = $request->input('participantes');
+                    $evento->REPETIR_DIAS = $request->input('repetira');
                 }                
-                if ($request->exists('descripcion')) {
-                    $evento->DESCRIPCION = $request->input('descripcion');
-                }
-
-                $evento->save();
-                // crear el registro del recordatorio y notificacion y ligarlos 
-                // a las claves foraneas en evento
-                if ($request->input('recordatorio') == 'on') {
-                    
-
-                    $recordatorio = new Recordatorio;
-                    $recordatorio->DIAS = $request->input('recordar');
-                    $recordatorio->HORA = $request->input('horaRecord');
-                    $recordatorio->save();
-                    $evento->RECORDAR = true;
-                    $evento->RECORDATORIO_ID =  $recordatorio->RECORDATORIO_ID;
-                    $evento->save();
-                }
-                if ($request->input('repetir') == 'on') {
-                    $evento->REPETIR = true;
-
-                    $repeticion = new Repeticion;
-                    $repeticion->INICIO = $request->input('inicio');
-                    $repeticion->FIN = $request->input('finalizacion');
-                    if ($request->input('repetira') == 'Otro') {
-                        $repeticion->REPETIR_DIAS = $request->input('otrorepeticion');
-                    }
-                    else{
-                        $repeticion->REPETIR_DIAS = $request->input('repetira');
-                    }
-                    $repeticion->save();
-                    $evento->REPETICION_ID =  $repeticion->REPETICION_ID;
-                    $evento->save();
-                }
             }
-            return redirect('/crear/evento')->withErrors($validador)->withInput();
+            if ($request->exists('cliente')) {
+                $id = explode('-', $request->input('cliente'));
+                $cliente_id = $id[0];
+                $cliente = Contacto::find($cliente_id);
+
+                if ($cliente) {
+                    $evento->CONTACTO_ID = $cliente->CONTACTO_ID;
+                }                
+            }
+
+            $evento->save();      
         }
+
     }
  ?>

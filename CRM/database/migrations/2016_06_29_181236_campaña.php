@@ -15,12 +15,12 @@ class Campaña extends Migration
         // Creacion de la tabla campañas
         Schema::create('CAMPANA', function (Blueprint $table) {
             $table->increments('CAMPANA_ID');
-            $table->string('NOMBRE',60);        
+            $table->string('NOMBRE',128);        
             $table->date('INICIO');
             $table->date('FINALIZACION');            
             $table->boolean('ACTIVA')->default(false);
             $table->string('TIPO');
-            $table->enum('ESTADO',array('En Progreso','Completada','Abortada','Finalizada'));
+            $table->enum('ESTADO',array('En Progreso','Completada','Abortada','Planeando'));
             $table->float('INGRESOS_ESP')->nullable()->default(0);
             $table->float('PRESUPUESTO')->nullable()->default(0);
             $table->float('COSTE')->nullable()->default(0);

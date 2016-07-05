@@ -64,7 +64,7 @@
                     <label for="estado">Estado</label>
                     {{  $errors->first('estado') }}
                     <select name="estado" class="form-control" name="estado" required>
-                        <option value="En progreso">En progreso</option>
+                        <option value="En Progreso">En progreso</option>
                         <option value="Completada">Completada</option>
                         <option value="Abortada">Abortada</option>
                         <option value="Planeando">Planeando</option>

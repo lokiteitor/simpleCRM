@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 |
 */
 
+
+// secciones especiales
+Route::get('/engine/buscador','APIController@buscador');
+
+
 // seccion de prospectos
 Route::get('/ver/prospectos ', 'ProspectosController@listarProspectos');
 
@@ -74,9 +79,43 @@ Route::get('/editar/prospecto/{id}',"ProspectosController@editarProspecto");
 
 Route::get('/editar/cliente/{id}',"ClientesController@editarCliente");
 
+Route::get('/editar/campana/{id}',"CampanasController@editarCampana");
+
+Route::get('/editar/oportunidad/{id}',"OportunidadesController@editarOportunidad");
+
+Route::get('/editar/tarea/{id}',"TareasController@editarTarea");
+
+Route::get('/editar/evento/{id}',"EventosController@editarEvento");
+
 // obtencion de datos de objetos de forma unitaria
 Route::get('/obtener/prospecto/',"ProspectosController@obtenerProspecto");
 
 Route::get('/obtener/cliente/',"ClientesController@obtenerCliente");
+
+Route::get('/obtener/campana/',"CampanasController@obtenerCampana");
+
+Route::get('/obtener/oportunidad/',"OportunidadesController@obtenerOportunidad");
+
+Route::get('/obtener/tarea/',"TareasController@obtenerTarea");
+
+Route::get('/obtener/evento/',"EventosController@obtenerEvento");
+
+// rutas para la vista detalles
+
+Route::get('/detalles/prospecto/{id}',"ProspectosController@detallesProspecto");
+
+Route::get('/detalles/cliente/{id}',"ClientesController@detallesCliente");
+
+Route::get('/detalles/campana/{id}',"CampanasController@detallesCampana");
+
+// ruta unica que maneja los componentes de la vista detalles
+
+Route::get('/obtener/detalles',"APIController@detalles");
+
+
+Route::get('/test',function ()
+{
+    return App\Campana::find(12)->oportunidades;
+});
 
 ?>

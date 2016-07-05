@@ -33,6 +33,17 @@ jQuery(document).ready(function($) {
     }
 
     // secciones 
+    if (window.location.pathname == "/detalles/prospecto/"+actual) {
+        var APIdata = {
+            "/obtener/prospecto":{"id":actual},
+            "/obtener/tareas":{"isMember":actual},
+            "/obtener/eventos":{"isMember":actual},
+        }
+        ServerData = getMixedDataFromServer(APIdata)
+        salida = "/ver/prospecto/"
+        seccion = "/detalles/prospecto/"
+        llenarMixedFormulario(ServerData);
+    };
     if (window.location.pathname == "/detalles/cliente/"+actual) {
         var APIdata = {
             "/obtener/cliente":{"id":actual},
@@ -43,30 +54,7 @@ jQuery(document).ready(function($) {
         salida = "/ver/clientes/"
         seccion = "/detalles/cliente/"
         llenarMixedFormulario(ServerData);
-    };
-    if (window.location.pathname == "/detalles/contacto/"+actual) {
-        var APIdata = {
-            "/obtener/contacto":{"id":actual},
-            "/obtener/tareas":{"isMember":actual},
-            "/obtener/eventos":{"isMember":actual},
-        }
-        ServerData = getMixedDataFromServer(APIdata)
-        salida = "/ver/contactos/"
-        seccion = "/detalles/contacto/"
-        llenarMixedFormulario(ServerData);
     }; 
-    if (window.location.pathname == "/detalles/cuenta/"+actual) {
-        var APIdata = {
-            "/obtener/cuenta":{"id":actual},
-            "/obtener/contactos":{"isMember":actual},
-            "/obtener/oportunidades":{"isMember":actual},
-            "/obtener/tareas":{"isMember":actual},           
-        }
-        ServerData = getMixedDataFromServer(APIdata)
-        salida = "/ver/cuentas/"
-        seccion = "/detalles/cuenta/"
-        llenarMixedFormulario(ServerData);
-    };
     if (window.location.pathname == "/detalles/campana/"+actual) {
         var APIdata = {
             "/obtener/campana":{"id":actual},            

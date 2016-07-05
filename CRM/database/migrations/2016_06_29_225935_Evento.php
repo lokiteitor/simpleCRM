@@ -25,17 +25,20 @@ class Evento extends Migration
             $table->boolean('ALLDAY')->default(false);
             $table->integer('CONTACTO_ID')->nullable();
             $table->text('PARTICIPANTES')->nullable();
+            // recordatorio
             $table->boolean('RECORDAR')->default(false);
-            $table->boolean('REPETIR')->default(false);            
-            $table->integer('REPETICION_ID')->nullable();
-            $table->integer('RECORDATORIO_ID')->nullable();
+            $table->integer('RECORDAR_A_DIAS')->nullable();
+            $table->time('RECORDAR_A_HORA')->nullable();
+            // repeticion
+            $table->boolean('REPETIR')->default(false);
+            $table->date('REPETIR_INICIO')->nullable();
+            $table->date('REPETIR_FIN')->nullable();
+            $table->integer('REPETIR_DIAS')->nullable();
+            // 
             $table->text('DESCRIPCION');
             $table->timestamps();
-            $table->index('TITULO','ASUNTO');
-
-            
+            $table->index('TITULO','ASUNTO');            
         });
-
     }
 
     /**

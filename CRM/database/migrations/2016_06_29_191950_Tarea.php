@@ -24,12 +24,17 @@ class Tarea extends Migration
             $table->enum('PRIORIDAD',array('Muy Alta','Alta','Normal','Baja','Muy Baja'));
             $table->boolean('NOTIFICACION');
             $table->text('DESCRIPCION')->nullable();
+            // recordatorio
             $table->boolean('RECORDAR')->default(false);
+            $table->integer('RECORDAR_A_DIAS')->nullable();
+            $table->time('RECORDAR_A_HORA')->nullable();
+            // repeticion
             $table->boolean('REPETIR')->default(false);
-            $table->integer('RECORDATORIO_ID')->nullable();
-            $table->integer('REPETICION_ID')->nullable();           
+            $table->date('REPETIR_INICIO')->nullable();
+            $table->date('REPETIR_FIN')->nullable();
+            $table->integer('REPETIR_DIAS')->nullable();
+            // 
             $table->timestamps();
-
             $table->index(array('TITULO','ASUNTO'));
         });     
     }

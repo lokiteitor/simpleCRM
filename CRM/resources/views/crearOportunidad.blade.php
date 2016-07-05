@@ -26,22 +26,25 @@
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" list="cliente" placeholder="Cliente al que pertenece la oportunidad">
+                        <input type="text" class="form-control buscador" list="cliente" name='cliente' placeholder="Cliente al que pertenece la oportunidad" data-busqueda="cliente">
                         <span class="input-group-btn"><button class="btn btn-default" name="buscar-cliente" type="button"><span class="glyphicon glyphicon-search">Cliente</span></button></span>
+                        <datalist id="cliente"></datalist>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" list="campaña" placeholder="Campaña de origen">
+                        <input type="text" class="form-control buscador" list="campaña" name='campaña' placeholder="Campaña de origen" data-busqueda="campaña">
                         <span class="input-group-btn"><button class="btn btn-default" name="buscar-campaña" type="button"><span class="glyphicon glyphicon-search">Campaña</span></button></span>
+                        <datalist id="campaña"></datalist>
                     </div>
+
                 </div>                
                 <div class="form-group">
                     <label for="tipo">Tipo</label>
                     {{  $errors->first('tipo') }}
                     <select name="tipo" class="form-control" required>
-                        <option value="nuevo">Negocio nuevo</option>
-                        <option value="existente">Negocio existente</option>
+                        <option value="Negocio Nuevo">Negocio nuevo</option>
+                        <option value="Negocio Existente">Negocio existente</option>
                     </select>
                 </div>                  
                 <div class="form-group">
@@ -58,21 +61,21 @@
                     <label for="etapa">Etapa</label>
                     {{  $errors->first('etapa') }}
                     <select name="etapa" class="form-control" required>
-                        <option value="calificacion">Calificacion</option>
-                        <option value="analisis">Necesita Analisis</option>
-                        <option value="propuesta">Propuesta</option>
-                        <option value="negociando">Negociando</option>
-                        <option value="completado">Completado</option>
-                        <option value="perdido">Perdido</option>
+                        <option value="Calificacion">Calificacion</option>
+                        <option value="Necesita Analisis">Necesita Analisis</option>
+                        <option value="Propuesta">Propuesta</option>
+                        <option value="Negociando">Negociando</option>
+                        <option value="Completada">Completada</option>
+                        <option value="Perdida">Perdida</option>
                     </select>
                 </div>                
                 <div class="form-group">
                     <label for="probabilidad">Probabilidad</label>
                     {{  $errors->first('probabilidad') }}
-                    <input type="text" class="form-control" placeholder="Probabilidad de exito (%) Formato: 080.0 " name="probabilidad">
+                    <input type="text" class="form-control" placeholder="Probabilidad de exito (%) Formato: 080 " name="probabilidad">
                 </div>
                 <div class="form-group">
-                    <label for="importe">Factura o Remision</label>
+                    <label for="factura">Factura o Remision</label>
                     {{  $errors->first('factura') }}
                     <input type="text" class="form-control" placeholder="Factura o Remision a la que perteneze" name="factura">
                 </div>                

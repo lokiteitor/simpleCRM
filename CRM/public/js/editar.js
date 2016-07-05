@@ -80,7 +80,7 @@ jQuery(document).ready(function($) {
         salida = "/ver/campanas/"
         seccion = "/editar/campana/"
     }; 
-    $('form').append('<input type="hidden" name="_id">')
+    $('form.form-horizontal').append('<input type="hidden" name="_id">')
     $('input[name="_id"]').val(actual);
     llenarFormulario(ServerData);
 

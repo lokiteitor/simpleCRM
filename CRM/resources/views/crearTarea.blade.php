@@ -33,30 +33,33 @@
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" list="contacto" placeholder="Contacto o posible cliente">
+                        <input type="text" class="form-control buscador" list="cliente" placeholder="Contacto o posible cliente" name="cliente"
+                        data-busqueda="cliente">
                         <span class="input-group-btn"><button class="btn btn-default" name="buscar-contacto" type="button"><span class="glyphicon glyphicon-search">Contacto/posible cliente</span></button></span>
+
+                        <datalist id="cliente"></datalist>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado</label>
                     {{  $errors->first('estado') }}
                     <select name="estado" class="form-control" required>
-                        <option value="sin-empezar">Sin empezar</option>
-                        <option value="diferido">Diferido</option>
-                        <option value="progreso">En progreso</option>
-                        <option value="completada">Completada</option>
-                        <option value="espera">Esperando</option>
+                        <option value="Sin Empezar">Sin empezar</option>
+                        <option value="Diferido">Diferido</option>
+                        <option value="Progreso">En progreso</option>
+                        <option value="Completada">Completada</option>
+                        <option value="Esperando">Esperando</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="prioridad">Prioridad</label>
                     {{  $errors->first('prioridad') }}
                     <select name="prioridad" class="form-control" required>
-                        <option value="muy-alta">Muy alta</option>
-                        <option value="alta">Alta</option>
-                        <option value="normal">Normal</option>
-                        <option value="baja">Baja</option>
-                        <option value="muy-baja">Muy Baja</option>
+                        <option value="Muy Alta">Muy Alta</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Baja">Baja</option>
+                        <option value="Muy Baja">Muy Baja</option>
                     </select>
                 </div>
                 <div class="form-group">

@@ -30,7 +30,7 @@ class CrearContacto extends Migration
            $tabla->string('CORREO')->nullable();
            $tabla->enum('ESTADO',array('Contactado','Contactar a futuro',
             'Intento de contacto fallido','Iniciativa perdida','Sin contactar'));
-           $tabla->enum('CALIFICACION', array('Adquirido','Activo','Mediano-Largo plazo',
+           $tabla->enum('CALIFICACION', array('Adquirido','Activo','Mediano-Largo Plazo',
             'Proyecto Cancelado','Cerrado'));
            $tabla->enum('VALORACION',array('Caliente','Templado','Frio'));
            $tabla->integer('CAMPANA_ID')->nullable();

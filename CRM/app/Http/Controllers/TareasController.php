@@ -3,8 +3,7 @@
     namespace App\Http\Controllers;
     use Validator;
     use App\Tarea;
-    use App\Recordatorio;
-    use App\Repeticion;        
+    use App\Contacto; 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
 
@@ -31,11 +30,69 @@
             return view("crearTarea",$data);
         }
 
+        public function editarTarea()
+        {
+            $data['usuario'] = "Administrador";
+            $data['sitio'] = "Editar Tarea";
+            $data['titulo'] = "Tareas";
+            $data['edicion'] = true;
+            return view("crearTarea",$data);
+        }        
+
         public function subirTarea(Request $request)
         {
             // obtener los datos del formulario, validarlos e insertarlos en la
             // base de datos
             $data = $request->all();
+            $redirect = "/crear/tarea";
+            $validador = $this->validarFormulario($data);
+            if ($validador->passes()) {
+                //  guardar en la base de datos
+                if ($request->exists('_id')) {
+                    $tarea = Tarea::find($request->input('_id'));
+                }
+                else{
+                    $tarea = new Tarea;
+                }
+                $this->manipularModelo($tarea,$request);
+            }
+            if ($request->exists('_id')) {
+                $redirect = '/editar/tarea/' . $request->input('_id');
+            }
+            return redirect($redirect)->withErrors($validador)->withInput();
+        }
+
+        public function obtenerTarea(Request $request)
+        {
+            $response = array();
+            if ($request->exists('id')) {
+                $data = Tarea::find($request->input('id'));
+                $formato = [
+                    'nombre' => $data['TITULO'],
+                    'asunto' => $data['ASUNTO'],
+                    'vencimiento' => $data['VENCIMIENTO'],
+                    'cliente' => $data->contacto['CONTACTO_ID'] . '-' . $data->contacto['TITULO'] .' '.$data->contacto['NOMBRE']
+                                 . ' ' .  $data->contacto['APELLIDO'],
+                    'estado' => $data['ESTADO'],
+                    'prioridad' => $data['PRIORIDAD'],
+                    'notificarcorreo' => $data['NOTIFICACION'],
+                    'descripcion' => $data['DESCRIPCION'],
+                    'recordatorio' => $data['RECORDAR'],
+                    'repetir' => $data['REPETIR'],
+                    'recordar' => $data['RECORDAR_A_DIAS'],
+                    'horaRecord' => $data['RECORDAR_A_HORA'],
+                    'inicio' => $data['REPETIR_INICIO'],
+                    'finalizacion' => $data['REPETIR_FIN'],
+                    'repetira' => $data['REPETIR_DIAS'],
+                    'otro' => $data['REPETIR_DIAS']
+                ];
+            }
+            return $formato;
+        }
+
+
+        private function validarFormulario($data)
+        {
             // reglas de validacion
             $reglas = array(
                     'nombre' => 'required',
@@ -61,63 +118,55 @@
                 'integer' => 'El campo debe ser un entero'
                 );
 
-            $validador = Validator::make($data,$reglas,$mensajes);
+            return Validator::make($data,$reglas,$mensajes);            
+        }
 
-            if ($validador->passes()) {
-                //  guardar en la base de datos
-                $tarea = new Tarea;
-                $tarea->TITULO = $request->input('nombre');
+        private function manipularModelo ($tarea,$request)
+        {
+            $tarea->TITULO = $request->input('nombre');
 
-                // TODO : insertar el id del usuario actual
-                $tarea->USUARIO_ID = 1;
+            // TODO : insertar el id del usuario actual
+            $tarea->USUARIO_ID = 1;
 
-                $tarea->ASUNTO = $request->input('asunto');
-                $tarea->VENCIMIENTO = $request->input('vencimiento');
-                if ($request->exists('buscar-contacto')) {
-                    $tarea->CONTACTO_ID = $request->input('buscar-contacto');
-                }
-                $tarea->ESTADO = $request->input('estado');
-                $tarea->PRIORIDAD = $request->input('prioridad');
-                if ($request->input('notificarcorreo') == 'on') {
-                    $tarea->NOTIFICACION = true;
-                }
-
-                if ($request->exists('descripcion')) {
-                    $tarea->DESCRIPCION = $request->input('descripcion');
-                }
-
-                $tarea->save();
-                // crear el registro del recordatorio y notificacion y ligarlos 
-                // a las claves foraneas en Tarea
-                if ($request->input('recordatorio') == 'on') {
-                    
-
-                    $recordatorio = new Recordatorio;
-                    $recordatorio->DIAS = $request->input('recordar');
-                    $recordatorio->HORA = $request->input('horaRecord');
-                    $recordatorio->save();
-                    $tarea->RECORDAR = true;
-                    $tarea->RECORDATORIO_ID =  $recordatorio->RECORDATORIO_ID;
-                    $tarea->save();
-                }
-                if ($request->input('repetir') == 'on') {
-                    $tarea->REPETIR = true;
-
-                    $repeticion = new Repeticion;
-                    $repeticion->INICIO = $request->input('inicio');
-                    $repeticion->FIN = $request->input('finalizacion');
-                    if ($request->input('repetira') == 'Otro') {
-                        $repeticion->REPETIR_DIAS = $request->input('otro');
-                    }
-                    else{
-                        $repeticion->REPETIR_DIAS = $request->input('repetira');
-                    }
-                    $repeticion->save();
-                    $tarea->REPETICION_ID =  $repeticion->REPETICION_ID;
-                    $tarea->save();
-                }
+            $tarea->ASUNTO = $request->input('asunto');
+            $tarea->VENCIMIENTO = $request->input('vencimiento');
+            $tarea->ESTADO = $request->input('estado');
+            $tarea->PRIORIDAD = $request->input('prioridad');
+            if ($request->input('notificarcorreo') == 'on') {
+                $tarea->NOTIFICACION = true;
             }
-            return redirect('/crear/tarea')->withErrors($validador)->withInput();
+
+            if ($request->exists('descripcion')) {
+                $tarea->DESCRIPCION = $request->input('descripcion');
+            }
+
+            if ($request->input('recordatorio') == 'on') {       
+                $tarea->RECORDAR = true;         
+                $tarea->RECORDAR_A_DIAS = $request->input('recordar');
+                $tarea->RECORDAR_A_HORA = $request->input('horaRecord');
+            }
+            if ($request->input('repetir') == 'on') {
+                $tarea->REPETIR = true;
+                $tarea->REPETIR_INICIO = $request->input('inicio');
+                $tarea->REPETIR_FIN = $request->input('finalizacion');
+                if ($request->input('repetira') == 'Otro') {
+                    $tarea->REPETIR_DIAS = $request->input('otro');
+                }
+                else{
+                    $tarea->REPETIR_DIAS = $request->input('repetira');
+                }                
+            }
+            if ($request->exists('cliente')) {
+                $id = explode('-', $request->input('cliente'));
+                $cliente_id = $id[0];
+                $cliente = Contacto::find($cliente_id);
+
+                if ($cliente) {
+                    $tarea->CONTACTO_ID = $cliente->CONTACTO_ID;
+                }                
+            }
+
+            $tarea->save();        
         }
     }
  ?>
