@@ -72,6 +72,9 @@
                 <a href='{{url("/ver/eventos")}}'><button name="evento" type="button" class="btn btn-default"><span class="glyphicon glyphicon-calendar"></span>  Eventos</button></a>
             </div>            
             <div>
+                <a href='{{url("/ver/informes")}}'><button name="evento" type="button" class="btn btn-default"><span class="glyphicon glyphicon-signal"></span>  Informes</button></a>
+            </div>                        
+            <div>
                 <a href='{{url("/")}}'><button name="logout" type="button" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span>Salir</button></a>
             </div>             
         </div>

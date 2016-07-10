@@ -83,6 +83,7 @@
                     'importe' => $data['IMPORTE'],
                     'cierre' => $data['CIERRE'],
                     'descripcion' => $data['INFORMACION'],
+                    'inversion' => $data['INVERSION']
  
                 ];
             }
@@ -98,7 +99,7 @@
                     'cierre' => 'date_format:Y-m-d',
                     'probabilidad' => 'max:100|regex:/^[0-9]{3}$/',
                     'importe' => 'regex:/^[0-9]+.[0-9]{2}$/',
-                    'coste' => 'regex:/^[0-9]+.[0-9]{2}$/',                
+                    'inversion' => 'regex:/^[0-9]+.[0-9]{2}$/',                
    
                 );
 
@@ -135,6 +136,9 @@
             if ($request->exists('importe')) {
                 $oportunidad->IMPORTE = $request->input('importe');
             }
+            if ($request->exists('inversion')) {
+                $oportunidad->INVERSION = $request->input('inversion');
+            }            
             $oportunidad->CIERRE = $request->input('cierre');
             if ($request->exists('descripcion')) {
                 $oportunidad->INFORMACION = $request->input('descripcion');

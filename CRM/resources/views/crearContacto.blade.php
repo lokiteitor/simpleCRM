@@ -70,7 +70,6 @@
                         <option value="Referencia de otro cliente">Referencia de otro cliente</option>
                         <option value="Sitio web">Sitio web</option>
                         <option value="Anuncio via email">Anuncio via email</option>
-                        <option value="Busqueda web">Busqueda web</option>
                     </select>
                 </div>
                 <div class="form-group">

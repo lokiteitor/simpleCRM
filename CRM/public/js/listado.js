@@ -252,7 +252,7 @@ function construirFila(data,tipo) {
     var $contenedor = $("<tr></tr>");
     var contenido = new Array();
 
-    var check =  '<th><input type="checkbox" value="'+ data.id + '"></th>'
+    var check =  '<td><input type="checkbox" value="'+ data.id + '"></td>'
     contenido.push(check);
 
     for (var i = 0; i < keys.length; i++) {
@@ -262,7 +262,7 @@ function construirFila(data,tipo) {
         if (keys[i] == "creacion" || keys[i] == 'inicio' || keys[i] == 'fin') {
 
             var d = new Date(data.creacion.date)
-            th = '<th name="' + keys[i] + '">' + d.toLocaleDateString()  + '</th>';    
+            th = '<td name="' + keys[i] + '">' + d.toLocaleDateString()  + '</td>';    
             contenido.push(th);        
             continue;
         }
@@ -273,13 +273,13 @@ function construirFila(data,tipo) {
             else{
                 estado = 'Inactiva';
             }
-            th = '<th name="' + keys[i] + '">' + estado  + '</th>';    
+            th = '<td name="' + keys[i] + '">' + estado  + '</td>';    
             contenido.push(th);
             continue        
 
         }
 
-        th = '<th name="' + keys[i] + '">' + data[keys[i]] + '</th>';
+        th = '<td name="' + keys[i] + '">' + data[keys[i]] + '</td>';
         contenido.push(th);        
     };
     contenido = contenido.join("");

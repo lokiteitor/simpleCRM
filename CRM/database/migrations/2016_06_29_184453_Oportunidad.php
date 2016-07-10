@@ -21,6 +21,7 @@ class Oportunidad extends Migration
             $table->integer('CAMPANA_ID')->nullable();
             $table->enum('TIPO',array('Negocio Nuevo','Negocio Existente'));
             $table->boolean('PRESUPUESTO')->default(false);
+            $table->float('INVERSION')->default(0.00);
             $table->enum('ETAPA',array('Calificacion','Necesita Analisis','Propuesta',
                 'Negociando','Completada','Perdida'))->nullable();
             $table->integer('PROBABILIDAD')->nullable();

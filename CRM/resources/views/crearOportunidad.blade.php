@@ -46,6 +46,12 @@
                         <option value="Negocio Nuevo">Negocio nuevo</option>
                         <option value="Negocio Existente">Negocio existente</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="inversion">Inversion</label>
+                    {{  $errors->first('inversion') }}
+                    <input type="text" class="form-control" placeholder="Formato: 100.00" name="inversion">
+
                 </div>                  
                 <div class="form-group">
                     <label>

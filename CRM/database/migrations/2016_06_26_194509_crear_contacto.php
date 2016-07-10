@@ -23,7 +23,7 @@ class CrearContacto extends Migration
            $tabla->string('CELULAR',20)->nullable();
            $tabla->enum('TIPO',array('Particular','Gobierno','Empresa','Educacion'));
            $tabla->enum('ORIGEN',array('Anuncio','Folleto','Referencia de empleado',
-            'Referencia de otro cliente','Sitio Web','Anuncio via email','Busqueda Web'));
+            'Referencia de otro cliente','Sitio Web','Anuncio via email'));
            $tabla->boolean('AT_CORREO')->default(false);
            $tabla->string('EMPRESA')->nullable();
            $tabla->string('WEB')->nullable();

@@ -113,6 +113,15 @@ Route::get('/detalles/campana/{id}',"CampanasController@detallesCampana");
 Route::get('/obtener/detalles',"APIController@detalles");
 
 
+// rutas informes
+
+Route::get('/ver/informes','InformesController@listado');
+
+Route::get('/ver/informe/{clasificacion}/{tipo}','InformesController@generarInforme');
+
+Route::get('/obtener/datos/informes','InformesController@obtenerDatos');
+
+
 Route::get('/test',function ()
 {
     return App\Campana::find(12)->oportunidades;

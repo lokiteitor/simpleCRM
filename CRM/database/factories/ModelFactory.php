@@ -30,7 +30,7 @@ $factory->define(App\Contacto::class, function (Faker\Generator $faker) {
         'CELULAR' => $faker->phoneNumber,
         'TIPO' => $faker->randomElement($array = array('Particular','Gobierno','Empresa','Educacion')),
         'ORIGEN' => $faker->randomElement($array = array('Anuncio','Folleto','Referencia de empleado',
-            'Referencia de otro cliente','Sitio Web','Anuncio via email','Busqueda Web')),
+            'Referencia de otro cliente','Sitio Web','Anuncio via email')),
         'AT_CORREO' => $faker->boolean($chanceOfGettingTrue = 80) ,
         'EMPRESA'  => $faker->company,
         'WEB' => $faker->domainName,
@@ -79,6 +79,7 @@ $factory->define(App\Oportunidad::class, function (Faker\Generator $faker) {
         'PROBABILIDAD' => $faker->numberBetween(0,100),
         'FACTURA' => $faker->numberBetween(30000,500400),
         'IMPORTE' => $faker->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 2000),
+        'INVERSION' => $faker->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 2000),
         'CIERRE' => date('Y-m-d',time() + (rand(-31,62) * 24 * 60 * 60)),
         'INFORMACION' => $faker->text(60),
     ];
