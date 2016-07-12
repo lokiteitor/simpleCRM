@@ -5,6 +5,7 @@
     use App\Campana;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Auth;
 
     /**
     * Controlador para la seccion de clientes
@@ -41,7 +42,7 @@
 
         public function listarCampanas()
         {
-           $data['usuario'] = "Administrador";
+           $data['usuario'] = Auth::user()->name;
            $data['sitio'] = "Lista de campañas";
            $data['titulo'] = "Campañas";
            return view('listaCampanas', $data);            
@@ -49,7 +50,7 @@
 
         public function crearCampana()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Crear Cliente";
             $data['titulo'] = "Campañas";
             $data['edicion'] = false;
@@ -57,7 +58,7 @@
         }
         public function editarCampana()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Crear Campaña";
             $data['titulo'] = "Campañas";
             $data['edicion'] = true;
@@ -65,7 +66,7 @@
         }
         public function detallesCampana()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Ver Campaña";
             $data['titulo'] = "Campañas";
             return view("detallesCampana",$data);

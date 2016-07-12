@@ -9,6 +9,7 @@
     //
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Auth;
 
     /**
     * Controlador para la seccion de informes
@@ -17,7 +18,7 @@
     {
         public function listado()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = 'Lista de Informes';
             $data['titulo'] = 'Informes';
 
@@ -27,7 +28,7 @@
         public function generarInforme(Request $request,$clasificacion,$tipo)
         {
             // redirigir los datos de acuerdo al tipo de informe que se requiera
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = '';
             $data['titulo'] = 'Informes';
             $vista = 'listaInformes';

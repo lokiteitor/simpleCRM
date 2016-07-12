@@ -20,4 +20,8 @@ class Oportunidad extends Model
         // una campaña puede tener muchas oportunidades
         return $this->belongsTo('App\Campana','CAMPANA_ID');
     }
+    public function usuario()
+    {
+        return $this->belongsTo('App\User','id','USUARIO_id');
+    }        
 }

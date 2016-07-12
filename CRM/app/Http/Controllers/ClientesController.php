@@ -6,6 +6,7 @@
     use App\Campana;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Auth;
 
     /**
     * Controlador para la seccion de clientes
@@ -50,7 +51,7 @@
 
         public function listarClientes()
         {
-           $data['usuario'] = "Administrador";
+           $data['usuario'] = Auth::user()->name;
            $data['sitio'] = "Lista de clientes";
            $data['titulo'] = "Clientes";
            return view('listaContactos', $data);            
@@ -58,7 +59,7 @@
 
         public function crearCliente()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Crear Cliente";
             $data['titulo'] = "Clientes";
             $data['edicion'] = false;
@@ -67,7 +68,7 @@
         }
         public function editarCliente($id)
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Editar Cliente";
             $data['titulo'] = "Clientes";
             $data['edicion'] = true;            
@@ -76,7 +77,7 @@
 
         public function detallesCliente($id)
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Ver Cliente";
             $data['titulo'] = "Clientes";
             return view("detalleContacto",$data);            

@@ -7,7 +7,7 @@
     use App\Campana;    
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
-
+    use Auth;
     /**
     * Controlador para la seccion de clientes
     */
@@ -16,7 +16,7 @@
 
         public function listarOportunidades()
         {
-           $data['usuario'] = "Administrador";
+           $data['usuario'] = Auth::user()->name;
            $data['sitio'] = "Lista de Oportunidades";
            $data['titulo'] = "Oportunidades";
            return view('listaOportunidades', $data);            
@@ -24,7 +24,7 @@
 
         public function crearOportunidad()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Crear Oportunidad";
             $data['titulo'] = "Oportunidades";
             $data['edicion'] = false;
@@ -33,7 +33,7 @@
 
         public function editarOportunidad()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Editar Oportunidad";
             $data['titulo'] = "Oportunidades";
             $data['edicion'] = true;
@@ -119,8 +119,7 @@
         {
             $oportunidad->TITULO = $request->input('titulo');
 
-            // TODO : insertar el id del usuario actual
-            $oportunidad->USUARIO_ID = 1;
+            $oportunidad->USUARIO_ID = Auth::user()->id;
            
             $oportunidad->TIPO = $request->input('tipo');
             if ($request->input('presupuesto') == 'on') {

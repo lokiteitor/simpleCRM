@@ -6,7 +6,7 @@
     use App\Contacto; 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
-
+    use Auth;
     /**
     * Controlador para la seccion de tareas
     */
@@ -15,7 +15,7 @@
 
         public function listarTareas()
         {
-           $data['usuario'] = "Administrador";
+           $data['usuario'] = Auth::user()->name;
            $data['sitio'] = "Lista de Tareas";
            $data['titulo'] = "Tareas";
            return view('listaTareas', $data);            
@@ -23,7 +23,7 @@
 
         public function crearTarea()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Crear Tarea";
             $data['titulo'] = "Tareas";
             $data['edicion'] = false;
@@ -32,7 +32,7 @@
 
         public function editarTarea()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Editar Tarea";
             $data['titulo'] = "Tareas";
             $data['edicion'] = true;
@@ -125,8 +125,7 @@
         {
             $tarea->TITULO = $request->input('nombre');
 
-            // TODO : insertar el id del usuario actual
-            $tarea->USUARIO_ID = 1;
+            $tarea->USUARIO_ID = Auth::user()->id;
 
             $tarea->ASUNTO = $request->input('asunto');
             $tarea->VENCIMIENTO = $request->input('vencimiento');

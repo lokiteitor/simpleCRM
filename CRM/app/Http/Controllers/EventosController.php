@@ -6,6 +6,7 @@
     use App\Contacto;      
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Auth;
 
     /**
     * Controlador para la seccion de Eventos
@@ -15,7 +16,7 @@
 
         public function listarEventos()
         {
-           $data['usuario'] = "Administrador";
+           $data['usuario'] = Auth::user()->name;
            $data['sitio'] = "Lista de Eventos";
            $data['titulo'] = "Eventos";
            return view('listaEventos', $data);            
@@ -23,7 +24,7 @@
 
         public function crearEvento()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Crear Evento";
             $data['titulo'] = "Eventos";
             $data['edicion'] = false;
@@ -32,7 +33,7 @@
 
         public function editarEvento()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Editar Evento";
             $data['titulo'] = "Eventos";
             $data['edicion'] = true;
@@ -128,8 +129,7 @@
         {
             $evento->TITULO = $request->input('nombre');
 
-            // TODO : insertar el id del usuario actual
-            $evento->USUARIO_ID = 1;
+            $evento->USUARIO_ID = Auth::user()->id;
 
             $evento->ASUNTO = $request->input('asunto');
             if ($request->exists('cliente')) {

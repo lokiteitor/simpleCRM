@@ -14,4 +14,8 @@ class Evento extends Model
     {
         return $this->belongsTo('App\Contacto','CONTACTO_ID');
     }
+    public function usuario()
+    {
+        return $this->belongsTo('App\User','id','USUARIO_id');
+    }        
 }

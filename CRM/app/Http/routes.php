@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -13,118 +14,270 @@ use Illuminate\Http\Request;
 
 
 // secciones especiales
-Route::get('/engine/buscador','APIController@buscador');
+Route::get('/engine/buscador',[
+    'uses' => 'APIController@buscador',
+    'middleware' => 'auth',
+    ]);
 
+// index
+Route::get('/',function ()
+{
+    $data['usuario'] = 'Administrador';
+    return view('index',$data);
+});
 
 // seccion de prospectos
-Route::get('/ver/prospectos ', 'ProspectosController@listarProspectos');
+Route::get('/ver/prospectos ',[
+    'uses' =>'ProspectosController@listarProspectos',
+    'middleware' => 'auth',
+    ]);
 
-Route::get('/crear/prospecto','ProspectosController@crearProspecto');
+Route::get('/crear/prospecto',[
+    'uses' => 'ProspectosController@crearProspecto',
+    'middleware' => 'auth']);
 
-Route::post('/crear/prospecto','ProspectosController@subirProspecto');
+Route::post('/crear/prospecto',[
+    'uses' => 'ProspectosController@subirProspecto',
+    'middleware' => 'auth']);
 
 // seccion de clientes
-Route::get('/ver/clientes ', 'ClientesController@listarClientes');
+Route::get('/ver/clientes ',[
+    'uses' => 'ClientesController@listarClientes',
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/crear/cliente','ClientesController@crearCliente');
+Route::get('/crear/cliente',[
+    'uses' => 'ClientesController@crearCliente',
+    'middleware' => 'auth'
+    ]);
 
-Route::post('/crear/cliente','ClientesController@subirCliente');
+Route::post('/crear/cliente',[
+    'uses' => 'ClientesController@subirCliente',
+    'middleware' => 'auth'
+    ]);
 
 // seccion de campañas
-Route::get('/ver/campanas ', 'CampanasController@listarCampanas');
+Route::get('/ver/campanas ',[
+    'uses' =>  'CampanasController@listarCampanas',
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/crear/campana','CampanasController@crearCampana');
+Route::get('/crear/campana',[
+    'uses' => 'CampanasController@crearCampana',
+    'middleware' => 'auth'
+    ]);
 
-Route::post('/crear/campana','CampanasController@subirCampana');
+Route::post('/crear/campana',[
+    'uses' => 'CampanasController@subirCampana',
+    'middleware' => 'auth'
+    ]);
 
 // seccion de oportunidades
-Route::get('/ver/oportunidades ', 'OportunidadesController@listarOportunidades');
+Route::get('/ver/oportunidades ',[
+    'uses' =>  'OportunidadesController@listarOportunidades',
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/crear/oportunidad','OportunidadesController@crearOportunidad');
+Route::get('/crear/oportunidad',[
+    'uses' => 'OportunidadesController@crearOportunidad',
+    'middleware' => 'auth'
+    ]);
 
-Route::post('/crear/oportunidad','OportunidadesController@subirOportunidad');
+Route::post('/crear/oportunidad',[
+    'uses' => 'OportunidadesController@subirOportunidad',
+    'middleware' => 'auth'
+    ]);
 
 // seccion de tareas
-Route::get('/ver/tareas ', 'TareasController@listarTareas');
+Route::get('/ver/tareas ',[
+    'uses' =>  'TareasController@listarTareas',
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/crear/tarea','TareasController@crearTarea');
+Route::get('/crear/tarea',[
+    'uses' => 'TareasController@crearTarea',
+    'middleware' => 'auth'
+    ]);
 
-Route::post('/crear/tarea','TareasController@subirTarea');
+Route::post('/crear/tarea',[
+    'uses' => 'TareasController@subirTarea',
+    'middleware' => 'auth'
+    ]);
 
 // seccion de eventos
-Route::get('/ver/eventos ', 'EventosController@listarEventos');
+Route::get('/ver/eventos ',[
+    'uses' =>  'EventosController@listarEventos',
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/crear/evento','EventosController@crearEvento');
+Route::get('/crear/evento',[
+    'uses' => 'EventosController@crearEvento',
+    'middleware' => 'auth'
+    ]);
 
-Route::post('/crear/evento','EventosController@subirEvento');
+Route::post('/crear/evento',[
+    'uses' => 'EventosController@subirEvento',
+    'middleware' => 'auth'
+    ]);
 
 
 // rutas para obtener datos via ajax
 
-Route::get('/obtener/contactos',"APIController@contactos");
+Route::get('/obtener/contactos',[
+    'uses' => "APIController@contactos",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/clientes',"APIController@clientes");
+Route::get('/obtener/clientes',[
+    'uses' => "APIController@clientes",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/campanas',"APIController@campanas");
+Route::get('/obtener/campanas',[
+    'uses' => "APIController@campanas",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/oportunidades',"APIController@oportunidades");
+Route::get('/obtener/oportunidades',[
+    'uses' => "APIController@oportunidades",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/tareas',"APIController@tareas");
+Route::get('/obtener/tareas',[
+    'uses' => "APIController@tareas",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/eventos',"APIController@eventos");
+Route::get('/obtener/eventos',[
+    'uses' => "APIController@eventos",
+    'middleware' => 'auth'
+    ]);
 
 // secciones para la edicion de clientes
 
-Route::get('/editar/prospecto/{id}',"ProspectosController@editarProspecto");
+Route::get('/editar/prospecto/{id}',[
+    'uses' => "ProspectosController@editarProspecto",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/editar/cliente/{id}',"ClientesController@editarCliente");
+Route::get('/editar/cliente/{id}',[
+    'uses' => "ClientesController@editarCliente",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/editar/campana/{id}',"CampanasController@editarCampana");
+Route::get('/editar/campana/{id}',[
+    'uses' => "CampanasController@editarCampana",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/editar/oportunidad/{id}',"OportunidadesController@editarOportunidad");
+Route::get('/editar/oportunidad/{id}',[
+    'uses' => "OportunidadesController@editarOportunidad",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/editar/tarea/{id}',"TareasController@editarTarea");
+Route::get('/editar/tarea/{id}',[
+    'uses' => "TareasController@editarTarea",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/editar/evento/{id}',"EventosController@editarEvento");
+Route::get('/editar/evento/{id}',[
+    'uses' => "EventosController@editarEvento",
+    'middleware' => 'auth'
+    ]);
 
 // obtencion de datos de objetos de forma unitaria
-Route::get('/obtener/prospecto/',"ProspectosController@obtenerProspecto");
+Route::get('/obtener/prospecto/',[
+    'uses' => "ProspectosController@obtenerProspecto",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/cliente/',"ClientesController@obtenerCliente");
+Route::get('/obtener/cliente/',[
+    'uses' => "ClientesController@obtenerCliente",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/campana/',"CampanasController@obtenerCampana");
+Route::get('/obtener/campana/',[
+    'uses' => "CampanasController@obtenerCampana",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/oportunidad/',"OportunidadesController@obtenerOportunidad");
+Route::get('/obtener/oportunidad/',[
+    'uses' => "OportunidadesController@obtenerOportunidad",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/tarea/',"TareasController@obtenerTarea");
+Route::get('/obtener/tarea/',[
+    'uses' => "TareasController@obtenerTarea",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/evento/',"EventosController@obtenerEvento");
+Route::get('/obtener/evento/',[
+    'uses' => "EventosController@obtenerEvento",
+    'middleware' => 'auth'
+    ]);
 
 // rutas para la vista detalles
 
-Route::get('/detalles/prospecto/{id}',"ProspectosController@detallesProspecto");
+Route::get('/detalles/prospecto/{id}',[
+    'uses' => "ProspectosController@detallesProspecto",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/detalles/cliente/{id}',"ClientesController@detallesCliente");
+Route::get('/detalles/cliente/{id}',[
+    'uses' => "ClientesController@detallesCliente",
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/detalles/campana/{id}',"CampanasController@detallesCampana");
+Route::get('/detalles/campana/{id}',[
+    'uses' => "CampanasController@detallesCampana",
+    'middleware' => 'auth'
+    ]);
 
 // ruta unica que maneja los componentes de la vista detalles
 
-Route::get('/obtener/detalles',"APIController@detalles");
+Route::get('/obtener/detalles',[
+    'uses' => "APIController@detalles",
+    'middleware' => 'auth'
+    ]);
 
 
 // rutas informes
 
-Route::get('/ver/informes','InformesController@listado');
+Route::get('/ver/informes',[
+    'uses' => 'InformesController@listado',
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/ver/informe/{clasificacion}/{tipo}','InformesController@generarInforme');
+Route::get('/ver/informe/{clasificacion}/{tipo}',[
+    'uses' => 'InformesController@generarInforme',
+    'middleware' => 'auth'
+    ]);
 
-Route::get('/obtener/datos/informes','InformesController@obtenerDatos');
+Route::get('/obtener/datos/informes',[
+    'uses' => 'InformesController@obtenerDatos',
+    'middleware' => 'auth'
+    ]);
 
 
-Route::get('/test',function ()
+// Authentication routes...
+Route::get('/auth/login', 'Auth\AuthController@getLogin');
+Route::post('/auth/login', 'Auth\AuthController@postLogin');
+Route::get('/auth/logout', function ()
 {
-    return App\Campana::find(12)->oportunidades;
+    Auth::logout();
+    return redirect('/auth/login');
 });
+
+// Registration routes...
+Route::get('/auth/registro',[
+    'uses' =>  'Auth\AuthController@getRegister',
+    'middleware' => 'auth'
+    ]);
+
+Route::post('/auth/registro',[
+    'uses' =>  'Auth\AuthController@postRegister',
+    'middleware' => 'auth'
+    ]);
+
 
 ?>

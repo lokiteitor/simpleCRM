@@ -13,7 +13,9 @@
         <script src="{{asset('js/main.js')}}"></script>
         <script src="{{asset('js/buscador.js')}}"></script>
         @show
-        <title>{{$titulo}}</title>
+        @if (isset($titulo))
+            <title>{{$titulo}}</title>
+        @endif
     </head>
     <body>
         @if (isset($sitio))

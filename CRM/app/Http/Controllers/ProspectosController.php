@@ -6,6 +6,7 @@
     use App\Campana;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Auth;
 
     /**
     * Controlador para la seccion de prospectos
@@ -44,7 +45,7 @@
 
         public function listarProspectos()
         {
-           $data['usuario'] = "Administrador";
+           $data['usuario'] = Auth::user()->name;
            $data['sitio'] = "Lista de prospectos";
            $data['titulo'] = "Prospectos";
            return view('listaClientes', $data);            
@@ -52,12 +53,28 @@
 
         public function crearProspecto()
         {
-            $data['usuario'] = "Administrador";
+            $data['usuario'] = Auth::user()->name;
             $data['sitio'] = "Crear Prospecto";
             $data['titulo'] = "Prospectos";
             $data['edicion'] = false;
             $data['action'] = "/crear/prospecto/";            
             return view("crearCliente",$data);
+        }
+
+        public function editarProspecto($id)
+        {
+            $data['usuario'] = Auth::user()->name;
+            $data['sitio'] = "Editar Prospecto";
+            $data['titulo'] = "Prospectos";
+            $data['edicion'] = true;            
+            return view("crearCliente",$data);            
+        }
+        public function detallesProspecto($id)
+        {
+            $data['usuario'] = Auth::user()->name;
+            $data['sitio'] = "Ver Prospecto";
+            $data['titulo'] = "Prospectos";
+            return view("detalleCliente",$data);            
         }
 
         public function subirProspecto(Request $request)
@@ -86,21 +103,7 @@
 
             return redirect($redirect)->withErrors($validador)->withInput();
         }
-        public function editarProspecto($id)
-        {
-            $data['usuario'] = "Administrador";
-            $data['sitio'] = "Editar Prospecto";
-            $data['titulo'] = "Prospectos";
-            $data['edicion'] = true;            
-            return view("crearCliente",$data);            
-        }
-        public function detallesProspecto($id)
-        {
-            $data['usuario'] = "Administrador";
-            $data['sitio'] = "Ver Prospecto";
-            $data['titulo'] = "Prospectos";
-            return view("detalleCliente",$data);            
-        }
+
 
 
         public function obtenerProspecto(Request $request)
