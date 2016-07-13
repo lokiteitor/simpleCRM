@@ -31,11 +31,11 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
 
-        $schedule->command('emails:evento')->dayly()->emailOutputTo('lokiteitor513@gmail.com');
+        $schedule->command('emails:evento')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
 
-        $schedule->command('emails:oportunidad')->dayly()->emailOutputTo('lokiteitor513@gmail.com');;
+        $schedule->command('emails:oportunidad')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
 
-        $schedule->command('emails:tareas')->dayly()->emailOutputTo('lokiteitor513@gmail.com');;
+        $schedule->command('emails:tareas')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
 
     }
 }
