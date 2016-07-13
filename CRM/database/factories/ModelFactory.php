@@ -69,7 +69,7 @@ $factory->define(App\Campana::class, function (Faker\Generator $faker) {
 $factory->define(App\Oportunidad::class, function (Faker\Generator $faker) {
     return [
         'TITULO' => $faker->catchPhrase,
-        'USUARIO_ID' => $faker->numberBetween(1,100),
+        'USUARIO_ID' => $faker->numberBetween(1,3),
         'CONTACTO_ID' => $faker->numberBetween(1,50),
         'CAMPANA_ID' => $faker->numberBetween(1,50),
         'TIPO' => $faker->randomElement(array('Negocio Nuevo','Negocio Existente')),
@@ -87,7 +87,7 @@ $factory->define(App\Oportunidad::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Tarea::class, function (Faker\Generator $faker) {
     return [
-        'USUARIO_ID' => $faker->numberBetween(1,100),
+        'USUARIO_ID' => $faker->numberBetween(1,3),
         'TITULO' => $faker->catchPhrase,
         'ASUNTO' => $faker->sentence(),
         'VENCIMIENTO' => date('Y-m-d',time() + (rand(-31,62) * 24 * 60 * 60)),
@@ -97,8 +97,7 @@ $factory->define(App\Tarea::class, function (Faker\Generator $faker) {
         'NOTIFICACION' => $faker->boolean(90),
         'DESCRIPCION' => $faker->text(60),
         'RECORDAR' => $faker->boolean(90),
-        'RECORDAR_A_DIAS' => $faker->randomElement(array(1,2,3,4,5,6,7,14,21)),
-        'RECORDAR_A_HORA' => $faker->time(),
+        'FECHA_RECORDAR' => date('Y-m-d H:i:s',time() + (rand(-3,3) * rand(1,24) * 60 * 60)),
         'REPETIR' => $faker->boolean(20),
         'REPETIR_INICIO' => date('Y-m-d',time() + (rand(-31,62) * 24 * 60 * 60)),
         'REPETIR_FIN' => date('Y-m-d',time() + (rand(-31,62) * 24 * 60 * 60)),
@@ -110,7 +109,7 @@ $factory->define(App\Tarea::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Evento::class, function (Faker\Generator $faker) {
     return [
-        'USUARIO_ID' => $faker->numberBetween(1,100),
+        'USUARIO_ID' => $faker->numberBetween(1,3),
         'TITULO' => $faker->catchPhrase,
         'ASUNTO' => $faker->sentence(),
         'FECHA' => date('Y-m-d',time() + (rand(-31,62) * 24 * 60 * 60)),
@@ -122,8 +121,7 @@ $factory->define(App\Evento::class, function (Faker\Generator $faker) {
         'PARTICIPANTES' => $faker->name,     
         'DESCRIPCION' => $faker->text(60),
         'RECORDAR' => $faker->boolean(90),
-        'RECORDAR_A_DIAS' => $faker->randomElement(array(1,2,3,4,5,6,7,14,21)),
-        'RECORDAR_A_HORA' => $faker->time(),
+        'FECHA_RECORDAR' => date('Y-m-d H:i:s',time() + (rand(-3,3) * rand(1,24) * 60 * 60)),
         'REPETIR' => $faker->boolean(20),
         'REPETIR_INICIO' => date('Y-m-d',time() + (rand(-31,62) * 24 * 60 * 60)),
         'REPETIR_FIN' => date('Y-m-d',time() + (rand(-31,62) * 24 * 60 * 60)),

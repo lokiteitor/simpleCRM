@@ -1,0 +1,152 @@
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+
+use App\Evento;
+use App\User;
+use Mail;
+
+class SendEmailEvento extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'emails:evento';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Enviar los correos relacionados con los correos';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        // obtener los eventos que se realizaran el dia de hoy 
+        $candidatos = Evento::where('FECHA','=',date('Ymd',time()))
+        ->get(array('EVENTO_ID','USUARIO_ID','TITULO','ASUNTO','UBICACION','DE','A','ALLDAY','CONTACTO_ID'));
+
+        $this->info($candidatos);
+
+        if (count($candidatos) > 0) {
+
+            foreach ($candidatos as $evento) {
+                // armar los datos
+                $this->info($evento);
+
+                $user = User::findOrFail($evento->USUARIO_ID);
+
+                $data = [
+                    'titulo' => $evento->TITULO,
+                    'asunto' => $evento->ASUNTO,
+                    'cliente' => $evento->contacto['TITULO'] .' '.
+                    $evento->contacto['NOMBRE'] . ' ' .  $evento->contacto['APELLIDO'],
+                    'url' => url('/editar/evento/'.$evento->EVENTO_ID),
+                    'ubicacion' => $evento->UBICACION,
+                    'descripcion' => $evento->DESCRIPCION
+                ];
+
+                if ($evento->ALLDAY = true) {
+                    $data['hora'] = 'Todo el dia';
+                }
+                else{
+                    $data['hora'] = $evento->DE . ' ' .$evento->A;
+                }
+                
+                Mail::send('emails.eventonotificacion', $data, function ($message) use ($user) {
+
+                    $message->from('crm@vantec.mx', 'CRM');
+                
+                    $message->to($user->email, $user->name);
+            
+                    $message->subject('evento proximo a realizarse');
+                
+                    $message->priority(1);
+                
+                });
+
+                $this->info('mensaje enviado a: ' . $user->email);            
+            }
+            
+        }        
+
+        // obtener los eventos cuyo recordatorio es hoy
+        $hoy = date('Ymd',time());
+        $inicio = date_create($hoy);
+        $inicio = date_format($inicio,'YmdHis');
+        $fin = date_create(date('Ymd',strtotime($hoy) + (24*60*60) ));
+        $fin = date_format($fin,'YmdHis');
+
+        $this->info($inicio);
+        $this->info($fin);
+        $candidatos = Evento::whereBetween('FECHA_RECORDAR',array($inicio,$fin))
+        ->get(array('EVENTO_ID','USUARIO_ID','TITULO','ASUNTO','UBICACION','DE','A','ALLDAY','CONTACTO_ID','DESCRIPCION'));
+
+        $this->info($candidatos);
+
+        if (count($candidatos) > 0) {
+
+            foreach ($candidatos as $evento) {
+                // armar los datos
+                $this->info($evento);
+
+                $user = User::findOrFail($evento->USUARIO_ID);
+
+                $data = [
+                    'titulo' => $evento->TITULO,
+                    'asunto' => $evento->ASUNTO,
+                    'cliente' => $evento->contacto['TITULO'] .' '.
+                    $evento->contacto['NOMBRE'] . ' ' .  $evento->contacto['APELLIDO'],
+                    'url' => url('/editar/evento/'. $evento->EVENTO_ID),
+                    'ubicacion' => $evento->UBICACION,
+                    'descripcion' => $evento->DESCRIPCION
+                ];
+
+                if ($evento->ALLDAY = true) {
+                    $data['hora'] = 'Todo el dia';
+                }
+                else{
+                    $data['hora'] = $evento->DE . ' ' .$evento->A;
+                }
+                
+                Mail::send('emails.eventonotificacion', $data, function ($message) use ($user) {
+
+                    $message->from('crm@vantec.mx', 'CRM');
+                
+                    $message->to($user->email, $user->name);
+            
+                    $message->subject('recordatorio de evento');
+                
+                    $message->priority(1);
+                
+                });
+
+                $this->info('mensaje enviado a: ' . $user->email);            
+            }
+            
+        }  
+
+
+
+
+    }
+}

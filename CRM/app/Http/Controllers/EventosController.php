@@ -162,9 +162,13 @@
             }
 
             if ($request->input('recordatorio') == 'on') {       
-                $evento->RECORDAR = true;         
-                $evento->RECORDAR_A_DIAS = $request->input('recordar');
-                $evento->RECORDAR_A_HORA = $request->input('horaRecord');
+                $evento->RECORDAR = true;      
+                // crear una fecha DATETIME a partir de la fecha de vencimiento
+                $dia = intval($request->input('recordar')) * (24*60*60);
+                $dia = date('Y-m-d',strtotime($request->input('fecha')) - $dia);
+                $fecha = $dia . ' ' . $request->input('horaRecord');
+
+                $evento->FECHA_RECORDAR = $fecha;
             }
             if ($request->input('repetir') == 'on') {
                 $evento->REPETIR = true;

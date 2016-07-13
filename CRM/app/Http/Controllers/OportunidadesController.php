@@ -152,6 +152,12 @@
 
                 if ($cliente) {
                     $oportunidad->CONTACTO_ID = $cliente->CONTACTO_ID;
+                    // si el contacto es un prospecto convertirlo a cliente
+                    if ($cliente->ESCLIENTE == false) {
+                        $cliente->ESCLIENTE = true;
+
+                    }
+                    $cliente->save();
                 }                
             }
             if ($request->exists('campaña')) {

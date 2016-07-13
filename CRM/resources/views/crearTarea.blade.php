@@ -46,7 +46,7 @@
                     <select name="estado" class="form-control" required>
                         <option value="Sin Empezar">Sin empezar</option>
                         <option value="Diferido">Diferido</option>
-                        <option value="Progreso">En progreso</option>
+                        <option value="En Progreso">En progreso</option>
                         <option value="Completada">Completada</option>
                         <option value="Esperando">Esperando</option>
                     </select>

@@ -2,6 +2,7 @@
 
     namespace App\Http\Controllers;
     use Validator;
+    use Auth;
     // modelos
     use App\Contacto;
     use App\Campana;
@@ -123,6 +124,7 @@
             if ($request->input('here') == '/ver/oportunidades') {
                 $data = Oportunidad::orderBy($request->input('orderby'),'asc')
                 ->where('CIERRE','>=',date('Ymd'))->skip($pagina)
+                ->where('USUARIO_ID','=',Auth::user()->id)
                 ->take($nextpag)->get();
 
 
@@ -151,6 +153,7 @@
             if ($request->input('here') == '/ver/tareas') {
                 $data = Tarea::orderBy($request->input('orderby'),'asc')
                 ->where('VENCIMIENTO','>=',date('Ymd'))->where('ESTADO','<>','Completada')
+                ->where('USUARIO_ID','=',Auth::user()->id)
                 ->skip($pagina)->take($nextpag)->get();
 
 
@@ -181,6 +184,7 @@
             if ($request->input('here') == '/ver/eventos') {
                 $data = Evento::whereBetween('FECHA',
                  array(date('Ymd',$request->input('date')),date('Ymd',time() + (31 * 24 * 60 * 60))))
+                ->where('USUARIO_ID','=',Auth::user()->id)
                 ->get();
 
                 // convertir la fechas en el formato apropiado

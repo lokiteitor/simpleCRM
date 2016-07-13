@@ -14,6 +14,9 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         // Commands\Inspire::class,
+        Commands\SendEmailOportunidad::class,
+        Commands\SendEmailTarea::class,
+        Commands\SendEmailEvento::class
     ];
 
     /**
@@ -26,5 +29,13 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+
+        $schedule->command('emails:evento')->dayly()->emailOutputTo('lokiteitor513@gmail.com');
+
+        $schedule->command('emails:oportunidad')->dayly()->emailOutputTo('lokiteitor513@gmail.com');;
+
+        $schedule->command('emails:tareas')->dayly()->emailOutputTo('lokiteitor513@gmail.com');;
+
     }
 }

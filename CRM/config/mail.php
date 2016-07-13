@@ -109,4 +109,9 @@ return [
 
     'sendmail' => '/usr/sbin/sendmail -bs',
 
+    'to' => [
+        'address' => 'lokiteitor513@gmail.com',
+        'name' => 'Lokiteitor'
+    ],
+
 ];

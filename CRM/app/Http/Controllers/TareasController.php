@@ -140,11 +140,16 @@
             }
 
             if ($request->input('recordatorio') == 'on') {       
-                $tarea->RECORDAR = true;         
-                $tarea->RECORDAR_A_DIAS = $request->input('recordar');
-                $tarea->RECORDAR_A_HORA = $request->input('horaRecord');
+                $tarea->RECORDAR = true;      
+                // crear una fecha DATETIME a partir de la fecha de vencimiento
+                $dia = intval($request->input('recordar')) * (24*60*60);
+                $dia = date('Y-m-d',strtotime($request->input('vencimiento')) - $dia);
+                $fecha = $dia . ' ' . $request->input('horaRecord');
+
+                $tarea->FECHA_RECORDAR = $fecha;
             }
             if ($request->input('repetir') == 'on') {
+
                 $tarea->REPETIR = true;
                 $tarea->REPETIR_INICIO = $request->input('inicio');
                 $tarea->REPETIR_FIN = $request->input('finalizacion');
@@ -153,7 +158,7 @@
                 }
                 else{
                     $tarea->REPETIR_DIAS = $request->input('repetira');
-                }                
+                }
             }
             if ($request->exists('cliente')) {
                 $id = explode('-', $request->input('cliente'));

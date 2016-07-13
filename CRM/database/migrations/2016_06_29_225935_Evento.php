@@ -27,8 +27,7 @@ class Evento extends Migration
             $table->text('PARTICIPANTES')->nullable();
             // recordatorio
             $table->boolean('RECORDAR')->default(false);
-            $table->integer('RECORDAR_A_DIAS')->nullable();
-            $table->time('RECORDAR_A_HORA')->nullable();
+            $table->dateTime('FECHA_RECORDAR')->nullable();
             // repeticion
             $table->boolean('REPETIR')->default(false);
             $table->date('REPETIR_INICIO')->nullable();

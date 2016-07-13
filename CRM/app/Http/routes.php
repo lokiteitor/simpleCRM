@@ -271,13 +271,12 @@ Route::get('/auth/logout', function ()
 // Registration routes...
 Route::get('/auth/registro',[
     'uses' =>  'Auth\AuthController@getRegister',
-    'middleware' => 'auth'
+    
     ]);
 
 Route::post('/auth/registro',[
     'uses' =>  'Auth\AuthController@postRegister',
-    'middleware' => 'auth'
+    
     ]);
-
 
 ?>
