@@ -19,6 +19,8 @@ class PasswordController extends Controller
     */
 
     use ResetsPasswords;
+    protected $redirectTo = '/';
+    protected $subject = 'Tu link de recuperacion del password';
 
     /**
      * Create a new password controller instance.
@@ -29,4 +31,5 @@ class PasswordController extends Controller
     {
         $this->middleware($this->guestMiddleware());
     }
+
 }

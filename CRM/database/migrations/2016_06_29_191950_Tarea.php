@@ -20,7 +20,7 @@ class Tarea extends Migration
             $table->string('ASUNTO');
             $table->date('VENCIMIENTO');
             $table->integer('CONTACTO_ID');
-            $table->enum('ESTADO',array('Sin Empezar','Diferido','En Progreso','Completada','Esperando'));
+            $table->enum('ESTADO',array('Sin Empezar','Diferido','En Progreso','Completada','Esperando','Cancelada'));
             $table->enum('PRIORIDAD',array('Muy Alta','Alta','Normal','Baja','Muy Baja'));
             $table->boolean('NOTIFICACION');
             $table->text('DESCRIPCION')->nullable();

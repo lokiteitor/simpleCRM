@@ -279,4 +279,24 @@ Route::post('/auth/registro',[
     
     ]);
 
+// password reset
+
+Route::get('/password/recuperar',[
+    'uses' => 'Auth\PasswordController@getEmail'
+    ]);
+
+Route::post('/password/email',[
+    'uses' => 'Auth\PasswordController@postEmail'
+    ]);
+
+Route::get('/password/reset/{token}',[
+    'uses' => 'Auth\PasswordController@getReset'
+
+    ]);
+
+Route::post('/password/reset',[
+    'uses' => 'Auth\PasswordController@postReset'
+    ]);
+
+
 ?>

@@ -49,6 +49,7 @@
                         <option value="En Progreso">En progreso</option>
                         <option value="Completada">Completada</option>
                         <option value="Esperando">Esperando</option>
+                        <option value="Cancelada">Cancelada</option>
                     </select>
                 </div>
                 <div class="form-group">
