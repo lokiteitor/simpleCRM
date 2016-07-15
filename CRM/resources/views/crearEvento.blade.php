@@ -67,7 +67,7 @@
                 <textarea name="participantes" rows="5" class="form-control"></textarea>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control buscador" list="cliente" placeholder="Contacto o prospecto" name="cliente" data-busqueda="cliente">
+                        <input type="text" class="form-control buscador" list="cliente" placeholder="Contacto o prospecto" name="cliente" data-busqueda="cliente" name="prospecto">
                         <span class="input-group-btn"><button class="btn btn-default" name="buscar-contacto" type="button"><span class="glyphicon glyphicon-search">Contacto/Prospecto relacionado</span></button></span>
 
                         <datalist id="cliente"></datalist>

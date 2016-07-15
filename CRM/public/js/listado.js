@@ -184,8 +184,8 @@ jQuery(document).ready(function($) {
             .fail(function() {
                 alert('Error al eliminar los registro')
             })
-
         }
+
     });
 
     // si se seleccionan todos
@@ -246,7 +246,37 @@ jQuery(document).ready(function($) {
         }
     });
 
+    // al dar click en buscar el servidor devolvera solo aquellos registro en los que 
+    // el id sea igual
 
+    $('button[name="buscar"]').click(function(event) {
+        // adjuntar algunas cabezaras extras a la consulta
+        data.busqueda = {}
+        data.busqueda.valor = $('.buscador').val();
+        regex = new RegExp('[0-9]+-*')
+        if (regex.test(data.busqueda.valor)) {
+            // separar el id de la consulta
+            data.busqueda.id = data.busqueda.valor.split('-')[0];
+            // marcar la busqueda como directa
+            data.busqueda.directa = true;            
+        }
+        else{
+            data.busqueda.directa = false;
+        }
+        // enviar los datos al servidor
+        $("tbody").empty();
+        data.pagina = 10;
+        data.nextpag = 20
+        // obtener los datos
+        ServerData = getDataServer(ruta,data);
+        // dibujar los datos 
+        for (var i = 0; i < ServerData.length; i++) {
+            construirFila(ServerData[i],tipoElemento);
+        };
+        $(".numactual").text(data.pagina);
+        $(".numnext").text(data.pagina+10);
+        $(".numprev").text(data.pagina-10);                
+    });
 });
 
 function getDataServer(url,data){

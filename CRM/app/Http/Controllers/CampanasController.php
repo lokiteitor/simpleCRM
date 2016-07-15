@@ -17,7 +17,7 @@
         // buscar una campaña que coincida con un nombre
         static function buscarCampana($nombre)
         {
-            return Campana::where('NOMBRE','LIKE',$nombre . '%')->where('ACTIVA','=','1')->get();
+            return Campana::where('NOMBRE','LIKE','%'.$nombre . '%')->where('ACTIVA','=','1')->get();
         }
 
         static function getCampana($id)

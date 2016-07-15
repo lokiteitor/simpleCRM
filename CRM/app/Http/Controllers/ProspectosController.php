@@ -14,6 +14,15 @@
     class ProspectosController extends Controller
     {
 
+        static function buscarProspecto($dato)
+         {  
+            $dato = strtoupper($dato);
+             return Contacto::where('NOMBRE','LIKE','%'.$dato . '%')
+             ->orWhere('APELLIDO','LIKE','%'.$dato . '%')
+             ->orWhere('CONTACTO_ID','LIKE','%'.$dato . '%')->get();
+         } 
+
+
         // obtener los datos del prospecto especifico
         static function getProspecto($id)
         {

@@ -6,6 +6,10 @@
         
         @section('libs')
         <script src="{{asset('js/lib/jquery-2.2.2.min.js')}}"></script>
+        <script src="{{asset('js/lib/jqueryui/jquery-ui.min.js')}}"></script>
+        <link rel="stylesheet" href="{{asset('/js/lib/jqueryui/jquery-ui.min.css')}}">
+        <link rel="stylesheet" href="{{asset('/js/lib/jqueryui/jquery-ui.structure.min.css')}}">
+        <link rel="stylesheet" href="{{asset('/js/lib/jqueryui/jquery-ui.theme.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/lib/bootstrap/css/bootstrap.min.css')}}">
         <script src="{{asset('css/lib/bootstrap/js/bootstrap.min.js')}}"></script>
         <link rel="stylesheet" href="{{asset('css/menulateral.css')}}">

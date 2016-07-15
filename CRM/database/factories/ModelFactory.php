@@ -69,7 +69,7 @@ $factory->define(App\Campana::class, function (Faker\Generator $faker) {
 $factory->define(App\Oportunidad::class, function (Faker\Generator $faker) {
     return [
         'TITULO' => $faker->catchPhrase,
-        'USUARIO_ID' => $faker->numberBetween(1,3),
+        'USUARIO_ID' => $faker->numberBetween(1,4),
         'CONTACTO_ID' => $faker->numberBetween(1,50),
         'CAMPANA_ID' => $faker->numberBetween(1,50),
         'TIPO' => $faker->randomElement(array('Negocio Nuevo','Negocio Existente')),
@@ -87,7 +87,7 @@ $factory->define(App\Oportunidad::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Tarea::class, function (Faker\Generator $faker) {
     return [
-        'USUARIO_ID' => $faker->numberBetween(1,3),
+        'USUARIO_ID' => $faker->numberBetween(1,4),
         'TITULO' => $faker->catchPhrase,
         'ASUNTO' => $faker->sentence(),
         'VENCIMIENTO' => date('Y-m-d',time() + (rand(-31,62) * 24 * 60 * 60)),
@@ -109,7 +109,7 @@ $factory->define(App\Tarea::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Evento::class, function (Faker\Generator $faker) {
     return [
-        'USUARIO_ID' => $faker->numberBetween(1,3),
+        'USUARIO_ID' => $faker->numberBetween(1,4),
         'TITULO' => $faker->catchPhrase,
         'ASUNTO' => $faker->sentence(),
         'FECHA' => date('Y-m-d',time() + (rand(-31,62) * 24 * 60 * 60)),

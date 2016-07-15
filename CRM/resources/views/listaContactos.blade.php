@@ -15,11 +15,10 @@
         <div class="col-sm-4 col-md-4 col-lg-4">
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control" list="contactos" placeholder="Buscar">
-                    <span class="input-group-btn"><button class="btn btn-default" type="button">Buscar</button></span>
+                    <input type="text" class="form-control buscador" list="contactos" placeholder="Buscar Cliente" list="clientes" data-busqueda="cliente" name="clientes">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" name="buscar">Buscar</button></span>
                 </div>
             </div>
-            <datalist id="contactos"></datalist>
         </div>
         <div class="form-inline">
             <div class="col-sm-6 col-md-4 col-lg-4">

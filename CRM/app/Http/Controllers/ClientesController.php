@@ -16,9 +16,9 @@
 
         static function buscarContacto($dato)
          {
-             return Contacto::where('NOMBRE','LIKE',$dato . '%')
-             ->orWhere('APELLIDO','LIKE',$dato . '%')
-             ->orWhere('CONTACTO_ID','LIKE',$dato . '%')->get();
+             return Contacto::where('NOMBRE','LIKE','%'.$dato . '%')
+             ->orWhere('APELLIDO','LIKE','%'.$dato . '%')
+             ->orWhere('CONTACTO_ID','LIKE','%'.$dato . '%')->get();
          } 
 
         static function getCliente($id)

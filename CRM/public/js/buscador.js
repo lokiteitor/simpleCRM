@@ -40,7 +40,7 @@ function buscar (data,datalist) {
     })
     .done(function(json) {
         console.log("success");
-        dibujar(json,data);
+        dibujarwithUI(json,data);
     })
     .fail(function() {
         console.log("error");
@@ -60,8 +60,31 @@ function dibujar (json,data) {
     $lista.empty();
 
     for (var i = 0; i < json.length; i++) {
+        $elemento = $('<option></option>');
+        $elemento.val(data.valor);
+        $elemento.text(json[i].id+'-'+json[i].nombre);
         opcion = '<option value="' + json[i].id + '-' + json[i].nombre + '">';
-        $lista.append(opcion);
+        $lista.append($elemento);
     };
 
+    $('datalist option').each(function(index, el) {
+        $(el).click(function(event) {
+           $(this).val($(this.text()));
+           console.log('ok');
+        });
+    });    
+
+}
+
+function dibujarwithUI(json,data) {
+    // escribir en el datalist
+    var lista = new Array();
+    for (var i = 0; i < json.length; i++) {
+        elemento = json[i].id + '-' + json[i].nombre;
+        lista.push(elemento);
+    }
+
+    $('input[name="'+data.nombre+'"]').autocomplete({
+        source : lista
+    })
 }

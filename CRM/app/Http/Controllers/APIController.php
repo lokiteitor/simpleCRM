@@ -40,81 +40,157 @@
 
             if ($request->input('here') == '/ver/prospectos') {
                 // el parametro es el limite superior de la consulta
-                $data = Contacto::orderBy($request->input('orderby'),'asc')
-                ->where('ESCLIENTE','=','0')->skip($request->input('pagina')-10)->take(10)->get();
+                if ($request->exists('busqueda')) {
+                    if ($request->input('busqueda.directa') == 'true') {
+                        $data = Contacto::findOrFail($request->input('busqueda.id'));
+                        array_push($response, $this->formatearContacto($data));
+                    }
+                    else{
+                        // pasar a mayusculas el nombre
+                        $dato = $request->input('busqueda.valor');
+                        $dato = strtoupper($dato);
+                        // buscar a fondo con el valor retornado por el cliente
+                        $data = Contacto::where('NOMBRE','LIKE','%'.$dato . '%')
+                        ->orWhere('APELLIDO','LIKE','%'.$dato . '%')
+                        ->orWhere('CONTACTO_ID','LIKE','%'.$dato . '%')
+                        ->orWhere('EMPRESA','LIKE','%'.$dato . '%')
+                        ->get();
+                        foreach ($data as $registro) {
+                            array_push($response, $this->formatearContacto($registro));
+                        }
+                    }
+                }
+                else{
+                    $data = Contacto::orderBy($request->input('orderby'),'asc')
+                    ->where('ESCLIENTE','=','0')->skip($request->input('pagina')-10)->take(10)->get();
 
-                foreach ($data as $contacto) {
-                    $formato = [
-                        'id' => $contacto['CONTACTO_ID'],
-                        'nombre'=> $contacto['NOMBRE'],
-                        'correo' => $contacto['CORREO'],
-                        'Telefono' => $contacto['TELEFONO'],
-                        'creacion' => $contacto['created_at'],
-                        'empresa' => $contacto['EMPRESA'],
-                        'estado' => $contacto['ESTADO'],
-                        'calificacion' => $contacto['CALIFICACION'],
-                        'origen' => $contacto['ORIGEN']
-                    ];
-                    array_push($response, $formato);
+                    foreach ($data as $contacto) {
+                        $formato = $this->formatearContacto($contacto);
+                        array_push($response, $formato);
+                    }                    
                 }
             }
             return response()->json($response);   
         }
+
+        private function formatearContacto($contacto)
+        {
+            $formato = [
+                'id' => $contacto['CONTACTO_ID'],
+                'nombre'=> $contacto['NOMBRE'],
+                'correo' => $contacto['CORREO'],
+                'Telefono' => $contacto['TELEFONO'],
+                'creacion' => $contacto['created_at'],
+                'empresa' => $contacto['EMPRESA'],
+                'estado' => $contacto['ESTADO'],
+                'calificacion' => $contacto['CALIFICACION'],
+                'origen' => $contacto['ORIGEN']
+            ];
+
+            return $formato;        
+        }
+
         public function clientes(Request $request)
         {
+            // todas las solicitudes que tenga que ver con los contactos van aqui
+            // obtener todas las opciones declaradas en la solicitud
+            // que tipo de contacto es
+
+            // este es un array json que contendra los datos formateados correctamente
             $response = array();
+
             if ($request->input('here') == '/ver/clientes') {
                 // el parametro es el limite superior de la consulta
-                $data = Contacto::orderBy($request->input('orderby'),'asc')
-                ->where('ESCLIENTE','=','1')->skip($request->input('pagina')-10)->take(10)->get();
+                if ($request->exists('busqueda')) {
+                    if ($request->input('busqueda.directa') == 'true') {
+                        $data = Contacto::findOrFail($request->input('busqueda.id'));
+                        array_push($response, $this->formatearContacto($data));
+                    }
+                    else{
+                        // pasar a mayusculas el nombre
+                        $dato = $request->input('busqueda.valor');
+                        $dato = strtoupper($dato);
+                        // buscar a fondo con el valor retornado por el cliente
+                        $data = Contacto::where('NOMBRE','LIKE','%'.$dato . '%')
+                        ->orWhere('APELLIDO','LIKE','%'.$dato . '%')
+                        ->orWhere('CONTACTO_ID','LIKE','%'.$dato . '%')
+                        ->orWhere('EMPRESA','LIKE','%'.$dato . '%')
+                        ->get();
+                        foreach ($data as $registro) {
+                            array_push($response, $this->formatearContacto($registro));
+                        }
+                    }
+                }
+                else{
+                    $data = Contacto::orderBy($request->input('orderby'),'asc')
+                    ->where('ESCLIENTE','=','1')->skip($request->input('pagina')-10)->take(10)->get();
 
-                foreach ($data as $contacto) {
-                    $formato = [
-                        'id' => $contacto['CONTACTO_ID'],
-                        'nombre'=> $contacto['NOMBRE'],
-                        'correo' => $contacto['CORREO'],
-                        'Telefono' => $contacto['TELEFONO'],
-                        'creacion' => $contacto['created_at'],
-                        'empresa' => $contacto['EMPRESA'],
-                        'estado' => $contacto['ESTADO'],
-                        'calificacion' => $contacto['CALIFICACION'],
-                        'origen' => $contacto['ORIGEN']
-                    ];
-                    array_push($response, $formato);
+                    foreach ($data as $contacto) {
+                        $formato = $this->formatearContacto($contacto);
+                        array_push($response, $formato);
+                    }                    
                 }
             }
-            return response()->json($response);               
+            return response()->json($response);   
+
         }
         public function campanas(Request $request)
         {
             $response = array();
             if ($request->input('here') == '/ver/campanas') {
-                // el parametro es el limite superior de la consulta
-                if ($request->input('vertodas') == 'true') {
-                    $data = Campana::orderBy($request->input('orderby'),'asc')
-                    ->skip($request->input('pagina')-10)->take(10)->get();                    
+
+                if ($request->input('busqueda')) {
+                    if ($request->input('busqueda.directa') == 'true') {
+                        $data = Campana::findOrFail($request->input('busqueda.id'));
+                        array_push($response, $this->formatearCampana($data));
+                    }
+                    else{
+                        $dato = $request->input('busqueda.valor');
+                        $data = Campana::where('NOMBRE','LIKE','%'.$dato.'%')
+                        ->orWhere('INICIO','LIKE','%'.$dato.'%')
+                        ->orWhere('FINALIZACION','LIKE','%'.$dato.'%')
+                        ->get();
+                        foreach ($data as $registro) {
+                            array_push($response, $this->formatearCampana($registro));
+                        }
+                    }
                 }
                 else{
-                    $data = Campana::orderBy($request->input('orderby'),'asc')
-                    ->where('ACTIVA','=','1')->skip($request->input('pagina')-10)->take(10)->get();                    
-                }
+                    // el parametro es el limite superior de la consulta
+                    if ($request->input('vertodas') == 'true') {
+                        $data = Campana::orderBy($request->input('orderby'),'asc')
+                        ->skip($request->input('pagina')-10)->take(10)->get();                    
+                    }
+                    else{
+                        $data = Campana::orderBy($request->input('orderby'),'asc')
+                        ->where('ACTIVA','=','1')->skip($request->input('pagina')-10)->take(10)->get();                    
+                    }
 
-                foreach ($data as $campana) {
-                    $formato = [
-                        'id' => $campana['CAMPANA_ID'],
-                        'nombre'=> $campana['NOMBRE'],
-                        'estado' => $campana['ESTADO'],
-                        'tipo' => $campana['TIPO'],
-                        'activa' => $campana['ACTIVA'],
-                        'inicio' => $campana['INICIO'],
-                        'fin' => $campana['FINALIZACION'],
-                        'creacion' => $campana['created_at'],
-                    ];
-                    array_push($response, $formato);
+                    foreach ($data as $campana) {
+
+                        array_push($response, $this->formatearCampana($campana));
+                    }                
                 }
             }
             return response()->json($response);               
         }
+
+        private function formatearCampana($campana)
+        {
+            $formato = [
+                'id' => $campana['CAMPANA_ID'],
+                'nombre'=> $campana['NOMBRE'],
+                'estado' => $campana['ESTADO'],
+                'tipo' => $campana['TIPO'],
+                'activa' => $campana['ACTIVA'],
+                'inicio' => $campana['INICIO'],
+                'fin' => $campana['FINALIZACION'],
+                'creacion' => $campana['created_at'],
+            ];            
+            return $formato;
+        }
+
+
         public function oportunidades(Request $request)
         {
             $response = array();
@@ -359,6 +435,17 @@
                             array_push($response, $formato);
                         }                        
                         break;
+                    case 'prospecto':
+                        $data = ProspectosController::buscarProspecto($request->input('valor'));
+                        foreach ($data as $prospecto) {
+                            $formato = [
+                                'id' => $prospecto['CONTACTO_ID'],
+                                'nombre' => $prospecto['TITULO'] . ' '. $prospecto['NOMBRE'] . ' ' . $prospecto['APELLIDO'],
+                            ];
+                            array_push($response, $formato);
+                        }
+                        break;
+
 
                 }
             }

@@ -9,11 +9,12 @@
 <div class="container-fluid">
     @section("titlehead")
     @parent
-    <div class=" col-md-2 col-lg-2"></div>
+    <div class=" col-md-2 col-lg-2">
+    </div>
     <div class=" col-md-2 col-lg-2">
         <a href='{{url("/crear/oportunidad")}}'>
             <button class="btn btn-default botonseccion"><span class="glyphicon glyphicon-plus">Agregar Oportunidad</span></button>
-        </a>        
+        </a>                
     </div>
     <div class=" col-md-3 col-lg-3">
         <div class="form-group tituloseccion">

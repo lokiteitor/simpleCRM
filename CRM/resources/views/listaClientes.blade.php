@@ -4,6 +4,7 @@
     @parent
     <script src='{{asset("/js/lista.js")}}'></script>
     <script src='{{asset("/js/listado.js")}}'></script>
+    <script src='{{asset("/js/buscador.js")}}'></script>
 @stop
 
 @section('body')
@@ -15,11 +16,12 @@
         <div class="col-sm-4 col-md-4 col-lg-4">
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control" list="clientes" placeholder="Buscar">
-                    <span class="input-group-btn"><button class="btn btn-default" type="button">Buscar</button></span>
+                    
+                    <input type="text" class="form-control buscador" list="clientes" placeholder="Buscar prospecto" data-busqueda='prospecto' name="clientes">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" name="buscar">Buscar</button></span>
                 </div>
             </div>
-            <datalist id="clientes"></datalist>
+            
         </div>
         <div class="form-inline">
             <div class="col-sm-6 col-md-4 col-lg-4">
