@@ -26,7 +26,7 @@ class User extends Authenticatable
 
     public function tareas()
     {
-        return $this->hasMany('App\Tarea','USUARIO_ID','id');
+        return $this->hasMany('App\Tarea','id','USUARIO_ID');
     }
     public function oportunidades()
     {
@@ -34,7 +34,7 @@ class User extends Authenticatable
     }    
     public function eventos()
     {
-        return $this->hasMany('App\Evento','USUARIO_ID','id');
+        return $this->hasMany('App\Evento','id','USUARIO_ID');
     }
 
 }

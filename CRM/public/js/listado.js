@@ -16,6 +16,7 @@ jQuery(document).ready(function($) {
 
     if (window.location.pathname == "/ver/prospectos") {
         ruta = "/obtener/contactos";
+        // sirve para borrar los elementos
         data.tipoElemento = "prospecto"
         data.pagina = pagina;
         data.nextpag = nextpag;
@@ -149,24 +150,41 @@ jQuery(document).ready(function($) {
         var candidatos = new Array();
         var nombresCandidatos = new Array();
         $('input[type="checkbox"]:checked').each(function(index, el) {
-            candidatos.push($(el).val());            
-            nombresCandidatos.push($(el).parents("tr").find('th[name="nombre"]').text());
-            
-            
+            if ($(el).val() != 'all-select') {
+                candidatos.push($(el).val());            
+            }
+            // obtener el nombre del registro
+            nombresCandidatos.push($(el).parents("tr").find('td[name="nombre"]').text());            
         });
-        // avisar al usuario si desea elimanarlos
-        var r = confirm("Desea eliminar los siguientes registros?:" +nombresCandidatos.join(","));
+        // avisar al usuario si desea eliminarlos
+        var r = confirm("Desea eliminar los siguientes registros?"
+         +nombresCandidatos.join(","));
         if (r) {
             // eliminar y recargar la pagina
-            data.delete = candidatos;
+            data.candidatos = candidatos;
             $("tbody").empty();
-            ServerData = getDataServer(ruta,data);
-            for (var i = 0; i < ServerData.length; i++) {
-                construirFila(ServerData[i],tipoElemento);
-            };
-            $(".numactual").text(data.pagina);
-            $(".numnext").text(data.pagina+10);
-            $(".numprev").text(data.pagina-10);              
+
+            $.ajax({
+                url: '/borrar/elementos',
+                type: 'GET',
+                dataType: 'json',
+                data: {tipoElemento: data.tipoElemento,candidatos:candidatos},
+            })
+            .done(function(json) {
+                alert('Registros eliminados')
+                ServerData = getDataServer(ruta,data);
+                for (var i = 0; i < ServerData.length; i++) {
+                    construirFila(ServerData[i],tipoElemento);
+                };
+                $(".numactual").text(data.pagina);
+                $(".numnext").text(data.pagina+10);
+                $(".numprev").text(data.pagina-10);              
+
+            })
+            .fail(function() {
+                alert('Error al eliminar los registro')
+            })
+
         }
     });
 
@@ -174,7 +192,9 @@ jQuery(document).ready(function($) {
     $('input[name="check-all"]').change(function(event) {
         if ($(this).prop('checked')) {
             $("input:checkbox").each(function(index, el) {
-                $(el).prop('checked', true);
+                if ($(el).val() != 'on') {
+                    $(el).prop('checked', true);
+                }
             });
         }
         else{
@@ -191,15 +211,20 @@ jQuery(document).ready(function($) {
         
         var registros = new Array();
         $('input[type="checkbox"]:checked').each(function(index, el) {
-            registros.push($(el).val());            
+            if ($(el).val() != 'all-select') {
+                registros.push($(el).val());
+            }
         });
         var redireccion = window.location.origin + edicion + registros[0];
         registros.join(",");
         // crear la cookie
         document.cookie = "registros="+encodeURIComponent(registros) + cookiepath;
         // enviar al primer registro en la lista
-        window.location = redireccion;        
+        if (registros.length > 0) {
+            window.location = redireccion;        
+        }
     });
+
     $('button[name="ver"]').click(function(event) {
         // si presiona editar obtener las url's de los campos seleccionados 
         // para guardarlos en una cookie
@@ -207,21 +232,24 @@ jQuery(document).ready(function($) {
         
         var registros = new Array();
         $('input[type="checkbox"]:checked').each(function(index, el) {
-            registros.push($(el).val());            
+            if ($(el).val() != 'all-select') {
+                registros.push($(el).val());
+            }           
         });
         var redireccion = window.location.origin + ver + registros[0];
         registros.join(",");
         // crear la cookie
         document.cookie = "registros="+encodeURIComponent(registros) + vercookiepath;
         // enviar al primer registro en la lista
-        window.location = redireccion;        
+        if (registros.length > 0) {
+            window.location = redireccion;        
+        }
     });
 
 
 });
 
 function getDataServer(url,data){
-    console.log(data)
     var rtrn;
     $.ajax({
         url: url,
@@ -231,15 +259,12 @@ function getDataServer(url,data){
         async: false
     })
     .done(function(json) {
-        console.log(json);
         rtrn = json
     })
     .fail(function() {
-        console.log("error");
         alert("Error al conectar con el servidor")
     })
     .always(function() {
-        console.log("complete");
     });
     return rtrn;
 }
@@ -248,7 +273,6 @@ function construirFila(data,tipo) {
     // objeto que constituye el nombre_campo:valor
     // modificar los campos del objeto
     var keys = Object.keys(data);
-    console.log(data);
     var $contenedor = $("<tr></tr>");
     var contenido = new Array();
 

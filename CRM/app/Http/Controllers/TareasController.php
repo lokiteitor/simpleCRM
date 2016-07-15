@@ -79,8 +79,8 @@
                     'descripcion' => $data['DESCRIPCION'],
                     'recordatorio' => $data['RECORDAR'],
                     'repetir' => $data['REPETIR'],
-                    'recordar' => $data['RECORDAR_A_DIAS'],
-                    'horaRecord' => $data['RECORDAR_A_HORA'],
+                    'recordar' => $this->getDiasARecordar($data) + 1,
+                    'horaRecord' => $this->getHoraRecord($data),
                     'inicio' => $data['REPETIR_INICIO'],
                     'finalizacion' => $data['REPETIR_FIN'],
                     'repetira' => $data['REPETIR_DIAS'],
@@ -90,6 +90,27 @@
             return $formato;
         }
 
+        private function getHoraRecord($registro)
+        {
+            // obtiene a partir de los datos proporcionados del registro 
+            // la hora a la que esta configurada el recordatorio
+            $fecha = $registro->FECHA_RECORDAR;
+            $fecha = date_create($fecha);
+            return date_format($fecha,'H:i:s');
+
+        }
+
+        private function getDiasARecordar($registro)
+        {
+            // obtiene los dias antes de la fecha de vencimiento a lanzar al
+            // lanzar el recordatorio
+            $fecha = date_create($registro->FECHA_RECORDAR);
+            // calcular la diferencia entre el vencimiento y la fecha de recordatorio
+            $vencimiento = date_create($registro->VENCIMIENTO);
+            $intervalo = date_diff($fecha,$vencimiento);
+            return $intervalo->format('%a');
+
+        }
 
         private function validarFormulario($data)
         {

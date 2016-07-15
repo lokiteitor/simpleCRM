@@ -365,5 +365,64 @@
             return $response;
         }
 
+        public function deleteRegistro(Request $request)
+        {
+            // data con la forma {tipo:'',candidatos:array()}
+            // eliminar los registros que se soliciten
+
+            $borrados = array();
+
+            if ($request->input('tipoElemento') == 'prospecto' || $request->input('tipoElemento') == 'cliente') {
+                // eliminar prospectos
+                foreach ($request->input('candidatos') as $registro) {
+                    $prospecto = Contacto::findOrFail($registro);
+                    array_push($borrados, $prospecto);
+
+                    if ($prospecto) {
+                        $oportunidades = $prospecto->oportunidades;
+                        $tareas = $prospecto->tareas;
+                        $eventos = $prospecto->eventos;
+                        array_push($borrados, $oportunidades);
+                        array_push($borrados, $tareas);
+                        array_push($borrados, $eventos);
+
+                        if (count($oportunidades) > 0) {
+                            foreach ($oportunidades as $reg) {
+                                Oportunidad::destroy($reg->OPORTUNIDAD_ID);
+                            }
+                        }
+                        if (count($tareas) > 0) {
+                            foreach ($tareas as $reg) {
+                                Tarea::destroy($reg->TAREA_ID);
+                            }
+                        }
+                        if (count($eventos) > 0) {
+                            foreach ($eventos as $reg) {
+                                Evento::destroy($reg->EVENTO_ID);
+                            }
+                        }
+
+                        $prospecto->delete();
+
+                    }
+
+                };
+            }
+            else if ($request->input('tipoElemento') == 'campaña') {
+                foreach ($request->input('candidatos') as $registro) {
+                    // eliminar las campañas
+                    $campana = Campana::findOrFail($registro);
+                    array_push($borrados, $campana);
+
+                    if ($campana) {
+                        $campana->delete();
+                    }
+                }
+            }
+
+            return response()->json($borrados);
+
+        }
+
     }
  ?>

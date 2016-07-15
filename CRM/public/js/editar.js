@@ -86,7 +86,6 @@ jQuery(document).ready(function($) {
 
 
 
-    console.log(registros)
     // moverse entre los registros
     $('button[name="next"]').click(function(event) {
         event.preventDefault();
@@ -112,7 +111,6 @@ jQuery(document).ready(function($) {
 
 function getDataFromServer (ruta,data) {
     // devuelve un arreglo con los objetos json
-    console.log(data);
     var rtrn;
 
     $.ajax({
@@ -123,30 +121,30 @@ function getDataFromServer (ruta,data) {
         async:false,
     })
     .done(function(json) {
-        console.log(json);
         rtrn = json;
-        console.log(rtrn)
     })
     .fail(function(json) {
         alert("Error al conectar al servidor")
     })
     .always(function(json) {
-        console.log("complete");
     });
     return rtrn;
 }
 
 function llenarFormulario (data) {
-    console.log(data)
     var keys = Object.keys(data);       
 
     for (var i = 0; i < keys.length; i++) {
         var campo = '[name="'+ keys[i] + '"]';
-        console.log(campo)
     
         if ($(campo).is('input[type="checkbox"]')) {
             $(campo).prop('checked', data[keys[i]]);
-            console.log(data[keys[i]])
+            if ($(campo).attr('name') == 'recordatorio' && data[keys[i]] == 1 ) {
+                $('[name="divrecordatorio"]').show('200');
+            }
+            else if ($(campo).attr('name') == 'repetir' && data[keys[i]] == 1) {
+                $('[name="divrepetir"]').show('200');
+            }
         }
         else{
             $(campo).val(data[keys[i]]);

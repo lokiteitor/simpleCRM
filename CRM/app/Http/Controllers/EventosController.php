@@ -84,8 +84,8 @@
                     'descripcion' => $data['DESCRIPCION'],
                     'recordatorio' => $data['RECORDAR'],
                     'repetir' => $data['REPETIR'],
-                    'recordar' => $data['RECORDAR_A_DIAS'],
-                    'horaRecord' => $data['RECORDAR_A_HORA'],
+                    'recordar' => $this->getDiasARecordar($data)+1,
+                    'horaRecord' => $this->getHoraRecord($data),
                     'inicio' => $data['REPETIR_INICIO'],
                     'finalizacion' => $data['REPETIR_FIN'],
                     'repetira' => $data['REPETIR_DIAS'],
@@ -95,6 +95,28 @@
             return $formato;
         }
 
+        private function getHoraRecord($registro)
+        {
+            // obtiene a partir de los datos proporcionados del registro 
+            // la hora a la que esta configurada el recordatorio
+            $fecha = $registro->FECHA_RECORDAR;
+            $fecha = date_create($fecha);
+            return date_format($fecha,'H:i:s');
+
+        }
+
+        private function getDiasARecordar($registro)
+        {
+            // obtiene los dias antes de la fecha de vencimiento a lanzar al
+            // lanzar el recordatorio
+            $fecha = date_create($registro->FECHA_RECORDAR);
+            // calcular la diferencia entre el vencimiento y la fecha de recordatorio
+            $vencimiento = date_create($registro->FECHA);
+            $intervalo = date_diff($fecha,$vencimiento);
+            return $intervalo->format('%a');
+
+        }        
+
         private function validarFormulario($data)
         {
                         // reglas de validacion
@@ -103,12 +125,11 @@
                     'asunto' => 'required',
                     'fecha' => 'required|date_format:Y-m-d',
                     'defecha' => 'required_unless:allday,on,date_format:H:i:s',
-                    'afecha' => 'required_unless:allday,on,date_format:H:i:s',
-                    'otro' => 'required_if:relacionado,Otro',                    
+                    'afecha' => 'required_unless:allday,on,date_format:H:i:s',                 
                     'inicio' => 'required_if:repetir,on|date_format:Y-m-d',
                     'finalizacion' => 'required_if:repetir,on|date_format:Y-m-d',
                     'repetira' => 'required_if:repetir,on',
-                    'otrorepeticion' => 'required_if:repetir,on|integer|required_if:repetira,Otro',             
+                    'otro' => 'required_if:repetir,on|integer|required_if:repetira,Otro',             
                 );
 
             $mensajes = array(

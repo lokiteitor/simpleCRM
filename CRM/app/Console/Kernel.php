@@ -17,7 +17,8 @@ class Kernel extends ConsoleKernel
         Commands\SendEmailOportunidad::class,
         Commands\SendEmailTarea::class,
         Commands\SendEmailEvento::class,
-        Commands\Clear::class
+        Commands\Clear::class,
+        Commands\Repetir::class
     ];
 
     /**

@@ -58,11 +58,7 @@
             <ul class="list-inline">
                 <li><strong>Codigo Postal: </strong> </li>
                 <li name="cpostal"></li>
-            </ul>                 
-            <ul class="list-inline">
-                <li><strong>Localidad: </strong> </li>
-                <li name="localidad"></li>
-            </ul>                                    
+            </ul>                                                  
         </div>
     </div>
     <br>

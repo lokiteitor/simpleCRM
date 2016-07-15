@@ -19,6 +19,12 @@ Route::get('/engine/buscador',[
     'middleware' => 'auth',
     ]);
 
+Route::get('/borrar/elementos',[
+    'uses' => 'APIController@deleteRegistro',
+    'middleware' => 'auth'
+    ]);
+
+
 // index
 Route::get('/',function ()
 {

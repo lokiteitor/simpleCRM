@@ -135,8 +135,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        {{  $errors->first('otrorepeticion') }}
-                        <input type="text" class="form-control" placeholder="Numero de dias" name="otrorepeticion">
+                        {{  $errors->first('otro') }}
+                        <input type="text" class="form-control" placeholder="Numero de dias" name="otro">
                     </div>                                        
                 </div>
 

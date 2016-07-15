@@ -98,8 +98,8 @@ class SendEmailEvento extends Command
 
         $this->info($inicio);
         $this->info($fin);
-        $candidatos = Evento::whereBetween('FECHA_RECORDAR',array($inicio,$fin))
-        ->get(array('EVENTO_ID','USUARIO_ID','TITULO','ASUNTO','UBICACION','DE','A','ALLDAY','CONTACTO_ID','DESCRIPCION'));
+        $candidatos = Evento::whereBetween('FECHA_RECORDAR',array($inicio,$fin))->where('RECORDAR','=','1')
+        ->get(array('EVENTO_ID','USUARIO_ID','TITULO','ASUNTO','UBICACION','DE','A','ALLDAY','CONTACTO_ID','DESCRIPCION','RECORDAR'));
 
         $this->info($candidatos);
 
@@ -139,6 +139,11 @@ class SendEmailEvento extends Command
                     $message->priority(1);
                 
                 });
+
+                // marcar el recordatorio como desactivado
+                $reg = Evento::findOrFail($evento->EVENTO_ID);
+                $reg->RECORDAR = 0;
+                $reg->save();
 
                 $this->info('mensaje enviado a: ' . $user->email);            
             }

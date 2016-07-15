@@ -16,6 +16,6 @@ class Tarea extends Model
     }
     public function usuario()
     {
-        return $this->belongsTo('App\User','id','USUARIO_id');
+        return $this->belongsTo('App\User','USUARIO_ID','id');
     }    
 }

@@ -98,8 +98,8 @@ class SendEmailTarea extends Command
         $this->info($inicio);
         $this->info($fin);
         $candidatos = Tarea::whereBetween('FECHA_RECORDAR',array($inicio,$fin))
-        ->where('ESTADO','<>','Completada')
-        ->get(array('TAREA_ID','USUARIO_ID','TITULO','ASUNTO','CONTACTO_ID','DESCRIPCION'));
+        ->where('ESTADO','<>','Completada')->where('RECORDAR','=','1')
+        ->get(array('TAREA_ID','USUARIO_ID','TITULO','ASUNTO','CONTACTO_ID','DESCRIPCION','RECORDAR'));
 
         if (count($candidatos) > 0) {
             foreach ($candidatos as $tarea) {
@@ -111,7 +111,7 @@ class SendEmailTarea extends Command
                 $data = [
                     'titulo' => $tarea->TITULO,
                     'asunto' => $tarea->ASUNTO,
-                    'vencimiento' => strval($tarea->VENCIMIENTO),
+                    'vencimiento' => $tarea->VENCIMIENTO,
                     'descripcion' => $tarea->DESCRIPCION,
                     'cliente' => $tarea->contacto['TITULO'] .' '.
                     $tarea->contacto['NOMBRE'] . ' ' .  $tarea->contacto['APELLIDO'],
@@ -130,6 +130,10 @@ class SendEmailTarea extends Command
                     $message->priority(1);
                 
                 });
+                // marcar como recordada
+                $reg = Tarea::findOrFail($tarea->TAREA_ID);
+                $reg->RECORDAR = 0;
+                $reg->save();
 
                 $this->info('mensaje enviado a: ' . $user->email);           
             }            
