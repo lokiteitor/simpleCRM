@@ -66,7 +66,7 @@
             $data['sitio'] = "Crear Prospecto";
             $data['titulo'] = "Prospectos";
             $data['edicion'] = false;
-            $data['action'] = "/crear/prospecto/";            
+            $data['action'] = "/crear/prospecto/";     
             return view("crearCliente",$data);
         }
 
@@ -92,6 +92,7 @@
             // base de datos
             $data = $request->all();
             $redirect = '/crear/prospecto';
+            $flags = array();
  
             $validador = $this->validarFormulario($data);
             if ($validador->passes()) {
@@ -105,12 +106,16 @@
                 }
                 
                 $this->manipularModelo($contacto,$request);
+                $flags['isok'] = true;
+            }
+            else{
+                $flags['isok'] = false;
             }
             if ($request->has('_id')) {
                 $redirect = '/editar/prospecto/' . $request->input('_id');
             }
 
-            return redirect($redirect)->withErrors($validador)->withInput();
+            return redirect($redirect)->withInput()->withErrors($validador);
         }
 
 

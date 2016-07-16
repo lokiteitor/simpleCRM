@@ -12,6 +12,8 @@
 @include('layouts.menu')
 @section("titlehead")
 @parent
+
+
 <div class=" col-md-2 col-lg-2"></div>
 <div class=" col-md-2 col-lg-2">
     @if (isset($edicion) && $edicion == true)

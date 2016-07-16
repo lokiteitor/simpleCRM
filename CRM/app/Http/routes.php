@@ -275,14 +275,14 @@ Route::get('/auth/logout', function ()
 });
 
 // Registration routes...
+
 Route::get('/auth/registro',[
     'uses' =>  'Auth\AuthController@getRegister',
     
     ]);
 
 Route::post('/auth/registro',[
-    'uses' =>  'Auth\AuthController@postRegister',
-    
+    'uses' =>  'Auth\AuthController@postRegister',    
     ]);
 
 // password reset
@@ -296,12 +296,14 @@ Route::post('/password/email',[
     ]);
 
 Route::get('/password/reset/{token}',[
-    'uses' => 'Auth\PasswordController@getReset'
-
+    'uses' => 'Auth\PasswordController@getReset',
+    
     ]);
 
 Route::post('/password/reset',[
-    'uses' => 'Auth\PasswordController@postReset'
+    'uses' => 'Auth\PasswordController@postReset',
+    
+
     ]);
 
 

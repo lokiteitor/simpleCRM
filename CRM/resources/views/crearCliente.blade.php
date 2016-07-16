@@ -135,7 +135,7 @@
                 </div>                
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control buscador" list="campaña" placeholder="Campaña de origen" name="campaña" data-busqueda="campaña">
+                        <input type="text" class="form-control buscador" list="campañas" placeholder="Campaña de origen" name="campañas" data-busqueda="campaña">
                         <span class="input-group-btn"><button class="btn btn-default" name="buscar-campaña" type="button"><span class="glyphicon glyphicon-search">Campaña</span></button></span>
                         
                     </div>

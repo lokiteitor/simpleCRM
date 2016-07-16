@@ -35,7 +35,10 @@
                             <li><a style="color:#B6B6B6" href='{{url("/ver/tareas")}}'>Tareas</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/eventos")}}'>Eventos</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a style="color:#B6B6B6" href='{{url("/auth/registro")}}'>Registrar Usuario</a></li>
+                            @if (Auth::user()->id == 1)
+                                <li><a style="color:#B6B6B6" href='{{url("/auth/registro")}}'>Registrar Usuario</a></li>
+                            @endif
+                            
                             <li><a style="color:#B6B6B6" href="{{url('/auth/logout')}}">Salir</a></li>
                         </ul>
                     </li>
@@ -75,9 +78,12 @@
             <div>
                 <a href='{{url("/ver/informes")}}'><button name="evento" type="button" class="btn btn-default"><span class="glyphicon glyphicon-signal"></span>  Informes</button></a>
             </div>                        
-            <div>
-                <a href='{{url("/auth/registro")}}'><button name="registro" type="button" class="btn btn-default"><span class="glyphicon glyphicon-wrench"></span>  Registro de usuario</button></a>
-            </div>            
+            @if (Auth::user()->id == 1)
+                <div>
+                    <a href='{{url("/auth/registro")}}'><button name="registro" type="button" class="btn btn-default"><span class="glyphicon glyphicon-wrench"></span>  Registro de usuario</button></a>
+                </div>                 
+            @endif
+
             <div>
                 <a href='{{url("/auth/logout")}}'><button name="logout" type="button" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span>Salir</button></a>
             </div>             
