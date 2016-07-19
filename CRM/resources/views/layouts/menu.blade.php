@@ -26,7 +26,7 @@
                     <li class="dropdown hidden-md hidden-lg">
                         <a href="#" class="dropdow-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a style="color:#B6B6B6" href='{{url("/usuario")}}'>Inicio</a></li>
+                            <li><a style="color:#B6B6B6" href='http://remisiones.vantec.mx'>Remisiones</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/prospectos")}}'>Prospectos</a></li>
                             <li><a style="color:#B6B6B6" href='{{url("/ver/clientes")}}'>Clientes</a></li>
                             {{-- <li><a style="color:#B6B6B6" href='{{url("/ver/cuentas")}}'>Cuentas</a></li>                             --}}
@@ -52,7 +52,7 @@
     <div class=" col-md-12  col-lg-12">
         <div class="btn-group  btn-group-vertical ">
             <div>
-                <a href='{{url("/usuario")}}'><button name="home" type="button" class="btn btn-default"><span class="glyphicon glyphicon-home"></span>  Inicio</button></a>
+                <a href='http://remisiones.vantec.mx'><button name="home" type="button" class="btn btn-default"><span class="glyphicon glyphicon-home"></span>  Remisiones</button></a>
             </div>            
             <div>
                 <a href='{{url("/ver/prospectos")}}'><button name="cliente" type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>  Prospectos</button></a>

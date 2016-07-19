@@ -28,8 +28,7 @@ Route::get('/borrar/elementos',[
 // index
 Route::get('/',function ()
 {
-    $data['usuario'] = 'Administrador';
-    return view('index',$data);
+    return redirect('/ver/prospectos');
 });
 
 // seccion de prospectos
