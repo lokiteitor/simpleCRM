@@ -52,13 +52,12 @@ class SendEmailOportunidad extends Command
 
         // luego con los candidatos recorrer uno a uno para posteriormente 
         // enviar algun correo al usuario dueño de la oportunidad
-        $this->info($candidatos);
 
         if (count($candidatos) > 0) {
 
             foreach ($candidatos as $oportunidad) {
                 // armar los datos
-                $this->info($oportunidad);
+                $this->info($oportunidad->OPORTUNIDAD_ID);
 
                 $user = User::findOrFail($oportunidad->USUARIO_ID);
 

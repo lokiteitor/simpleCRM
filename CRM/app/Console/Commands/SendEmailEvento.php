@@ -44,11 +44,9 @@ class SendEmailEvento extends Command
 
 
         // obtener los eventos cuyo recordatorio es hoy
-        $hoy = date('YmdHis',time());
-        $inicio = date_create($hoy);
-        $inicio = date_format($inicio,'YmdHis');
-        $fin = date_create(date('YmdHis',strtotime($hoy) + (5*60) ));
-        $fin = date_format($fin,'YmdHis');
+        date_default_timezone_set("America/Mexico_City"); 
+        $inicio = date('YmdHis',time());
+        $fin = date('YmdHis',time() + (5*60));
 
         $this->info($inicio);
         $this->info($fin);
