@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Campaña extends Migration
+class Campana extends Migration
 {
     /**
      * Run the migrations.
