@@ -16,8 +16,8 @@ class Tarea extends Migration
         Schema::create('TAREA', function (Blueprint $table) {
             $table->increments('TAREA_ID');
             $table->integer('USUARIO_ID');
-            $table->string('TITULO');
-            $table->string('ASUNTO');
+            $table->string('TITULO',256);
+            $table->string('ASUNTO',256);
             $table->date('VENCIMIENTO');
             $table->integer('CONTACTO_ID');
             $table->enum('ESTADO',array('Sin Empezar','Diferido','En Progreso','Completada','Esperando','Cancelada'));
@@ -34,7 +34,7 @@ class Tarea extends Migration
             $table->integer('REPETIR_DIAS')->nullable();
             // 
             $table->timestamps();
-            $table->index(array('TITULO','ASUNTO'));
+            //$table->index(array('TITULO','ASUNTO'));
         });     
     }
 

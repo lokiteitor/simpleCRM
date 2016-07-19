@@ -306,5 +306,32 @@ Route::post('/password/reset',[
 
     ]);
 
+Route::get('/key',function ()
+{
+    $exitCode = Artisan::call('key:generate', [
+
+    ]);    
+
+    return $exitCode;    
+    
+});
+
+
+Route::get('/installer',function ()
+{
+    $exitCode = Artisan::call('migrate', [
+        '--seed' => true
+    ]);    
+
+    return $exitCode;
+});
+
+Route::get('/uninstaller',function ()
+{
+    $exitCode = Artisan::call('migrate:rollback');    
+
+    return $exitCode;
+});
+
 
 ?>
