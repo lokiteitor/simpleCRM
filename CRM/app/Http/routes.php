@@ -320,7 +320,6 @@ Route::get('/key',function ()
 Route::get('/installer',function ()
 {
     $exitCode = Artisan::call('migrate', [
-        '--seed' => true
     ]);    
 
     return $exitCode;

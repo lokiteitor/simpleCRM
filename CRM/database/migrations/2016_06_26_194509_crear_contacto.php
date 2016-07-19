@@ -21,18 +21,15 @@ class CrearContacto extends Migration
            $tabla->string('APELLIDO',80);
            $tabla->string('TELEFONO',16)->nullable();
            $tabla->string('CELULAR',20)->nullable();
-           $tabla->enum('TIPO',array('Particular','Gobierno','Empresa','Educacion'));
-           $tabla->enum('ORIGEN',array('Anuncio','Folleto','Referencia de empleado',
-            'Referencia de otro cliente','Sitio Web','Anuncio via email'));
+           $tabla->string('TIPO');
+           $tabla->string('ORIGEN');
            $tabla->boolean('AT_CORREO')->default(false);
            $tabla->string('EMPRESA')->nullable();
            $tabla->string('WEB')->nullable();
            $tabla->string('CORREO')->nullable();
-           $tabla->enum('ESTADO',array('Contactado','Contactar a futuro',
-            'Intento de contacto fallido','Iniciativa perdida','Sin contactar'));
-           $tabla->enum('CALIFICACION', array('Adquirido','Activo','Mediano-Largo Plazo',
-            'Proyecto Cancelado','Cerrado'));
-           $tabla->enum('VALORACION',array('Caliente','Templado','Frio'));
+           $tabla->string('ESTADO');            
+           $tabla->string('CALIFICACION');
+           $tabla->string('VALORACION');
            $tabla->integer('CAMPANA_ID')->nullable();
            $tabla->string('CALLE')->nullable();
            $tabla->string('NUM_EXT',6)->nullable();

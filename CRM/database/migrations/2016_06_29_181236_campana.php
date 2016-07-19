@@ -20,7 +20,7 @@ class Campaña extends Migration
             $table->date('FINALIZACION');            
             $table->boolean('ACTIVA')->default(false);
             $table->string('TIPO');
-            $table->enum('ESTADO',array('En Progreso','Completada','Abortada','Planeando'));
+            $table->string('ESTADO');
             $table->float('INGRESOS_ESP')->nullable()->default(0);
             $table->float('PRESUPUESTO')->nullable()->default(0);
             $table->float('COSTE')->nullable()->default(0);
