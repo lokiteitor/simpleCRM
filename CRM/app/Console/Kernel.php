@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Commands\Inspire::class,
+        //Commands\Inspire::class,
         Commands\SendEmailOportunidad::class,
         Commands\SendEmailTarea::class,
         Commands\SendEmailEvento::class,
@@ -30,22 +30,21 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        //$schedule->command('inspire')->hourly();
 
 
-        $schedule->command('emails:evento')->everyFiveMinutes()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
 
-        $schedule->command('emails:oportunidad')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
+        $schedule->command('emails:evento')->everyFiveMinutes();
 
-        $schedule->command('emails:tareas')->everyFiveMinutes()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
+        $schedule->command('emails:oportunidad')->daily();
+
+        $schedule->command('emails:tareas')->everyFiveMinutes();
         
-        $schedule->command('clear')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
+        $schedule->command('clear')->daily();
 
-        $schedule->command('repeat')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
+        $schedule->command('repeat')->daily();
 
-        $schedule->command('emails:send')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
-
+        $schedule->command('emails:send')->daily();
 
     }
 }
