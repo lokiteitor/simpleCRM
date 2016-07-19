@@ -48,22 +48,24 @@ class Clear extends Command
         ->where('ACTIVA','=','1')->get();
 
         // marcarlas como inactivas
-
+        $this->info('Campañas');
         foreach ($obsoletos as $registro) {
             $campana = Campana::find($registro->CAMPANA_ID);
             $campana->ACTIVA = 0;
             $campana->save();
+            $this->info($campana->CAMPANA_ID);
         }
 
         // buscar oportunidad con hoy como fecha de cierre
 
         $obsoletos = Oportunidad::where('CIERRE','<=',date('Ymd',time()))
         ->where('ETAPA','<>','Perdida')->get(array('OPORTUNIDAD_ID'));
-
+        $this->info('Oportunidades');
         foreach ($obsoletos as $registro) {
             $oportunidad = Oportunidad::find($registro->OPORTUNIDAD_ID);
             $oportunidad->ETAPA = 'Perdida';
             $oportunidad->save();
+            $this->info($oportunidad->OPORTUNIDAD_ID);
         }
 
         // tareas
@@ -71,11 +73,13 @@ class Clear extends Command
         $obsoletos = Tarea::where('VENCIMIENTO','<=',date('Ymd',time()))
         ->where('ESTADO','<>','Completada')->where('ESTADO','<>','Cancelada')
         ->get(array('TAREA_ID'));
-
+        $this->info('tareas');
         foreach ($obsoletos as $registro) {
+
             $tarea = Tarea::find($registro->TAREA_ID);
             $tarea->ESTADO = 'Cancelada';
             $tarea->save();
+            $this->info($tarea->TAREA_ID);
         }
     }
 }

@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\SendEmailOportunidad::class,
         Commands\SendEmailTarea::class,
         Commands\SendEmailEvento::class,
+        Commands\SendEmails::class,
         Commands\Clear::class,
         Commands\Repetir::class
     ];
@@ -38,6 +39,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('emails:oportunidad')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
 
         $schedule->command('emails:tareas')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
+        
+        $schedule->command('clear')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
+
 
     }
 }

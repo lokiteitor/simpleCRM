@@ -42,57 +42,13 @@ class SendEmailTarea extends Command
      */
     public function handle()
     {
-        // obtener las tareas cuya notificacion esta activada y que su
-        // plazo cierre el dia de hoy
 
-        $candidatos = Tarea::where('VENCIMIENTO','=',date('Ymd',time()))
-        ->where('NOTIFICACION','=',1)
-        ->where('ESTADO','<>','Completada')->
-        get(array('TAREA_ID','USUARIO_ID','TITULO','ASUNTO','CONTACTO_ID','DESCRIPCION','VENCIMIENTO','ESTADO'));
-
-        // recorrer los resultados,armar los datos y enviar el correo
-
-        $this->info($candidatos);
-
-        if (count($candidatos) > 0) {
-            foreach ($candidatos as $tarea) {
-                // armar los datos
-                $this->info($tarea);
-
-                $user = User::findOrFail($tarea->USUARIO_ID);
-
-                $data = [
-                    'titulo' => $tarea->TITULO,
-                    'asunto' => $tarea->ASUNTO,
-                    'vencimiento' => strval($tarea->VENCIMIENTO),
-                    'descripcion' => $tarea->DESCRIPCION,
-                    'cliente' => $tarea->contacto['TITULO'] .' '.
-                    $tarea->contacto['NOMBRE'] . ' ' .  $tarea->contacto['APELLIDO'],
-                    'estado' => $tarea->ESTADO,
-                    'url' => url('/editar/tarea/'.$tarea->TAREA_ID)
-                ];
-                
-                Mail::send('emails.tareanotificacion', $data, function ($message) use ($user) {
-
-                    $message->from('crm@vantec.mx', 'CRM');
-                
-                    $message->to($user->email, $user->name);
-            
-                    $message->subject('Tarea proxima a cierre');
-                
-                    $message->priority(1);
-                
-                });
-
-                $this->info('mensaje enviado a: ' . $user->email);           
-            }            
-        }
-
-        // recordatorios programadas para el dia de hoy
-        $hoy = date('Ymd',time());
+        // recordatorios programadas para el dia de hoy  a la hora recorrida
+        // recorrer estas tareas cada 5 minutos
+        $hoy = date('YmdHis',time());
         $inicio = date_create($hoy);
         $inicio = date_format($inicio,'YmdHis');
-        $fin = date_create(date('Ymd',strtotime($hoy) + (24*60*60) ));
+        $fin = date_create(date('YmdHis',strtotime($hoy) + (5*60) ));
         $fin = date_format($fin,'YmdHis');
 
         $this->info($inicio);
@@ -104,7 +60,7 @@ class SendEmailTarea extends Command
         if (count($candidatos) > 0) {
             foreach ($candidatos as $tarea) {
                 // armar los datos
-                $this->info($tarea);
+                $this->info($tarea->TAREA_ID);
 
                 $user = User::findOrFail($tarea->USUARIO_ID);
 
