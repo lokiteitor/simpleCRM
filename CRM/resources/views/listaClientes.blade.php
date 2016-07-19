@@ -5,6 +5,7 @@
     <script src='{{asset("/js/lista.js")}}'></script>
     <script src='{{asset("/js/listado.js")}}'></script>
     <script src='{{asset("/js/buscador.js")}}'></script>
+    <script src='{{asset("/js/notificaciones.js")}}'></script>
 @stop
 
 @section('body')

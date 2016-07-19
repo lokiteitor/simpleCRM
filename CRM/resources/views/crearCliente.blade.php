@@ -4,7 +4,7 @@
     @parent
     @if ($edicion)
         <script src='{{asset("/js/cookiemanager.js")}}'></script>
-        <script src='{{asset("/js/editar.js")}}'></script>
+        <script src='{{asset("/js/editar.js")}}'></script>        
     @endif
 @stop
 

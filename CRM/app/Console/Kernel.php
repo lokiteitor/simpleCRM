@@ -36,15 +36,15 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('emails:evento')->everyFiveMinutes();
 
-        $schedule->command('emails:oportunidad')->daily();
+        $schedule->command('emails:oportunidad')->daily()->timezone('America/Mexico_City');
 
         $schedule->command('emails:tareas')->everyFiveMinutes();
         
-        $schedule->command('clear')->daily();
+        $schedule->command('clear')->daily()->timezone('America/Mexico_City');
 
-        $schedule->command('repeat')->daily();
+        $schedule->command('repeat')->daily()->timezone('America/Mexico_City');
 
-        $schedule->command('emails:send')->daily();
+        $schedule->command('emails:send')->daily()->timezone('America/Mexico_City');
 
     }
 }
