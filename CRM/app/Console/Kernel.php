@@ -34,13 +34,17 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
 
-        $schedule->command('emails:evento')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
+        $schedule->command('emails:evento')->everyFiveMinutes()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
 
-        $schedule->command('emails:oportunidad')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
+        $schedule->command('emails:oportunidad')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
 
-        $schedule->command('emails:tareas')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
+        $schedule->command('emails:tareas')->everyFiveMinutes()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
         
-        $schedule->command('clear')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('lokiteitor513@gmail.com');
+        $schedule->command('clear')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
+
+        $schedule->command('repeat')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
+
+        $schedule->command('emails:send')->daily()->sendOutputTo('logs/cron.log')->emailOutputTo('rootlkt@gmail.com');
 
 
     }
