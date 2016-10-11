@@ -27,11 +27,11 @@
                 <div class="form-group">
                     <label for="asunto">Asunto</label>
                     {{  $errors->first('asunto') }}
-                    <input type="text" class="form-control" placeholder="Asunto" name="asunto" required>
+                    <input type="text" class="form-control" placeholder="Asunto" name="asunto" >
                 </div>
                 <div class="form-group">
                     <label for="ubicacion">Ubicacion</label>
-                    <input type="text" class="form-control" placeholder="Asunto" name="ubicacion">
+                    <input type="text" class="form-control" placeholder="Ubicacion" name="ubicacion">
                 </div>
                 <div class="form-group">
                     <label for="fecha">Fecha</label>

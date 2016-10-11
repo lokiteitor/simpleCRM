@@ -137,13 +137,7 @@
             $reglas = array(
                     'nombre' => 'required',
                     'apellidos' => 'required',
-                    'telefono' =>  array('regex:/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/'),
-                    'celular' => array('regex:/^[0-9]{5}-[0-9]{3}-[0-9]{4}$/'),
-                    'web'  => 'url',
                     'correo' => 'email',
-                    'calle' => 'required_with:numero,colonia',
-                    'numero' => 'integer|required_with:calle,colonia',
-                    'colonia' => 'required_with:calle,numero',
                 );
 
             $mensajes = array(

@@ -56,12 +56,12 @@
                 <div class="form-group">
                     {{  $errors->first('telefono') }}
                     <label for="telefono">Telefono</label>
-                    <input type="text" class="form-control" placeholder="Formato: 444-123-4567" name="telefono">
+                    <input type="text" class="form-control" placeholder="444-123-4567" name="telefono">
                 </div>
                 <div class="form-group">
                     {{  $errors->first('celular') }}
                     <label for="celular">Celular</label>
-                    <input type="text" class="form-control" placeholder="Formato:04444-123-4567" name="celular">
+                    <input type="text" class="form-control" placeholder="04444-123-4567" name="celular">
                 </div>
                 <div class="form-group">
                     <label for="origen">Origen del cliente</label>
@@ -100,12 +100,12 @@
                 <div class="form-group">
                     {{  $errors->first('web') }}
                     <label for="correo">Sitio web</label>
-                    <input type="text" class="form-control" name="web" placeholder="Formato: http://www.sitio.com">
+                    <input type="text" class="form-control" name="web" placeholder="http://www.sitio.com">
                 </div>
                 <div class="form-group">
                     {{  $errors->first('correo') }}
                     <label for="correo">Correo</label>
-                    <input type="text" class="form-control" placeholder="Formato:usuario@dominio.com" name="correo">
+                    <input type="text" class="form-control" placeholder="usuario@dominio.com" name="correo">
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado del cliente</label>

@@ -122,7 +122,6 @@
                         // reglas de validacion
             $reglas = array(
                     'nombre' => 'required',
-                    'asunto' => 'required',
                     'fecha' => 'required|date_format:Y-m-d',
                     'defecha' => 'required_unless:allday,on,date_format:H:i:s',
                     'afecha' => 'required_unless:allday,on,date_format:H:i:s',                 

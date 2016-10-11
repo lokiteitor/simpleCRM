@@ -17,9 +17,9 @@ class Tarea extends Migration
             $table->increments('TAREA_ID');
             $table->integer('USUARIO_ID');
             $table->string('TITULO',256);
-            $table->string('ASUNTO',256);
+            $table->string('ASUNTO',256)->nullable();
             $table->date('VENCIMIENTO');
-            $table->integer('CONTACTO_ID');
+            $table->integer('CONTACTO_ID')->nullable();
             $table->string('ESTADO');
             $table->string('PRIORIDAD');
             $table->boolean('NOTIFICACION');

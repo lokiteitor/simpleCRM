@@ -117,7 +117,6 @@
             // reglas de validacion
             $reglas = array(
                     'nombre' => 'required',
-                    'asunto' => 'required',
                     'estado' => 'required',
                     'vencimiento' => 'date_format:Y-m-d',
                     'prioridad' => 'required',

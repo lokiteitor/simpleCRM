@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label for="asunto">Asunto</label>
                     {{  $errors->first('asunto') }}
-                    <input type="text" class="form-control" placeholder="Asunto" name="asunto" required>
+                    <input type="text" class="form-control" placeholder="Asunto" name="asunto">
                 </div>
                 <div class="form-group">
                     <label for="vencimiento">Fecha de vencimiento</label>
@@ -147,7 +147,7 @@
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-9 col-lg-9">
-                <textarea name="descripcion" rows="5" class="form-control"></textarea>
+                <textarea name="descripcion" rows="5" class="form-control" required></textarea>
             </div>
             <div class="col-md-2 col-lg-1"></div>
         </div>

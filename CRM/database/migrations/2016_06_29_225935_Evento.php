@@ -17,7 +17,7 @@ class Evento extends Migration
             $table->increments('EVENTO_ID');
             $table->integer('USUARIO_ID');
             $table->string('TITULO');
-            $table->string('ASUNTO');
+            $table->string('ASUNTO')->nullable();
             $table->string('UBICACION')->nullable();
             $table->date('FECHA');
             $table->time('DE');
